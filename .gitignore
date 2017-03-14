@@ -1,0 +1,11 @@
+/bin/
+/temp/
+/runtime/
+/reobf/
+/conf/
+/docs/
+/eclipse/
+/logs/
+/jars/
+/lib/
+decompile
