@@ -1,0 +1,25 @@
+!SESSION 2017-01-22 19:04:26.059 -----------------------------------------------
+eclipse.buildId=4.6.2.M20161124-1400
+java.version=1.8.0_112
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=ja_JP
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2017-01-22 19:04:45.275
+!MESSAGE 次の生成中に​​ PluginConverter サービスを取得できません: C:\Users\ななみつき\Downloads\pleiades-4.6.2-java-win-64bit-jre_20161221\pleiades\eclipse\dropins\CheckStyle\eclipse\features\net.sf.eclipsecs.source_7.2.0.201611082205.jar.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2017-01-22 19:04:45.293
+!MESSAGE 次の生成中に​​ PluginConverter サービスを取得できません: C:\Users\ななみつき\Downloads\pleiades-4.6.2-java-win-64bit-jre_20161221\pleiades\eclipse\dropins\CheckStyle\eclipse\features\net.sf.eclipsecs_7.2.0.201611082205.jar.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2017-01-22 19:04:45.317
+!MESSAGE 次の生成中に​​ PluginConverter サービスを取得できません: C:\Users\ななみつき\Downloads\pleiades-4.6.2-java-win-64bit-jre_20161221\pleiades\eclipse\dropins\CheckStyle\eclipse\features\net.sf.eclipsecs.source_7.2.0.201611082205.jar.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2017-01-22 19:04:45.321
+!MESSAGE 次の生成中に​​ PluginConverter サービスを取得できません: C:\Users\ななみつき\Downloads\pleiades-4.6.2-java-win-64bit-jre_20161221\pleiades\eclipse\dropins\CheckStyle\eclipse\features\net.sf.eclipsecs_7.2.0.201611082205.jar.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2017-01-22 19:04:45.841
+!MESSAGE 次の生成中に​​ PluginConverter サービスを取得できません: C:\Users\ななみつき\Downloads\pleiades-4.6.2-java-win-64bit-jre_20161221\pleiades\eclipse\dropins\EclipseColorTheme\eclipse\features\com.github.eclipsecolortheme.feature_1.0.0.201410260308.jar.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2017-01-22 19:04:45.857
+!MESSAGE 次の生成中に​​ PluginConverter サービスを取得できません: C:\Users\ななみつき\Downloads\pleiades-4.6.2-java-win-64bit-jre_20161221\pleiades\eclipse\dropins\EclipseColorTheme\eclipse\features\com.github.eclipsecolortheme.feature_1.0.0.201410260308.jar.
