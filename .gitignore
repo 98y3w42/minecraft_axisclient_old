@@ -8,4 +8,5 @@
 /logs/
 /jars/
 /lib/
-decompile
+decompile.bat
+decompile.sh
