@@ -8,17 +8,12 @@ import axis.module.modules.movement.Speed;
 import axis.module.modules.movement.speed.modes.AAC;
 import axis.module.modules.movement.speed.modes.Bhop;
 import axis.module.modules.movement.speed.modes.Bhop2;
-import axis.module.modules.movement.speed.modes.Capsar;
-import axis.module.modules.movement.speed.modes.FastMineZ;
 import axis.module.modules.movement.speed.modes.Hop;
-import axis.module.modules.movement.speed.modes.Hypixel;
 import axis.module.modules.movement.speed.modes.LatestBhop;
 import axis.module.modules.movement.speed.modes.LowHop;
 import axis.module.modules.movement.speed.modes.MineZ;
 import axis.module.modules.movement.speed.modes.MotionTimer;
-import axis.module.modules.movement.speed.modes.OldMineZ;
 import axis.module.modules.movement.speed.modes.Other;
-import axis.module.modules.movement.speed.modes.TrendE;
 import axis.module.modules.movement.speed.modes.Yport;
 import axis.module.modules.movement.speed.modes.onGround;
 import net.minecraft.client.Minecraft;
@@ -74,27 +69,12 @@ public abstract class SpeedMode {
 		} else if (name.indexOf("onGround") != -1) {
 			speed.setTag("onGround");
 			return new onGround(speed);
-		} else if (name.indexOf("TrendE") != -1) {
-			speed.setTag("TrendE");
-			return new TrendE(speed);
 		} else if (name.indexOf("MotionTimer") != -1) {
 			speed.setTag("MotionTimer");
 			return new MotionTimer(speed);
 		} else if (name.indexOf("Bhop2") != -1) {
 			speed.setTag("Bhop2");
 			return new Bhop2(speed);
-		} else if (name.indexOf("Capsar") != -1) {
-			speed.setTag("Capsar");
-			return new Capsar(speed);
-		} else if (name.indexOf("OldMineZ") != -1) {
-			speed.setTag("OldMineZ");
-			return new OldMineZ(speed);
-		} else if (name.indexOf("FastMineZ") != -1) {
-			speed.setTag("FastMineZ");
-			return new FastMineZ(speed);
-		} else if (name.indexOf("Hypixel") != -1) {
-			speed.setTag("Hypixel");
-			return new Hypixel(speed);
 		} else if (name.indexOf("Hop") != -1) {
 			speed.setTag("Hop");
 			return new Hop(speed);

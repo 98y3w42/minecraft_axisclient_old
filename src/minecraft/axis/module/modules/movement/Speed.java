@@ -12,17 +12,12 @@ import axis.module.modules.movement.speed.SpeedMode;
 import axis.module.modules.movement.speed.modes.AAC;
 import axis.module.modules.movement.speed.modes.Bhop;
 import axis.module.modules.movement.speed.modes.Bhop2;
-import axis.module.modules.movement.speed.modes.Capsar;
-import axis.module.modules.movement.speed.modes.FastMineZ;
 import axis.module.modules.movement.speed.modes.Hop;
-import axis.module.modules.movement.speed.modes.Hypixel;
 import axis.module.modules.movement.speed.modes.LatestBhop;
 import axis.module.modules.movement.speed.modes.LowHop;
 import axis.module.modules.movement.speed.modes.MineZ;
 import axis.module.modules.movement.speed.modes.MotionTimer;
-import axis.module.modules.movement.speed.modes.OldMineZ;
 import axis.module.modules.movement.speed.modes.Other;
-import axis.module.modules.movement.speed.modes.TrendE;
 import axis.module.modules.movement.speed.modes.Yport;
 import axis.module.modules.movement.speed.modes.onGround;
 import axis.util.Logger;
@@ -76,10 +71,6 @@ public class Speed extends Module {
 						currentMode.setValue(new onGround(speed1));
 						Logger.logChat("Speed Mode set to onGround!");
 						setTag(currentMode.getValue().getName());
-					} else if (message.split(" ")[2].equalsIgnoreCase("TrendE")) {
-						currentMode.setValue(new TrendE(speed1));
-						Logger.logChat("Speed Mode set to TrendE!");
-						setTag(currentMode.getValue().getName());
 					} else if (message.split(" ")[2].equalsIgnoreCase("MotionTimer")) {
 						currentMode.setValue(new MotionTimer(speed1));
 						Logger.logChat("Speed Mode set to MotionTimer!");
@@ -88,31 +79,15 @@ public class Speed extends Module {
 						currentMode.setValue(new Bhop2(speed1));
 						Logger.logChat("Speed Mode set to Bhop2!");
 						setTag(currentMode.getValue().getName());
-					} else if (message.split(" ")[2].equalsIgnoreCase("Capsar")) {
-						currentMode.setValue(new Capsar(speed1));
-						Logger.logChat("Speed Mode set to Capsar!");
-						setTag(currentMode.getValue().getName());
-					} else if (message.split(" ")[2].equalsIgnoreCase("OldMineZ")) {
-						currentMode.setValue(new OldMineZ(speed1));
-						Logger.logChat("Speed Mode set to OldMineZ!");
-						setTag(currentMode.getValue().getName());
-					} else if (message.split(" ")[2].equalsIgnoreCase("FastMineZ")) {
-						currentMode.setValue(new FastMineZ(speed1));
-						Logger.logChat("Speed Mode set to FastMineZ!");
-						setTag(currentMode.getValue().getName());
-					} else if (message.split(" ")[2].equalsIgnoreCase("Hypixel")) {
-						currentMode.setValue(new Hypixel(speed1));
-						Logger.logChat("Speed Mode set to Hypixel!");
-						setTag(currentMode.getValue().getName());
 					} else if (message.split(" ")[2].equalsIgnoreCase("Hop")) {
 						currentMode.setValue(new Hop(speed1));
 						Logger.logChat("Speed Mode set to Hop!");
 						setTag(currentMode.getValue().getName());
 					} else {
-						Logger.logChat("Option not valid! Available options: Bhop, LatestBhop, MineZ, Other, AAC, LowHop, Yport, onGround, TrendE, MotionTimer, Capsar, OldMineZ, FastMineZ, Hypixel, Hop.");
+						Logger.logChat("Option not valid! Available options: Bhop, LatestBhop, MineZ, Other, AAC, LowHop, Yport, onGround,  MotionTimer, Hop.");
 					}
 				} else {
-					Logger.logChat("Option not valid! Available options: Bhop, LatestBhop, MineZ, Other, AAC, LowHop, Yport, onGround, TrendE, MotionTimer, Capsar, OldMineZ, FastMineZ, Hypixel, Hop.");
+					Logger.logChat("Option not valid! Available options: Bhop, LatestBhop, MineZ, Other, AAC, LowHop, Yport, onGround,  MotionTimer, Hop.");
 				}
 			}
 		});
@@ -146,7 +121,7 @@ public class Speed extends Module {
 		super.onEnabled();
 		this.cancel = false;
 		if (AutoSetting.setting.getValue().equalsIgnoreCase("Anni")) {
-			if (currentMode.getValue() instanceof Hop || this.currentMode.getValue() instanceof FastMineZ || this.currentMode.getValue() instanceof OldMineZ) {
+			if (currentMode.getValue() instanceof Hop) {
 				return;
 			}
 			currentMode.setValue(new MineZ(speed1));
