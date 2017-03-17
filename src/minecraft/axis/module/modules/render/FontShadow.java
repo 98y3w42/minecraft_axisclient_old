@@ -1,4 +1,4 @@
-package axis.module.modules.exploits;
+package axis.module.modules.render;
 
 import axis.Axis;
 import axis.event.events.UpdateEvent;

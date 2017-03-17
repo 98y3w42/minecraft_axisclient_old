@@ -7,6 +7,7 @@ import axis.Axis;
 import axis.management.managers.ModuleManager;
 import axis.module.modules.render.HUD;
 import axis.util.FontUtils;
+import axis.util.Logger;
 import net.minecraft.client.Minecraft;
 
 public abstract class Module {
@@ -78,8 +79,6 @@ public abstract class Module {
 				name += " \u00a7f" + tag;
 			} else if (HUD.currentMode.getValue().equals("Hex")) {
 				name += " \2477" + tag;
-			} else if (HUD.currentMode.getValue().equals("Twilight")) {
-				name += " §4" + tag;
 			}
 		}
 		return name;
@@ -147,30 +146,28 @@ public abstract class Module {
 
 		if (this.enabled) {
 			onEnabled();
+			if (Axis.getModuleManager().getModuleByName("ToggleLogger").isEnabled()) {
+				Logger.logChat("Mod \"" + this.getName() + "\" was toggled §2on §f.");
+			}
 			int i = 0;
 			while (i < 3) {
 				if (i != 3) {
 					if (HUD.currentMode.getValue().equals("Axis")) {
 						mc.thePlayer.playSound("random.orb", 0.2F, 1.0F);
-					} else if (HUD.currentMode.getValue().equals("Twilight")) {
-						mc.thePlayer.playSound("random.burp", 0.4F, 2.0F);
-					} else if (HUD.currentMode.getValue().equals("Hex")) {
-
 					}
 					i++;
 				}
 			}
 		} else {
 			onDisabled();
+			if (Axis.getModuleManager().getModuleByName("ToggleLogger").isEnabled()) {
+				Logger.logChat("Mod \"" + this.getName() + "\" was toggled §4off §f.");
+			}
 			int i = 0;
 			while (i < 3) {
 				if (i != 3) {
 					if (HUD.currentMode.getValue().equals("Axis")) {
 						mc.thePlayer.playSound("random.pop", 0.5F, 1.0F);
-					} else if (HUD.currentMode.getValue().equals("Twilight")) {
-						mc.thePlayer.playSound("random.burp", 0.4F, 0.5F);
-					} else if (HUD.currentMode.getValue().equals("Hex")) {
-
 					}
 					i++;
 				}

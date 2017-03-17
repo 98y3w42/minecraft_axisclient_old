@@ -20,12 +20,8 @@ public class WorldTimer extends Module {
 		super("WorldTimer", 9623002, Category.RENDER);
 		Axis.getCommandManager().getContents().add(new Command("worldtimer", "<day>", new String[] { "wt" }) {
 			public void run(String message) {
-				if (message.split(" ")[1].equalsIgnoreCase("day")) {
-					WorldTimer.this.day.setValue(Long.valueOf(Long.parseLong(message.split(" ")[2])));
-					Logger.logChat("WorldTimer set to: " + WorldTimer.this.day.getValue());
-				} else {
-					Logger.logChat("Option not valid! Available options: day.");
-				}
+				WorldTimer.this.day.setValue(Long.valueOf(Long.parseLong(message.split(" ")[1])));
+				Logger.logChat("WorldTimer set to: " + WorldTimer.this.day.getValue());
 			}
 		});
 	}
@@ -44,4 +40,3 @@ public class WorldTimer extends Module {
 		}
 	}
 }
-
