@@ -169,8 +169,8 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 				this.mainModel.setRotationAngles(f6, f5, f7, f2, f8, 0.0625F, entity);
 				boolean flag;
 				if (this.renderOutlines) {
-					flag = this.setScoreTeamColor(entity);
-					if(Axis.getFriendManager().isFriend(entity.getName())){
+					flag = (this.setScoreTeamColor(entity) && (!Axis.getFriendManager().isOnSameTeamFriend((EntityPlayer) (entity))));
+					if (Axis.getFriendManager().isFriend(entity.getName())) {
 						flag = false;
 						float[] color;
 						float red = (HUD.color1 >> 16 & 0xFF) / 255.0F;

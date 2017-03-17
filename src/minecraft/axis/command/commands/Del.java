@@ -12,11 +12,9 @@ public class Del extends Command {
 	}
 
 	public void run(String message) {
-		if (message.split(" ")[1].equalsIgnoreCase("del")) {
-			String name = message.split(" ")[2];
-			Axis.getFriendManager().removeFriend(name);
-			Logger.logChat("Friend \"" + name + "\" removed.");
-		}
+		String name = message.split(" ")[1];
+		Axis.getFriendManager().removeFriend(name);
+		Logger.logChat("Friend \"" + name + "\" removed.");
 		Axis.getFileManager().getFileByName("friends").saveFile();
 	}
 }

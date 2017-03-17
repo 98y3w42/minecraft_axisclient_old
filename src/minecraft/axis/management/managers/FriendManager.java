@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 
 import axis.Axis;
 import axis.management.MapManager;
+import net.minecraft.entity.player.EntityPlayer;
 
 public final class FriendManager extends MapManager {
 	public void addFriend(String name, String alias) {
@@ -30,6 +31,13 @@ public final class FriendManager extends MapManager {
 		}
 
 		return message;
+	}
+
+	public boolean isOnSameTeamFriend(EntityPlayer entity) {
+		if (entity.isOnSameTeam(entity)) {
+			return this.contents.containsKey(entity.getName());
+		}
+		return false;
 	}
 
 	public void setup() {

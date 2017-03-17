@@ -90,8 +90,8 @@ public class Tracers
 								color = new float[] { red, blue, green, alpha };
 							}
 						}
-						if ((ent instanceof EntityPlayer) && (Axis.getFriendManager().isFriend(ent.getName()))) {
-							EntityPlayer player = (EntityPlayer) ent;
+						EntityPlayer player = (EntityPlayer) ent;
+						if (ent instanceof EntityPlayer && (!Axis.getFriendManager().isOnSameTeamFriend(player))) {
 							if (player.getTeam() != null) {
 								ScorePlayerTeam team = (ScorePlayerTeam) player.getTeam();
 								String code = "";
