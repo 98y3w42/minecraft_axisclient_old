@@ -14,6 +14,7 @@ import axis.module.Module;
 import axis.module.modules.combat.killaura.AuraMode;
 import axis.module.modules.combat.killaura.modes.Multi;
 import axis.module.modules.combat.killaura.modes.Switch;
+import axis.module.modules.exploits.AutoSetting;
 import axis.util.EntityUtils;
 import axis.util.Logger;
 import axis.value.Value;
@@ -50,30 +51,30 @@ public class KillAura extends Module {
 			name = "Switch";
 		}
 		this.setDisplayName(name + " Aura");
-		setTag((String)values.getValue("type"));
+		setTag((String) values.getValue("type"));
 		Axis.getAxis().getCommandManager().getContents().add(new Command("killaura", "<animals/players/mobs/mode>", new String[] { "ka" }) {
 			public void run(String message) {
 				if (message.split(" ")[1].equalsIgnoreCase("players")) {
-					values.setValue("players", !(Boolean)values.getValue("players"));
-					Logger.logChat("Kill Aura will " + ((Boolean)values.getValue("players") ? "now" : "no longer") + " aim at players.");
+					values.setValue("players", !(Boolean) values.getValue("players"));
+					Logger.logChat("Kill Aura will " + ((Boolean) values.getValue("players") ? "now" : "no longer") + " aim at players.");
 				} else if (message.split(" ")[1].equalsIgnoreCase("mobs")) {
-					values.setValue("mobs", !(Boolean)values.getValue("mobs"));
-					Logger.logChat("Kill Aura will " + ((Boolean)values.getValue("players") ? "now" : "no longer") + " aim at players.");
+					values.setValue("mobs", !(Boolean) values.getValue("mobs"));
+					Logger.logChat("Kill Aura will " + ((Boolean) values.getValue("players") ? "now" : "no longer") + " aim at players.");
 				} else if (message.split(" ")[1].equalsIgnoreCase("animals")) {
-					values.setValue("animals", !(Boolean)values.getValue("animals"));
-					Logger.logChat("Kill Aura will " + ((Boolean)values.getValue("players") ? "now" : "no longer") + " aim at animals.");
+					values.setValue("animals", !(Boolean) values.getValue("animals"));
+					Logger.logChat("Kill Aura will " + ((Boolean) values.getValue("players") ? "now" : "no longer") + " aim at animals.");
 				} else if (message.split(" ")[1].equalsIgnoreCase("renderbox")) {
-					values.setValue("renderbox", !(Boolean)values.getValue("renderbox"));
-					Logger.logChat("RenderBox: " + (Boolean)values.getValue("renderbox"));
+					values.setValue("renderbox", !(Boolean) values.getValue("renderbox"));
+					Logger.logChat("RenderBox: " + (Boolean) values.getValue("renderbox"));
 				} else if (message.split(" ")[1].equalsIgnoreCase("tick")) {
-					values.setValue("tick", !(Boolean)values.getValue("tick"));
-					Logger.logChat("Tick: " + (Boolean)values.getValue("tick"));
+					values.setValue("tick", !(Boolean) values.getValue("tick"));
+					Logger.logChat("Tick: " + (Boolean) values.getValue("tick"));
 				} else if (message.split(" ")[1].equalsIgnoreCase("hurttime")) {
-					values.setValue("hurttime", !(Boolean)values.getValue("hurttime"));
-					Logger.logChat("HurtTime: " + (Boolean)values.getValue("hurttime"));
+					values.setValue("hurttime", !(Boolean) values.getValue("hurttime"));
+					Logger.logChat("HurtTime: " + (Boolean) values.getValue("hurttime"));
 				} else if (message.split(" ")[1].equalsIgnoreCase("sameteam")) {
-					values.setValue("sameteam", !(Boolean)values.getValue("sameteam"));
-					Logger.logChat("SameTeam: " + (Boolean)values.getValue("sameteam"));
+					values.setValue("sameteam", !(Boolean) values.getValue("sameteam"));
+					Logger.logChat("SameTeam: " + (Boolean) values.getValue("sameteam"));
 				} else if (message.split(" ")[1].equalsIgnoreCase("type")) {
 					if (message.split(" ")[2].equalsIgnoreCase("None")) {
 						values.setValue("type", "None");
@@ -99,9 +100,9 @@ public class KillAura extends Module {
 						values.setValue("range", Double.parseDouble(message.split(" ")[2]));
 					}
 
-					if ((Double)values.getValue("range") > 6.0D) {
+					if ((Double) values.getValue("range") > 6.0D) {
 						values.setValue("range", 6.0);
-					} else if ((Double)values.getValue("range") < 1.0D) {
+					} else if ((Double) values.getValue("range") < 1.0D) {
 						values.setValue("range", 1.0);
 					}
 
@@ -113,9 +114,9 @@ public class KillAura extends Module {
 						values.setValue("delay", Long.parseLong(message.split(" ")[2]));
 					}
 
-					if ((Long)values.getValue("delay") > 1000) {
+					if ((Long) values.getValue("delay") > 1000) {
 						values.setValue("delay", 1000);
-					} else if ((Long)values.getValue("delay") < 0) {
+					} else if ((Long) values.getValue("delay") < 0) {
 						values.setValue("delay", 0);
 					}
 
@@ -127,13 +128,13 @@ public class KillAura extends Module {
 						values.setValue("fov", Integer.parseInt(message.split(" ")[2]));
 					}
 
-					if ((Integer)values.getValue("fov") > 360) {
+					if ((Integer) values.getValue("fov") > 360) {
 						values.setValue("fov", 360);
-					} else if ((Integer)values.getValue("fov") < 1) {
+					} else if ((Integer) values.getValue("fov") < 1) {
 						values.setValue("fov", 1);
 					}
 
-					Logger.logChat("Kill Aura Fov set to: " + (Integer)values.getValue("fov"));
+					Logger.logChat("Kill Aura Fov set to: " + (Integer) values.getValue("fov"));
 
 				} else if (message.split(" ")[1].equalsIgnoreCase("target")) {
 					if (message.split(" ")[2].equalsIgnoreCase("-d")) {
@@ -160,15 +161,14 @@ public class KillAura extends Module {
 						setDisplayName("Switch Aura");
 					}
 				} else if (message.split(" ")[1].equalsIgnoreCase("getValue")) {
-					/*Logger.logChat("Type: " + KillAura.this.type.getValue());
-					Logger.logChat("MaxTarget: " + KillAura.this.maxTarget.getValue());
-					Logger.logChat("Delay: " + KillAura.this.delay.getValue());
-					Logger.logChat("Reach: " + KillAura.this.range.getValue());
-					Logger.logChat("RenderBox: " + KillAura.this.renderbox.getValue().booleanValue());
-					Logger.logChat("Tick: " + KillAura.this.tick.getValue().booleanValue());
-					Logger.logChat("HurtTime: " + KillAura.this.hurttime.getValue().booleanValue());
-					Logger.logChat("SameTeam: " + KillAura.this.sameteam.getValue().booleanValue());
-					setTag("" + KillAura.this.type.getValue());*/
+					Logger.logChat("Type: " + (String) values.getValue("type"));
+					Logger.logChat("MaxTarget: " + (Integer) values.getValue("maxtarget"));
+					Logger.logChat("Delay: " + values.getValue("delay"));
+					Logger.logChat("Reach: " + values.getValue("range"));
+					Logger.logChat("RenderBox: " + (Boolean) values.getValue("renderbox"));
+					Logger.logChat("Tick: " + (Boolean) values.getValue("tick"));
+					Logger.logChat("HurtTime: " + (Boolean) values.getValue("hurttime"));
+					Logger.logChat("SameTeam: " + (Boolean) values.getValue("sameteam"));
 				} else {
 					Logger.logChat("Option not valid! Available options: animals, players, mobs, type, target, fov, mode, delay, getValue.");
 				}
@@ -183,7 +183,7 @@ public class KillAura extends Module {
 		values.addValue("range", 4.8);
 		values.addValue("maxtarget", 3);
 		values.addValue("fov", 360);
-		values.addValue("type", "none");
+		values.addValue("type", "None");
 		values.addValue("lockview", false);
 		values.addValue("players", true);
 		values.addValue("mobs", true);
@@ -197,26 +197,24 @@ public class KillAura extends Module {
 
 	public void onEnabled() {
 		super.onEnabled();
-		/*if (AutoSetting.setting.getValue().equalsIgnoreCase("Anni")) {
-			this.maxTarget.setValue(Integer.valueOf(2));
-			this.delay.setValue(200L);
-			this.tick.setValue(false);
-			this.hurttime.setValue(true);
-			this.sameteam.setValue(true);
+		if (AutoSetting.setting.getValue().equalsIgnoreCase("Anni")) {
+			values.setValue("maxtarget", Integer.valueOf(2));
+			values.setValue("delay", 200L);
+			values.setValue("hurttime", true);
 			currentMode.setValue(new Multi(aura1));
-			KillAura.this.type.setValue("Anni");
+			values.setValue("type", "Anni");
 			setDisplayName("Multi Aura");
-			setTag("Anni");
+			setTag((String) values.getValue("type"));
 		} else if (AutoSetting.setting.getValue().equalsIgnoreCase("Hypixel")) {
-			this.maxTarget.setValue(Integer.valueOf(1));
-			this.delay.setValue(144L);
-			this.hurttime.setValue(false);
-			this.tick.setValue(true);
+			values.setValue("maxtarget", Integer.valueOf(1));
+			values.setValue("delay", 144L);
+			values.setValue("hurttime", false);
+			values.setValue("tick", false);
 			currentMode.setValue(new Multi(aura1));
-			KillAura.this.type.setValue("Hypixel");
+			values.setValue("type", "Hypixel");
 			setDisplayName("Multi Aura");
-			this.setTag("Hypixel");
-		}*/
+			setTag((String) values.getValue("type"));
+		}
 	}
 
 	public void onUpdate(UpdateEvent event) {
@@ -268,7 +266,7 @@ public class KillAura extends Module {
 			mc.thePlayer.getCurrentEquippedItem().setItemDamage(oldDamage);
 		}
 
-		if ((Boolean)values.getValue("autoblock") && !mc.thePlayer.isBlocking()) {
+		if ((Boolean) values.getValue("autoblock") && !mc.thePlayer.isBlocking()) {
 		}
 
 		if (b4sprinting) {
@@ -285,7 +283,7 @@ public class KillAura extends Module {
 	}
 
 	public boolean isValidEntity(EntityLivingBase entity) {
-		return isValidEntity(entity, (Double)values.getValue("range"));
+		return isValidEntity(entity, (Double) values.getValue("range"));
 	}
 
 	public boolean isValidEntity(EntityLivingBase entity, double range) {
@@ -295,7 +293,7 @@ public class KillAura extends Module {
 		if (entity == mc.thePlayer) {
 			return false;
 		}
-		if (EntityUtils.getAngle(EntityUtils.getEntityRotations(entity)) > (Integer)values.getValue("fov")) {
+		if (EntityUtils.getAngle(EntityUtils.getEntityRotations(entity)) > (Integer) values.getValue("fov")) {
 			return false;
 		}
 		if (!entity.isEntityAlive()) {
@@ -314,7 +312,7 @@ public class KillAura extends Module {
 			if (Axis.getAxis().getFriendManager().isFriend(entity.getName())) {
 				return false;
 			}
-			if ((Boolean)values.getValue("tick")) {
+			if ((Boolean) values.getValue("tick")) {
 				if (!entity.onGround) {
 					float var10000 = (float) entity.ticksExisted;
 					if (var10000 <= 120.0F * Timer.timerSpeed) {
@@ -323,14 +321,14 @@ public class KillAura extends Module {
 					}
 				}
 			}
-			if ((Boolean)values.getValue("hurttime")) {
+			if ((Boolean) values.getValue("hurttime")) {
 				if (!(this.currentMode.getValue() instanceof Multi) || Multi.targets1size >= 3) {
 					if (entity.hurtTime >= 8) {
 						return false;
 					}
 				}
 			}
-			if ((Boolean)values.getValue("sameteam")) {
+			if ((Boolean) values.getValue("sameteam")) {
 				if (entity.getTeam() != null) {
 					NetworkPlayerInfo networkplayerinfo = mc.getNetHandler().getPlayerInfo(this.mc.thePlayer.getGameProfile().getId());
 					if (networkplayerinfo.getPlayerTeam().isSameTeam(entity.getTeam())) {
@@ -338,7 +336,7 @@ public class KillAura extends Module {
 					}
 				}
 			}
-			if (((String)values.getValue("type")).equalsIgnoreCase("Anni")) {
+			if (((String) values.getValue("type")).equalsIgnoreCase("Anni")) {
 				if (!isNameValid((EntityPlayer) entity)) {
 					return false;
 				}
@@ -359,7 +357,7 @@ public class KillAura extends Module {
 					return false;
 				}
 			}
-			if (((String)values.getValue("type")).equalsIgnoreCase("MineZ")) {
+			if (((String) values.getValue("type")).equalsIgnoreCase("MineZ")) {
 				int armorAir = 0;
 				int offset;
 				for (offset = 3; offset >= 0; --offset) {
@@ -382,7 +380,7 @@ public class KillAura extends Module {
 					return false;
 				}
 			}
-			if (((String)values.getValue("type")).equalsIgnoreCase("Hypixel")) {
+			if (((String) values.getValue("type")).equalsIgnoreCase("Hypixel")) {
 				if (!isNameValid((EntityPlayer) entity)) {
 					return false;
 				}
@@ -401,23 +399,23 @@ public class KillAura extends Module {
 				}
 			}
 
-			return (Boolean)values.getValue("players");
+			return (Boolean) values.getValue("players");
 
 		} else if (entity instanceof IAnimals && !(entity instanceof IMob)) {
 			if (entity instanceof EntityHorse) {
 				EntityHorse horse = (EntityHorse) entity;
-				return (Boolean)values.getValue("animals") && horse.riddenByEntity != mc.thePlayer;
+				return (Boolean) values.getValue("animals") && horse.riddenByEntity != mc.thePlayer;
 			}
-			return (Boolean)values.getValue("animals");
+			return (Boolean) values.getValue("animals");
 		} else if (entity instanceof IMob) {
-			return (Boolean)values.getValue("mobs");
+			return (Boolean) values.getValue("mobs");
 		}
 
 		return false;
 	}
 
 	public boolean isValidEntity2(EntityLivingBase entity) {
-		return isValidEntity2(entity, (Double)values.getValue("range"));
+		return isValidEntity2(entity, (Double) values.getValue("range"));
 	}
 
 	public boolean isValidEntity2(EntityLivingBase entity, double range) {
@@ -425,7 +423,7 @@ public class KillAura extends Module {
 			return false;
 		if (entity == mc.thePlayer)
 			return false;
-		if (EntityUtils.getAngle(EntityUtils.getEntityRotations(entity)) > (Integer)values.getValue("fov"))
+		if (EntityUtils.getAngle(EntityUtils.getEntityRotations(entity)) > (Integer) values.getValue("fov"))
 			return false;
 		if (mc.thePlayer.getDistanceToEntity(entity) > range)
 			return true;
@@ -437,7 +435,7 @@ public class KillAura extends Module {
 	}
 
 	public Long getDelay() {
-		return (Long)values.getValue("delay");
+		return (Long) values.getValue("delay");
 	}
 
 	private boolean isNameValid(EntityPlayer player) {
