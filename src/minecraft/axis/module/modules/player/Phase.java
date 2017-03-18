@@ -8,9 +8,14 @@ import axis.event.events.UpdateEvent;
 import axis.management.managers.ModuleManager;
 import axis.module.Module;
 import axis.util.BlockHelper;
+import axis.util.Logger;
 import axis.util.TimeHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
+import net.minecraft.block.BlockFence;
+import net.minecraft.block.BlockPane;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -64,6 +69,14 @@ public class Phase
 					mc.thePlayer.setSprinting(true);
 				}
 			} else if (isInsideBlock()) {
+				if (isInsideFence()) {
+					multiplier = 0.3D;
+					mx = Math.cos(Math.toRadians(mc.thePlayer.rotationYaw + 90.0F));
+					mz = Math.sin(Math.toRadians(mc.thePlayer.rotationYaw + 90.0F));
+					x = mc.thePlayer.movementInput.moveForward * multiplier * mx + mc.thePlayer.movementInput.moveStrafe * multiplier * mz;
+					z = mc.thePlayer.movementInput.moveForward * multiplier * mz - mc.thePlayer.movementInput.moveStrafe * multiplier * mx;
+					mc.getNetHandler().addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX + x, mc.thePlayer.posY, mc.thePlayer.posZ + z, false));
+				}
 				mc.thePlayer.noClip = true;
 				if (mc.gameSettings.keyBindForward.isKeyDown() && Axis.getAxis().getModuleManager().getModuleByName("Sprint").isEnabled()) {
 					mc.thePlayer.setSprinting(true);
@@ -84,5 +97,26 @@ public class Phase
 		if ((mc.thePlayer.isCollidedHorizontally) && (event.pos.getY() > mc.thePlayer.boundingBox.minY - 0.4D)) {
 			event.boundingBox = null;
 		}
+		if (isInsideBlock()) {
+			if (((int) (event.pos.getX() + 1) == (int) (mc.thePlayer.posX)) || ((int) (event.pos.getZ() + 1) == (int) (mc.thePlayer.posZ))) {
+				event.boundingBox = null;
+			}
+		}
+	}
+
+	public static boolean isInsideFence() {
+		for (int x = MathHelper.floor_double(mc.thePlayer.boundingBox.minX); x < MathHelper.floor_double(mc.thePlayer.boundingBox.maxX) + 1; x++) {
+			for (int y = MathHelper.floor_double(mc.thePlayer.boundingBox.minY); y < MathHelper.floor_double(mc.thePlayer.boundingBox.maxY) + 1; y++) {
+				for (int z = MathHelper.floor_double(mc.thePlayer.boundingBox.minZ); z < MathHelper.floor_double(mc.thePlayer.boundingBox.maxZ) + 1; z++) {
+					Block block = mc.theWorld.getBlockState(new BlockPos(x, y, z)).getBlock();
+					AxisAlignedBB boundingBox;
+					if ((block != null) && (((block instanceof BlockFence) || (block instanceof BlockPane)) && (!(block instanceof BlockAir))) && ((boundingBox = block.getCollisionBoundingBox(mc.theWorld, new BlockPos(x, y, z), mc.theWorld.getBlockState(new BlockPos(x, y, z)))) != null) &&
+							(mc.thePlayer.boundingBox.intersectsWith(boundingBox))) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 }

@@ -1,5 +1,6 @@
 package axis.module.modules.combat;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 
@@ -17,6 +18,7 @@ import axis.module.modules.combat.killaura.modes.Switch;
 import axis.module.modules.exploits.AutoSetting;
 import axis.util.EntityUtils;
 import axis.util.Logger;
+import axis.util.TimeHelper;
 import axis.value.Value;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.Entity;
@@ -41,6 +43,10 @@ public class KillAura extends Module {
 	public final Value<AuraMode> currentMode = new Value<>("killaura_mode", new Multi(this));
 	private final Random random = new Random();
 	private KillAura aura1 = this;
+	private ArrayList array = new ArrayList<Integer>();
+	private boolean test1 = false;
+	private TimeHelper timer = new TimeHelper();
+	private int kl = 0;
 
 	public KillAura() {
 		super("KillAura", 0xFFC6172B, ModuleManager.Category.COMBAT);
@@ -215,9 +221,29 @@ public class KillAura extends Module {
 			setDisplayName("Multi Aura");
 			setTag((String) values.getValue("type"));
 		}
+		if (mc.thePlayer != null) {
+			if (values.getValue("type").equals("Hypixel")) {
+				this.test1 = false;
+				this.test();
+				this.timer.reset();
+				this.kl = 0;
+			}
+		}
 	}
 
 	public void onUpdate(UpdateEvent event) {
+		if (values.getValue("type").equals("Hypixel")) {
+			if (Multi.targets1size == 0 && Switch.pseudoTarget == null) {
+				this.kl++;
+				if (this.kl >= 900) {
+					Logger.logChat("Reload");//なぜかtimehelperだとうまくいかなかった
+					this.test();
+					this.kl = 0;
+				}
+			} else {
+				this.kl = 0;
+			}
+		}
 		currentMode.getValue().onUpdate(event);
 	}
 
@@ -456,5 +482,25 @@ public class KillAura extends Module {
 			}
 		}
 		return false;
+	}
+
+	private void test() {
+		for (Object o : this.mc.theWorld.loadedEntityList) {
+			if ((o instanceof EntityPlayer) && (o != this.mc.thePlayer)) {
+				EntityPlayer entity = (EntityPlayer) o;
+				if (!this.test1) {
+					if (this.isNameValid(entity) && !(((int) entity.posX == (int) mc.thePlayer.posX) && ((int) entity.posZ == (int) mc.thePlayer.posZ))) {
+						this.array.add(entity.getEntityId());
+						Logger.logChat("Add: " + entity.getDisplayName().getFormattedText() + ", §f" + entity.getEntityId());
+					}
+				} else {
+					if ((this.isNameValid(entity)) && (mc.thePlayer.getDistanceToEntity(entity) <= 3.0F) && (!this.array.contains(entity.getEntityId()))) {
+						this.array.add(entity.getEntityId());
+						Logger.logChat("Add: " + entity.getDisplayName().getFormattedText() + ", §f" + entity.getEntityId());
+					}
+				}
+			}
+		}
+		this.test1 = true;
 	}
 }
