@@ -84,14 +84,6 @@ public class Glide extends Module {
 		}
 	}
 
-	public void onPacketSent(PacketSentEvent event) {
-		if (event.getPacket() instanceof C0BPacketEntityAction) {
-			if (((C0BPacketEntityAction) event.getPacket()).getAction() == C0BPacketEntityAction.Action.START_SNEAKING) {
-				this.mc.thePlayer.sendQueue.addToSendQueue(new C0BPacketEntityAction(this.mc.thePlayer, C0BPacketEntityAction.Action.STOP_SNEAKING));
-			}
-		}
-	}
-
 	private double getBaseMoveSpeed() {
 		double baseSpeed = 0.2872D;
 		if (mc.thePlayer.isPotionActive(Potion.moveSpeed)) {

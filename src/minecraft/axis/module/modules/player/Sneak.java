@@ -36,5 +36,4 @@ public class Sneak extends Module {
 			this.mc.thePlayer.sendQueue.addToSendQueue(new C0BPacketEntityAction(this.mc.thePlayer, C0BPacketEntityAction.Action.STOP_SNEAKING));
 		}
 	}
-
 }
