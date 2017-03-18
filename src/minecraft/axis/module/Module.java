@@ -1,11 +1,10 @@
 package axis.module;
 
-import java.util.Random;
-
 import axis.Axis;
 import axis.management.managers.ModuleManager;
 import axis.module.modules.render.HUD;
 import axis.util.Logger;
+import axis.value.ValueList;
 import net.minecraft.client.Minecraft;
 
 public abstract class Module {
@@ -19,21 +18,20 @@ public abstract class Module {
 	protected String name;
 	protected String tag;
 	protected String displayName;
-	private static Random random;
-
-	public static final Random getRandom() {
-		return random == null ? (random = new Random()) : random;
-	}
+	public ValueList values;
 
 	public Module(String name, int keybind, int color, ModuleManager.Category category) {
 		this.category = category;
 		this.name = name;
+		values = new ValueList(name);
 		this.displayName = name;
 		this.tag = "";
 		this.keybind = keybind;
 		this.color = color;
 		this.enabled = false;
 		this.visible = true;
+
+		onValueSetup();
 	}
 
 	public Module(String name) {
@@ -104,6 +102,9 @@ public abstract class Module {
 
 	public void onEnabled() {
 		Axis.getAxis().getEventManager().register(this);
+	}
+
+	public void onValueSetup() {
 	}
 
 	public void setColor(int color) {

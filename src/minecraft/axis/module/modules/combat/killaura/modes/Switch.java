@@ -59,7 +59,7 @@ public class Switch extends AuraMode {
 					EntityLivingBase entity = (EntityLivingBase) o;
 
 					entity.auraTicks -= 1;
-					if (killAura.isValidEntity(entity) && (double) mc.thePlayer.getDistanceToEntity(entity) <= killAura.range.getValue()) {
+					if (killAura.isValidEntity(entity) && (double) mc.thePlayer.getDistanceToEntity(entity) <= (Double)killAura.values.getValue("range")) {
 						if (attackableEntities.size() >= 5) {
 							break;
 						}
@@ -156,7 +156,7 @@ public class Switch extends AuraMode {
 	public void onPacketSent(PacketSentEvent event) {
 		if (event.getPacket() instanceof C03PacketPlayer) {
 			Entity entity = mc.objectMouseOver.entityHit;
-			if (entity != null && (double) mc.thePlayer.getDistanceToEntity(target) <= killAura.range.getValue()) {
+			if (entity != null && (double) mc.thePlayer.getDistanceToEntity(target) <= (Double)killAura.values.getValue("range")) {
 				if (entity == null || target != entity) {
 					float[] rots = RotationUtils.getRotations(pseudoTarget);
 					C03PacketPlayer p = (C03PacketPlayer) event.getPacket();
@@ -203,7 +203,7 @@ public class Switch extends AuraMode {
 	}
 
 	public void onRender(Render3DEvent event) {
-		if (killAura.renderbox.getValue().booleanValue()) {
+		if ((Boolean)killAura.values.getValue("renderbox")) {
 			RenderUtils.drawEsp(this.target, event.partialTicks, this.rendercolor, 1184432128);
 
 		}
