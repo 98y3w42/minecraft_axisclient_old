@@ -1,6 +1,8 @@
 package axis.module.modules.player;
 
+import axis.Axis;
 import axis.event.Event.State;
+import axis.event.events.PacketSentEvent;
 import axis.event.events.UpdateEvent;
 import axis.management.managers.ModuleManager.Category;
 import axis.module.Module;
@@ -13,6 +15,9 @@ public class Sneak extends Module {
 	}
 
 	public void onUpdate(UpdateEvent event) {
+		if (Axis.getAxis().getModuleManager().getModuleByName("Glide").isEnabled()) {
+			return;
+		}
 		if (event.state == State.PRE) {
 			if ((this.mc.thePlayer.isSneaking()) || ((this.mc.thePlayer.movementInput.moveForward == 0.0F) && (this.mc.thePlayer.movementInput.moveStrafe == 0.0F))) {
 				return;

@@ -1,12 +1,15 @@
 package axis.module.modules.movement;
 
+import axis.Axis;
 import axis.event.Event;
 import axis.event.events.MoveEvent;
+import axis.event.events.PacketSentEvent;
 import axis.event.events.UpdateEvent;
 import axis.management.managers.ModuleManager;
 import axis.module.Module;
 import axis.util.LiquidUtils;
 import axis.util.TimeHelper;
+import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.potion.Potion;
 
 public class Glide extends Module {
@@ -27,7 +30,7 @@ public class Glide extends Module {
 
 	public void onDisabled() {
 		super.onDisabled();
-		if(mc.thePlayer != null){
+		if (mc.thePlayer != null) {
 			mc.thePlayer.motionY = 0.0D;
 		}
 	}
@@ -47,7 +50,7 @@ public class Glide extends Module {
 		}
 	}
 
-	public void onUpdate(UpdateEvent event){
+	public void onUpdate(UpdateEvent event) {
 		if (event.state == Event.State.PRE) {
 			Speed.canStep = true;
 			if (mc.thePlayer.moveForward == 0.0f && mc.thePlayer.moveStrafing == 0.0f || !mc.thePlayer.onGround && mc.thePlayer.fallDistance != 0.0f) {
@@ -59,12 +62,12 @@ public class Glide extends Module {
 			switch (this.state) {
 			case 1:
 				Speed.canStep = false;
-				//event.y += 0.0001;
+				// event.y += 0.0001;
 				++this.state;
 				break;
 			case 2:
 				Speed.canStep = false;
-				//event.y += 0.0002;
+				// event.y += 0.0002;
 				++this.state;
 				break;
 			default:
@@ -78,6 +81,14 @@ public class Glide extends Module {
 				break;
 			}
 			Speed.yOffset = event.y - this.mc.thePlayer.posY;
+		}
+	}
+
+	public void onPacketSent(PacketSentEvent event) {
+		if (event.getPacket() instanceof C0BPacketEntityAction) {
+			if (((C0BPacketEntityAction) event.getPacket()).getAction() == C0BPacketEntityAction.Action.START_SNEAKING) {
+				this.mc.thePlayer.sendQueue.addToSendQueue(new C0BPacketEntityAction(this.mc.thePlayer, C0BPacketEntityAction.Action.STOP_SNEAKING));
+			}
 		}
 	}
 
