@@ -98,7 +98,7 @@ public class Phase
 			event.boundingBox = null;
 		}
 		if (isInsideBlock()) {
-			if (((int) (event.pos.getX() + 1) == (int) (mc.thePlayer.posX)) || ((int) (event.pos.getZ() + 1) == (int) (mc.thePlayer.posZ))) {
+			if ((((int) (event.pos.getX() + 1) == (int) (mc.thePlayer.posX)) || ((int) (event.pos.getZ() + 1) == (int) (mc.thePlayer.posZ))) && (!((int) (event.pos.getY() - 1) == (int) (mc.thePlayer.posZ)))) {
 				event.boundingBox = null;
 			}
 		}
@@ -110,7 +110,7 @@ public class Phase
 				for (int z = MathHelper.floor_double(mc.thePlayer.boundingBox.minZ); z < MathHelper.floor_double(mc.thePlayer.boundingBox.maxZ) + 1; z++) {
 					Block block = mc.theWorld.getBlockState(new BlockPos(x, y, z)).getBlock();
 					AxisAlignedBB boundingBox;
-					if ((block != null) && (((block instanceof BlockFence) || (block instanceof BlockPane)) && (!(block instanceof BlockAir))) && ((boundingBox = block.getCollisionBoundingBox(mc.theWorld, new BlockPos(x, y, z), mc.theWorld.getBlockState(new BlockPos(x, y, z)))) != null) &&
+					if ((block != null) && ((block instanceof BlockFence) || (block instanceof BlockPane)) && ((boundingBox = block.getCollisionBoundingBox(mc.theWorld, new BlockPos(x, y, z), mc.theWorld.getBlockState(new BlockPos(x, y, z)))) != null) &&
 							(mc.thePlayer.boundingBox.intersectsWith(boundingBox))) {
 						return true;
 					}
