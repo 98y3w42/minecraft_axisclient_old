@@ -572,7 +572,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 			this.gameSettings.saveOptions();
 		}
 
-		Axis.getAxis().onStartup();
+
+		new Axis().onStartup();
 		this.renderGlobal.makeEntityOutlineShader();
 	}
 
@@ -595,7 +596,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
 	private void createDisplay() throws LWJGLException {
 		Display.setResizable(true);
-		Display.setTitle(Axis.getAxis().getName() + " " + Axis.getAxis().getVersion());
+		Display.setTitle("Loading...");
 
 		try {
 			Display.create((new PixelFormat()).withDepthBits(24));

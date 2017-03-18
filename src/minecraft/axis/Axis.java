@@ -40,6 +40,7 @@ public class Axis {
 
 	public Axis() {
 		theAxis = this;
+		Display.setTitle(Axis.getAxis().getName() + " " + Axis.getAxis().getVersion());
 	}
 
 	public static Axis getAxis() {

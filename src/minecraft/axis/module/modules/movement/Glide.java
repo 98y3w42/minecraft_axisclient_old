@@ -19,7 +19,9 @@ public class Glide extends Module {
 	}
 
 	public void onEnabled() {
-		mc.thePlayer.fallDistance = 0.0F;
+		if (mc.thePlayer != null) {
+			mc.thePlayer.fallDistance = 0.0F;
+		}
 		super.onEnabled();
 	}
 
