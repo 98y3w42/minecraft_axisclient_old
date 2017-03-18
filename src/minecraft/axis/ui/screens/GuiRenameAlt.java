@@ -23,7 +23,7 @@ public class GuiRenameAlt extends GuiScreen {
       case 0:
          this.manager.selectedAlt.setMask(this.nameField.getText());
          this.status = "§aRenamed!";
-         Axis.getFileManager().getFileByName("alts").saveFile();
+         Axis.getAxis().getFileManager().getFileByName("alts").saveFile();
          break;
       case 1:
          this.mc.displayGuiScreen(this.manager);

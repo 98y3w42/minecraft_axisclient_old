@@ -1,6 +1,11 @@
 package axis.file.files;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Iterator;
 
 import axis.Axis;
@@ -17,7 +22,7 @@ public final class Friends extends CustomFile {
 			String line;
 			while ((line = var5.readLine()) != null) {
 				String[] arguments = line.split(":");
-				Axis.getFriendManager().addFriend(arguments[0], arguments[1]);
+				Axis.getAxis().getFriendManager().addFriend(arguments[0], arguments[1]);
 			}
 			var5.close();
 		} catch (FileNotFoundException var4) {
@@ -30,10 +35,10 @@ public final class Friends extends CustomFile {
 	public void saveFile() {
 		try {
 			BufferedWriter var4 = new BufferedWriter(new FileWriter(this.getFile()));
-			Iterator var3 = Axis.getFriendManager().getContents().keySet().iterator();
+			Iterator var3 = Axis.getAxis().getFriendManager().getContents().keySet().iterator();
 			while (var3.hasNext()) {
 				String name = (String) var3.next();
-				var4.write(name + ":" + (String) Axis.getFriendManager().getContents().get(name));
+				var4.write(name + ":" + (String) Axis.getAxis().getFriendManager().getContents().get(name));
 				var4.newLine();
 			}
 			var4.close();

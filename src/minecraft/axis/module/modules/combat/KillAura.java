@@ -15,14 +15,10 @@ import axis.module.modules.combat.killaura.AuraMode;
 import axis.module.modules.combat.killaura.modes.Multi;
 import axis.module.modules.combat.killaura.modes.Switch;
 import axis.module.modules.exploits.AutoSetting;
-import axis.module.modules.movement.Speed;
-import axis.module.modules.movement.speed.modes.Bhop2;
 import axis.util.EntityUtils;
 import axis.util.Logger;
-import axis.util.TeamUtils;
 import axis.value.Value;
 import net.minecraft.client.network.NetworkPlayerInfo;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.IMob;
@@ -36,7 +32,6 @@ import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.network.play.client.C0BPacketEntityAction;
-import net.minecraft.potion.Potion;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Timer;
@@ -73,7 +68,7 @@ public class KillAura extends Module {
 		}
 		this.setDisplayName(name + " Aura");
 		setTag(KillAura.this.type.getValue());
-		Axis.getCommandManager().getContents().add(new Command("killaura", "<animals/players/mobs/mode>", new String[] { "ka" }) {
+		Axis.getAxis().getCommandManager().getContents().add(new Command("killaura", "<animals/players/mobs/mode>", new String[] { "ka" }) {
 			public void run(String message) {
 				if (message.split(" ")[1].equalsIgnoreCase("players")) {
 					KillAura.this.players.setValue(Boolean.valueOf(!((Boolean) KillAura.this.players.getValue()).booleanValue()));
@@ -308,13 +303,13 @@ public class KillAura extends Module {
 			return false;
 		}
 		if (entity instanceof EntityPlayer) {
-			if (Axis.getFriendManager().isFriend(entity.getName())) {
+			if (Axis.getAxis().getFriendManager().isFriend(entity.getName())) {
 				return false;
 			}
 			if (entity.getDisplayName() == mc.thePlayer.getDisplayName()) {
 				return false;
 			}
-			if (Axis.getFriendManager().isFriend(entity.getName())) {
+			if (Axis.getAxis().getFriendManager().isFriend(entity.getName())) {
 				return false;
 			}
 			if (this.tick.getValue().booleanValue()) {

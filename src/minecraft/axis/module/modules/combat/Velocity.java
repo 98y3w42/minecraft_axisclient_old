@@ -3,12 +3,8 @@ package axis.module.modules.combat;
 import axis.Axis;
 import axis.command.Command;
 import axis.event.events.PacketReceiveEvent;
-import axis.event.events.UpdateEvent;
 import axis.management.managers.ModuleManager;
 import axis.module.Module;
-import axis.module.modules.exploits.AutoSetting;
-import axis.module.modules.movement.speed.modes.Bhop2;
-import axis.module.modules.movement.speed.modes.MineZ;
 import axis.util.Logger;
 import axis.value.Value;
 import net.minecraft.network.play.server.S12PacketEntityVelocity;
@@ -21,7 +17,7 @@ public class Velocity extends Module {
 	public Velocity() {
 		super("Velocity", -4731698, ModuleManager.Category.COMBAT);
 		setTag(velocity.getValue() + "%");
-		Axis.getCommandManager().getContents().add(new Command("velocity", "<amount>", new String[] { "vel", "v" }) {
+		Axis.getAxis().getCommandManager().getContents().add(new Command("velocity", "<amount>", new String[] { "vel", "v" }) {
 			public void run(String message) {
 				if (message.split(" ")[1].equalsIgnoreCase("-d")) {
 					Velocity.this.velocity.setValue((Integer) Velocity.this.velocity.getDefaultValue());

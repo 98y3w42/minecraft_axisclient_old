@@ -1,18 +1,11 @@
 package axis.module.modules.render;
 
-import org.lwjgl.opengl.GL11;
-
 import axis.Axis;
-import axis.event.Event;
 import axis.event.events.DrawScreenEvent;
-import axis.event.events.TickEvent;
-import axis.event.events.UpdateEvent;
 import axis.management.managers.ModuleManager.Category;
 import axis.module.Module;
 import axis.util.ColorUtil;
 import axis.util.RenderHelper;
-import axis.util.StringUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 
 public class Keystrokes extends Module {
@@ -25,7 +18,7 @@ public class Keystrokes extends Module {
     	ScaledResolution scaledRes = new ScaledResolution(mc);
 		float h = scaledRes.getScaledHeight() - 70;
 		float f = scaledRes.getScaledWidth() - 50;
-		if(Axis.getModuleManager().getModuleByName("GhoastHUD").isEnabled()){
+		if(Axis.getAxis().getModuleManager().getModuleByName("GhoastHUD").isEnabled()){
 			h = f + 20;
 		}
 		int i = Integer.MIN_VALUE;

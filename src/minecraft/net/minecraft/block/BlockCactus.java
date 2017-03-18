@@ -65,7 +65,7 @@ public class BlockCactus extends Block
     }
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
     {
-    	if (Axis.getModuleManager().getModuleByName("AntiCactus").isEnabled()){
+    	if (Axis.getAxis().getModuleManager().getModuleByName("AntiCactus").isEnabled()){
     		return new AxisAlignedBB((double)((float)pos.getX() + h), (double)pos.getY(), (double)((float)pos.getZ() + h), (double)((float)(pos.getX() + 1) - h), (double)((float)(pos.getY() + 1)), (double)((float)(pos.getZ() + 1) - h));
     	}else{
     		 return new AxisAlignedBB((double)((float)pos.getX() + f), (double)pos.getY(), (double)((float)pos.getZ() + f), (double)((float)(pos.getX() + 1) - f), (double)((float)(pos.getY() + 1) - f), (double)((float)(pos.getZ() + 1) - f));
@@ -74,7 +74,7 @@ public class BlockCactus extends Block
 
     public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos)
     {
-        if (Axis.getModuleManager().getModuleByName("AntiCactus").isEnabled()){
+        if (Axis.getAxis().getModuleManager().getModuleByName("AntiCactus").isEnabled()){
     	     return new AxisAlignedBB((double)((float)pos.getX() + h), (double)pos.getY(), (double)((float)pos.getZ() + h), (double)((float)(pos.getX() + 1) - h), (double)((float)(pos.getY() + 1)), (double)((float)(pos.getZ() + 1) - h));
    	    }else{
    		     return new AxisAlignedBB((double)((float)pos.getX() + f), (double)pos.getY(), (double)((float)pos.getZ() + f), (double)((float)(pos.getX() + 1) - f), (double)((float)(pos.getY() + 1) - f), (double)((float)(pos.getZ() + 1) - f));

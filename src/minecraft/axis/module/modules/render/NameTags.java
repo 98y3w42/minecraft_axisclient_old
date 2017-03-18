@@ -13,7 +13,6 @@ import axis.event.events.Render3DEvent;
 import axis.management.managers.ModuleManager.Category;
 import axis.module.Module;
 import axis.util.Logger;
-import axis.util.MathUtils;
 import axis.value.Value;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -40,7 +39,7 @@ public class NameTags extends Module {
 
 	public NameTags() {
 		super("NameTags", 9623002, Category.RENDER);
-		Axis.getCommandManager().getContents().add(new Command("nametags", "<armorstatus>", new String[0]) {
+		Axis.getAxis().getCommandManager().getContents().add(new Command("nametags", "<armorstatus>", new String[0]) {
 			public void run(String message) {
 				if (message.split(" ")[1].equalsIgnoreCase("armorstatus")) {
 					NameTags.this.armor.setValue(Boolean.valueOf(!((Boolean) NameTags.this.armor.getValue()).booleanValue()));
@@ -81,8 +80,8 @@ public class NameTags extends Module {
 					WorldRenderer worldRenderer = tessellator.getWorldRenderer();
 					GlStateManager.disableTexture2D();
 					str = str + " : " + ent.getEntityId();
-					if (Axis.getFriendManager().isFriend(ent.getName())) {
-						str = "§f[§aF§f]" + Axis.getFriendManager().replaceNames(friend.alias, true);
+					if (Axis.getAxis().getFriendManager().isFriend(ent.getName())) {
+						str = "§f[§aF§f]" + Axis.getAxis().getFriendManager().replaceNames(friend.alias, true);
 					}
 					int stringWidth = mc.fontRendererObj.getStringWidth(str) / 2;
 

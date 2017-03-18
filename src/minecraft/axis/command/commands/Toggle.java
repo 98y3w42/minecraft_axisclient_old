@@ -12,7 +12,7 @@ public final class Toggle extends Command {
 
 	public void run(String message) {
 		String[] arguments = message.split(" ");
-		Module mod = Axis.getModuleManager().getModuleByName(arguments[1]);
+		Module mod = Axis.getAxis().getModuleManager().getModuleByName(arguments[1]);
 		if (mod == null) {
 			Logger.logChat("Mod \"" + arguments[1] + "\" was not found!");
 		} else {

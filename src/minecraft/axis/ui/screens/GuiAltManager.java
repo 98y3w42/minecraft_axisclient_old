@@ -28,8 +28,8 @@ public class GuiAltManager extends GuiScreen {
    private String status = "§7Waiting...";
 
    public GuiAltManager() {
-	  Axis.getAltManager().getContents().clear();
-	  Axis.getFileManager().getFileByName("alts").loadFile();
+	  Axis.getAxis().getAltManager().getContents().clear();
+	  Axis.getAxis().getFileManager().getFileByName("alts").loadFile();
    }
 
    public void actionPerformed(GuiButton button) {
@@ -54,10 +54,10 @@ public class GuiAltManager extends GuiScreen {
             this.loginThread = null;
          }
 
-         Axis.getAltManager().getContents().remove(this.selectedAlt);
+         Axis.getAxis().getAltManager().getContents().remove(this.selectedAlt);
          this.status = "§aRemoved.";
          this.selectedAlt = null;
-         Axis.getFileManager().getFileByName("alts").saveFile();
+         Axis.getAxis().getFileManager().getFileByName("alts").saveFile();
          break;
       case 3:
          this.mc.displayGuiScreen(new GuiAddAlt(this));
@@ -66,7 +66,7 @@ public class GuiAltManager extends GuiScreen {
          this.mc.displayGuiScreen(new GuiAltLogin(this));
          break;
       case 5:
-         Alt randomAlt = (Alt)Axis.getAltManager().getContents().get((new Random()).nextInt(Axis.getAltManager().getContents().size()));
+         Alt randomAlt = (Alt)Axis.getAxis().getAltManager().getContents().get((new Random()).nextInt(Axis.getAxis().getAltManager().getContents().size()));
          String user1 = randomAlt.getUsername();
          String pass1 = randomAlt.getPassword();
          this.loginThread = new AltLoginThread(user1, pass1);
@@ -76,7 +76,7 @@ public class GuiAltManager extends GuiScreen {
          this.mc.displayGuiScreen(new GuiRenameAlt(this));
          break;
       case 7:
-         Alt lastAlt = Axis.getAltManager().getLastAlt();
+         Alt lastAlt = Axis.getAxis().getAltManager().getLastAlt();
          if(lastAlt == null) {
             if(this.loginThread == null) {
                this.status = "§cThere is no last used alt!";
@@ -113,14 +113,14 @@ public class GuiAltManager extends GuiScreen {
       GuiMainMenu.renderBackground();
 	  GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
       this.drawString(this.fontRendererObj, this.mc.session.getUsername(), 10, 10, -7829368);
-      this.drawCenteredString(this.fontRendererObj, "Account Manager - " + Axis.getAltManager().getContents().size() + " alts", this.width / 2, 10, -1);
+      this.drawCenteredString(this.fontRendererObj, "Account Manager - " + Axis.getAxis().getAltManager().getContents().size() + " alts", this.width / 2, 10, -1);
       this.drawCenteredString(this.fontRendererObj, this.loginThread == null?this.status:this.loginThread.getStatus(), this.width / 2, 20, -1);
       RenderHelper.drawBorderedRect(50.0F, 33.0F, (float)(this.width - 50), (float)(this.height - 50), 1.0F, -16777216, Integer.MIN_VALUE);
       GL11.glPushMatrix();
       this.prepareScissorBox(0.0F, 33.0F, (float)this.width, (float)(this.height - 50));
       GL11.glEnable(3089);
       y = 38;
-      Iterator var6 = Axis.getAltManager().getContents().iterator();
+      Iterator var6 = Axis.getAxis().getAltManager().getContents().iterator();
 
       while(true) {
          Alt alt;
@@ -220,7 +220,7 @@ public class GuiAltManager extends GuiScreen {
 
       int y = 38 - this.offset;
 
-      for(Iterator var7 = Axis.getAltManager().getContents().iterator(); var7.hasNext(); y += 26) {
+      for(Iterator var7 = Axis.getAxis().getAltManager().getContents().iterator(); var7.hasNext(); y += 26) {
          Alt e = (Alt)var7.next();
          if(this.isMouseOverAlt(par1, par2, y)) {
             if(e == this.selectedAlt) {

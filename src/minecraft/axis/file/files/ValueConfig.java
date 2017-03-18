@@ -59,9 +59,9 @@ public class ValueConfig extends CustomFile {
 						} else if (value.isValueString) {
 							value.setValue(String.valueOf(arguments[1]));
 						} else if (value.isValueAuraMode) {
-							value.setValue(AuraMode.getMode(arguments[1], ((KillAura) Axis.getModuleManager().getModuleByName("KillAura"))));
+							value.setValue(AuraMode.getMode(arguments[1], ((KillAura) Axis.getAxis().getModuleManager().getModuleByName("KillAura"))));
 						} else if (value.isValueSpeedMode) {
-							value.setValue(SpeedMode.getMode(arguments[1], ((Speed) Axis.getModuleManager().getModuleByName("Speed"))));
+							value.setValue(SpeedMode.getMode(arguments[1], ((Speed) Axis.getAxis().getModuleManager().getModuleByName("Speed"))));
 						}
 					}
 				}

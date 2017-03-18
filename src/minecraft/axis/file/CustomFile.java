@@ -10,7 +10,7 @@ public abstract class CustomFile {
 
    public CustomFile(String name) {
       this.name = name;
-      this.file = new File(Axis.getDirectory(), name + ".txt");
+      this.file = new File(Axis.getAxis().getDirectory(), name + ".txt");
       if(!this.file.exists()) {
          this.saveFile();
       }

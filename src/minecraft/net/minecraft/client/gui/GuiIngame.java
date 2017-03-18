@@ -11,7 +11,6 @@ import com.google.common.collect.Lists;
 import axis.Axis;
 import axis.event.events.DrawScreenEvent;
 import axis.module.modules.render.HUD;
-import axis.ui.chat.HexNewChat;
 import axis.util.ColorUtil;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -330,7 +329,7 @@ public class GuiIngame extends Gui {
 			int i = sr.getScaledWidth() / 2;
 			float f = this.zLevel;
 			this.zLevel = -90.0F;
-			if((!Axis.getModuleManager().getModuleByName("Hotbar").isEnabled()) || (!HUD.currentMode.getValue().equals("Axis"))){
+			if((!Axis.getAxis().getModuleManager().getModuleByName("Hotbar").isEnabled()) || (!HUD.currentMode.getValue().equals("Axis"))){
 				this.drawTexturedModalRect(i - 91, sr.getScaledHeight() - 22, 0, 0, 182, 22);
 				this.drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20, sr.getScaledHeight() - 22 - 1, 0, 22, 24, 22);
 			}
@@ -349,7 +348,7 @@ public class GuiIngame extends Gui {
 			RenderHelper.disableStandardItemLighting();
 			GlStateManager.disableRescaleNormal();
 			GlStateManager.disableBlend();
-			if(Axis.getModuleManager().getModuleByName("Hotbar").isEnabled() && (HUD.currentMode.getValue().equals("Axis"))){
+			if(Axis.getAxis().getModuleManager().getModuleByName("Hotbar").isEnabled() && (HUD.currentMode.getValue().equals("Axis"))){
 				float width = sr.getScaledWidth();
 				float heighth = sr.getScaledHeight();
 				int o = ColorUtil.color(255, 255, 255, 150);

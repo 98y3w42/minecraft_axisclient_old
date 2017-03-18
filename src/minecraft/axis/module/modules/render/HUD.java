@@ -1,6 +1,6 @@
 package axis.module.modules.render;
 
-import java.net.Proxy;
+import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,14 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-import java.awt.Font;
-import javax.swing.*;
 
 import org.lwjgl.opengl.GL11;
-
-import com.mojang.authlib.Agent;
-import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
-import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
 
 import axis.Axis;
 import axis.command.Command;
@@ -28,14 +22,12 @@ import axis.management.managers.ModuleManager.Category;
 import axis.module.Module;
 import axis.ui.tabgui.HexTabGui;
 import axis.ui.tabgui.TabGui;
-import axis.util.Alt;
 import axis.util.FontUtils;
 import axis.util.Logger;
 import axis.util.RenderingUtils;
 import axis.value.Value;
 import net.mcleaks.MCLeaks;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiNewChat;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
@@ -86,7 +78,7 @@ public class HUD extends Module {
 		this.setCategory(Category.RENDER);
 		this.setEnabled(true);
 		setTag(currentMode.getValue());
-		Axis.getCommandManager().getContents().add(new Command("hud", "<armorstatus/potioneffects/arraylist/tabgui/arraylistrectangle>", new String[0]) {
+		Axis.getAxis().getCommandManager().getContents().add(new Command("hud", "<armorstatus/potioneffects/arraylist/tabgui/arraylistrectangle>", new String[0]) {
 			public void run(String message) {
 				if (message.split(" ")[1].equalsIgnoreCase("arraylist")) {
 					HUD.arraylist.setValue(Boolean.valueOf(!((Boolean) HUD.arraylist.getValue()).booleanValue()));
@@ -106,7 +98,7 @@ public class HUD extends Module {
 
 			}
 		});
-		Axis.getCommandManager().getContents()
+		Axis.getAxis().getCommandManager().getContents()
 				.add(new Command("hud", "<mode>", new String[] { "hudmode", "hd" }) {
 					public void run(String message) {
 						if (message.split(" ")[1].equalsIgnoreCase("mode")) {
@@ -167,7 +159,7 @@ public class HUD extends Module {
 	}
 
 	public void onDraw(DrawScreenEvent event) {
-		if (!Axis.getModuleManager().getModuleByName("GhoastHUD").isEnabled()) {
+		if (!Axis.getAxis().getModuleManager().getModuleByName("GhoastHUD").isEnabled()) {
 			if (currentMode.getValue().equals("Axis")) {
 				ScaledResolution scaledRes = new ScaledResolution(mc);
 				boolean flag = mc.fontRendererObj.getUnicodeFlag();
@@ -175,8 +167,8 @@ public class HUD extends Module {
 
 				TabGui.render();
 				if (mc.thePlayer != null && mc.theWorld != null) {
-					Comfortaa17.drawString(Axis.getVersion(), 40.0F, 6.0F, hexcolor);
-					Raleway29.drawString(Axis.getName(), 8.0F, 0.0F, color1);
+					Comfortaa17.drawString(Axis.getAxis().getVersion(), 40.0F, 6.0F, hexcolor);
+					Raleway29.drawString(Axis.getAxis().getName(), 8.0F, 0.0F, color1);
 					test.drawString("fake", 0.0F, -15.0F, 0);
 				}
 
@@ -275,7 +267,7 @@ public class HUD extends Module {
 
 	private void cicadadrawArraylist(ScaledResolution scaledRes) {
 		int y = 0;
-		List mods = Axis.getModuleManager().getContents();
+		List mods = Axis.getAxis().getModuleManager().getContents();
 		Collections.sort(mods, new Comparator() {
 			public int compare(Module mod1, Module mod2) {
 				return mc.fontRendererObj.getStringWidth(StringUtils.stripControlCodes(mod1.getDisplayName())) > mc.fontRendererObj.getStringWidth(StringUtils.stripControlCodes(mod2.getDisplayName())) ? -1
@@ -321,7 +313,7 @@ public class HUD extends Module {
 
 	private void drawArraylist(ScaledResolution scaledRes) {
 		int y = 0;
-		List mods = Axis.getModuleManager().getContents();
+		List mods = Axis.getAxis().getModuleManager().getContents();
 		Collections.sort(mods, new Comparator() {
 			public int compare(Module mod1, Module mod2) {
 				return mc.fontRendererObj.getStringWidth(StringUtils.stripControlCodes(mod1.getDisplayName())) > mc.fontRendererObj.getStringWidth(StringUtils.stripControlCodes(mod2.getDisplayName())) ? -1
@@ -367,7 +359,7 @@ public class HUD extends Module {
 
 	private void hexdrawArraylist(ScaledResolution scaledRes) {
 		int y = 0;
-		List mods = Axis.getModuleManager().getContents();
+		List mods = Axis.getAxis().getModuleManager().getContents();
 		Collections.sort(mods, new Comparator() {
 			public int compare(Module mod1, Module mod2) {
 				return mc.fontRendererObj.getStringWidth(StringUtils.stripControlCodes(mod1.getDisplayName())) > mc.fontRendererObj.getStringWidth(StringUtils.stripControlCodes(mod2.getDisplayName())) ? -1

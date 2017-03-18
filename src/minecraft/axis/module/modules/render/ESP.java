@@ -1,28 +1,19 @@
 package axis.module.modules.render;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.passive.EntityBat;
-import net.minecraft.entity.player.EntityPlayer;
-
-import org.lwjgl.opengl.GL11;
-
 import axis.Axis;
 import axis.command.Command;
-import axis.event.Event;
 import axis.event.events.Render3DEvent;
-import axis.event.events.UpdateEvent;
 import axis.management.managers.ModuleManager.Category;
 import axis.module.Module;
 import axis.util.ColorUtil;
 import axis.util.Logger;
 import axis.util.RenderUtils;
 import axis.value.Value;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityBat;
+import net.minecraft.entity.player.EntityPlayer;
 
 public class ESP
 		extends Module {
@@ -39,7 +30,7 @@ public class ESP
 	public ESP() {
 		super("ESP", 9623002, Category.RENDER);
 		setTag(target.getValue());
-		Axis.getCommandManager().getContents().add(new Command("esp", "<target>", new String[] { "", "esptarget" }) {
+		Axis.getAxis().getCommandManager().getContents().add(new Command("esp", "<target>", new String[] { "", "esptarget" }) {
 			public void run(String message) {
 				if (message.split(" ")[1].equalsIgnoreCase("target")) {
 					if (message.split(" ")[2].equalsIgnoreCase("All")) {
@@ -69,7 +60,7 @@ public class ESP
 					color = -6750208;
 					thingyt = 1184432128;
 				}
-				if (Axis.getFriendManager().isFriend(entity.getName())) {
+				if (Axis.getAxis().getFriendManager().isFriend(entity.getName())) {
 					color = HUD.color1;
 				}
 				if (checkValidity(entity)) {

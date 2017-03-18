@@ -2,7 +2,6 @@ package axis.module.modules.movement;
 
 import axis.Axis;
 import axis.command.Command;
-import axis.event.events.AttackEvent;
 import axis.event.events.MoveEvent;
 import axis.event.events.UpdateEvent;
 import axis.management.managers.ModuleManager.Category;
@@ -36,7 +35,7 @@ public class Speed extends Module {
 	public Speed() {
 		super("Speed", 0x00BFFF, Category.MOVEMENT);
 		setTag(currentMode.getValue().getName());
-		Axis.getCommandManager().getContents().add(new Command("speed", "<mode>", new String[] {}) {
+		Axis.getAxis().getCommandManager().getContents().add(new Command("speed", "<mode>", new String[] {}) {
 			public void run(String message) {
 				if (message.split(" ")[1].equalsIgnoreCase("mode")) {
 					if (message.split(" ")[2].equalsIgnoreCase("bhop")) {
@@ -94,14 +93,14 @@ public class Speed extends Module {
 	}
 
 	private void onMove(MoveEvent event) {
-		if (Axis.getModuleManager().getModuleByName("Freecam").isEnabled()) {
+		if (Axis.getAxis().getModuleManager().getModuleByName("Freecam").isEnabled()) {
 			return;
 		}
 		currentMode.getValue().onMove(event);
 	}
 
 	private void onUpdate(UpdateEvent event) {
-		if (Axis.getModuleManager().getModuleByName("Freecam").isEnabled()) {
+		if (Axis.getAxis().getModuleManager().getModuleByName("Freecam").isEnabled()) {
 			return;
 		}
 		currentMode.getValue().onUpdate(event);

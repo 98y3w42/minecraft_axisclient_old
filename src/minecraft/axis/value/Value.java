@@ -87,6 +87,6 @@ public class Value<T> {
 
 	public final void setValue(final T value) {
 		this.value = value;
-		Axis.getFileManager().getFileByName("valueconfig").saveFile();
+		Axis.getAxis().getFileManager().getFileByName("valueconfig").saveFile();
 	}
 }

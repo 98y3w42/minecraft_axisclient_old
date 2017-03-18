@@ -39,7 +39,7 @@ public class AutoPot extends Module {
 	public AutoPot() {
 			super("AutoPot", 12337730, Category.COMBAT);
 			setDisplayName("Auto Pot");
-			Axis.getCommandManager().getContents().add(new Command("autopot", "<mode>", new String[]{"ap"}) {
+			Axis.getAxis().getCommandManager().getContents().add(new Command("autopot", "<mode>", new String[]{"ap"}) {
 				public void run(String message) {
 					if(message.split(" ")[1].equalsIgnoreCase("health")) {
 						if(message.split(" ")[2].equalsIgnoreCase("-d")) {

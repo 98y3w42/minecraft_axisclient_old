@@ -31,7 +31,7 @@ public final class LastAlt extends CustomFile {
                   account = s.split("    ");
                   String[] var9 = account[1].split(":");
                   if(var9.length == 2) {
-                	  Axis.getAltManager().setLastAlt(new Alt(var9[0], var9[1], account[0]));
+                	  Axis.getAxis().getAltManager().setLastAlt(new Alt(var9[0], var9[1], account[0]));
                   } else {
                      String var10 = var9[1];
 
@@ -39,14 +39,14 @@ public final class LastAlt extends CustomFile {
                         var10 = var10 + ":" + var9[i1];
                      }
 
-                     Axis.getAltManager().setLastAlt(new Alt(var9[0], var10, account[0]));
+                     Axis.getAxis().getAltManager().setLastAlt(new Alt(var9[0], var10, account[0]));
                   }
                } else {
                   account = s.split(":");
                   if(account.length == 1) {
-                     Axis.getAltManager().setLastAlt(new Alt(account[0], ""));
+                	  Axis.getAxis().getAltManager().setLastAlt(new Alt(account[0], ""));
                   } else if(account.length == 2) {
-                     Axis.getAltManager().setLastAlt(new Alt(account[0], account[1]));
+                	  Axis.getAxis().getAltManager().setLastAlt(new Alt(account[0], account[1]));
                   } else {
                      String pw = account[1];
 
@@ -54,7 +54,7 @@ public final class LastAlt extends CustomFile {
                         pw = pw + ":" + account[i];
                      }
 
-                     Axis.getAltManager().setLastAlt(new Alt(account[0], pw));
+                     Axis.getAxis().getAltManager().setLastAlt(new Alt(account[0], pw));
                   }
                }
             }
@@ -73,7 +73,7 @@ public final class LastAlt extends CustomFile {
    public void saveFile() {
       try {
          PrintWriter var3 = new PrintWriter(this.getFile());
-         Alt alt = Axis.getAltManager().getLastAlt();
+         Alt alt = Axis.getAxis().getAltManager().getLastAlt();
          if(alt != null) {
             if(alt.getMask().equals("")) {
                var3.println(alt.getUsername() + ":" + alt.getPassword());

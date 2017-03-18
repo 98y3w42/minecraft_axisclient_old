@@ -3,7 +3,6 @@ package axis.module.modules.movement.speed;
 import axis.Axis;
 import axis.event.events.MoveEvent;
 import axis.event.events.UpdateEvent;
-import axis.module.modules.exploits.AutoSetting;
 import axis.module.modules.movement.Speed;
 import axis.module.modules.movement.speed.modes.AAC;
 import axis.module.modules.movement.speed.modes.Bhop;
@@ -80,7 +79,7 @@ public abstract class SpeedMode {
 			return new Hop(speed);
 		} else {
 			speed.setTag(speed.currentMode.getDefaultValue().getName());
-			return ((Speed) Axis.getModuleManager().getModuleByName("Speed")).currentMode.getDefaultValue();
+			return ((Speed) Axis.getAxis().getModuleManager().getModuleByName("Speed")).currentMode.getDefaultValue();
 		}
 	}
 }

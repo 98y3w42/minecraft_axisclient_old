@@ -341,7 +341,7 @@ public class FontUtil implements IResourceManagerReloadListener {
 		int i;
 
 		if (dropShadow) {
-			if (Axis.getModuleManager().getModuleByName("FontShadow").isEnabled()) {
+			if (Axis.getAxis().getModuleManager().getModuleByName("FontShadow").isEnabled()) {
 				i = this.renderString(text, x + 0.4F, y + 0.4F, color, true);
 			} else {
 				i = this.renderString(text, x + 1.0F, y + 1.0F, color, true);

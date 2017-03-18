@@ -2,10 +2,8 @@ package axis.module.modules.render;
 
 import axis.Axis;
 import axis.command.Command;
-import axis.event.Event.State;
 import axis.event.events.PacketReceiveEvent;
 import axis.event.events.TickEvent;
-import axis.event.events.UpdateEvent;
 import axis.management.managers.ModuleManager.Category;
 import axis.module.Module;
 import axis.util.Logger;
@@ -18,7 +16,7 @@ public class WorldTimer extends Module {
 
 	public WorldTimer() {
 		super("WorldTimer", 9623002, Category.RENDER);
-		Axis.getCommandManager().getContents().add(new Command("worldtimer", "<day>", new String[] { "wt" }) {
+		Axis.getAxis().getCommandManager().getContents().add(new Command("worldtimer", "<day>", new String[] { "wt" }) {
 			public void run(String message) {
 				WorldTimer.this.day.setValue(Long.valueOf(Long.parseLong(message.split(" ")[1])));
 				Logger.logChat("WorldTimer set to: " + WorldTimer.this.day.getValue());

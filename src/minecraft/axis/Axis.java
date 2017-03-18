@@ -23,56 +23,65 @@ import net.minecraft.client.Minecraft;
 
 public class Axis {
 
-	private static String  clientName = "Axis";
-	private static String version =  "ver 0.5";
-	private static final File directory = new File(Minecraft.getMinecraft().mcDataDir, getName());
+	private static Axis theAxis;
+	private String  clientName = "Axis";
+	private String version =  "ver 0.5";
+	private final File directory = new File(Minecraft.getMinecraft().mcDataDir, getName());
 
-	private static EventManager eventManager = new EventManager();
-	private static FileManager fileManager = new FileManager();
-	private static ModuleManager moduleManager = new ModuleManager();
-	private static CommandManager commandManager = new CommandManager();
-	private static ValueManager valueManager = new ValueManager();
-	private static FriendManager friendManager = new FriendManager();
-	private static AltManager altManager = new AltManager();
-	private static TabGui tabGui;
-	public static FontUtil font;
+	private EventManager eventManager = new EventManager();
+	private FileManager fileManager = new FileManager();
+	private ModuleManager moduleManager = new ModuleManager();
+	private CommandManager commandManager = new CommandManager();
+	private ValueManager valueManager = new ValueManager();
+	private FriendManager friendManager = new FriendManager();
+	private AltManager altManager = new AltManager();
+	private TabGui tabGui;
+	public FontUtil font;
 
-	public static String getName() {
+	public Axis() {
+		theAxis = this;
+	}
+
+	public static Axis getAxis() {
+		return theAxis;
+	}
+
+	public String getName() {
 		return clientName;
 	}
 
-	public static String getVersion() {
+	public String getVersion() {
 		return version;
 	}
 
 	public void onCheckUpdate() {
 	}
 
-	public static File getDirectory() {
+	public File getDirectory() {
 		return directory;
 	}
 
-	public static EventManager getEventManager() {
+	public EventManager getEventManager() {
 		return eventManager;
 	}
 
-	public static ValueManager getValueManager() {
+	public ValueManager getValueManager() {
 		return valueManager;
 	}
 
-	public static ModuleManager getModuleManager() {
+	public ModuleManager getModuleManager() {
 		return moduleManager;
 	}
 
-	public static FileManager getFileManager() {
+	public FileManager getFileManager() {
 		return fileManager;
 	}
 
-	public static CommandManager getCommandManager() {
+	public CommandManager getCommandManager() {
 		return commandManager;
 	}
 
-	public static void onSetupManagers() {
+	public void onSetupManagers() {
 		getValueManager().setup();
 		friendManager.setup();
 		getCommandManager().setup();
@@ -82,7 +91,7 @@ public class Axis {
 		Minecraft.getMinecraft().ingameGUI.persistantChatGUI = new HexNewChat(Minecraft.getMinecraft());
 	}
 
-	public static void onStartup()  {
+	public void onStartup()  {
 		Display.setTitle(getName() + " " + getVersion());
 		Logger.logConsole("Version" + getVersion());
 		if (!directory.isDirectory()) {
@@ -117,15 +126,15 @@ public class Axis {
 		Logger.logConsole("Successfully loaded " + getName() + " " + getVersion());
 	}
 
-	public static FriendManager getFriendManager() {
+	public FriendManager getFriendManager() {
 		return friendManager;
 	}
 
-	public static TabGui getTabGUI() {
+	public TabGui getTabGUI() {
 		return tabGui;
 	}
 
-	public static AltManager getAltManager() {
+	public AltManager getAltManager() {
 		return altManager;
 	}
 }

@@ -1,26 +1,18 @@
 package axis.module.modules.movement.speed.modes;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovementInput;
-import net.minecraft.util.Timer;
-
-import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 
 import axis.Axis;
-import axis.event.Event;
 import axis.event.events.MoveEvent;
 import axis.event.events.UpdateEvent;
 import axis.module.modules.movement.Speed;
 import axis.module.modules.movement.Step;
 import axis.module.modules.movement.speed.SpeedMode;
 import axis.util.BlockHelper;
-import axis.util.LiquidUtils;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.MathHelper;
 
 public class Other extends SpeedMode {
 
@@ -116,7 +108,7 @@ public class Other extends SpeedMode {
 	}
 
 	public boolean allowStep() {
-		Step localStep = (Step) Axis.getModuleManager().getModuleByName("step");
+		Step localStep = (Step) Axis.getAxis().getModuleManager().getModuleByName("step");
 		int i = (mc.thePlayer.movementInput.moveForward != 0.0F) || (mc.thePlayer.movementInput.moveStrafe != 0.0F) ? 1 : 0;
 		return (!mc.thePlayer.isInWater()) && (!BlockHelper.isInLiquid()) && (!BlockHelper.isOnLiquid()) && (!mc.thePlayer.isCollidedHorizontally) && (!BlockHelper.isOnIce()) && (!BlockHelper.isOnLadder())
 				&& (!mc.thePlayer.isSneaking()) && (mc.thePlayer.onGround) && (i != 0);

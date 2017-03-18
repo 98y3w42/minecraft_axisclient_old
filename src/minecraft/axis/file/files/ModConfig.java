@@ -27,7 +27,7 @@ public final class ModConfig extends CustomFile {
          while((line = var6.readLine()) != null) {
             String[] arguments = line.split(":");
             if(arguments.length == 4) {
-               Module mod = Axis.getModuleManager().getModuleByName(arguments[0]);
+               Module mod = Axis.getAxis().getModuleManager().getModuleByName(arguments[0]);
                if(mod != null) {
                   mod.setEnabled(Boolean.parseBoolean(arguments[1]));
                   mod.setKeybind(Keyboard.getKeyIndex(arguments[2].toUpperCase()));
@@ -48,7 +48,7 @@ public final class ModConfig extends CustomFile {
    public void saveFile() {
       try {
          BufferedWriter var4 = new BufferedWriter(new FileWriter(this.getFile()));
-         Iterator var3 = Axis.getModuleManager().getContents().iterator();
+         Iterator var3 = Axis.getAxis().getModuleManager().getContents().iterator();
 
          while(var3.hasNext()) {
         	 Module mod = (Module)var3.next();

@@ -7,7 +7,6 @@ import axis.command.Command;
 import axis.event.Cancellable;
 import axis.event.Event;
 import axis.util.Logger;
-import net.minecraft.client.Minecraft;
 
 public final class ChatSentEvent extends Event implements Cancellable
 {
@@ -23,7 +22,7 @@ public final class ChatSentEvent extends Event implements Cancellable
     {
     	if (this.message.startsWith("."))
         {
-            Iterator var2 = Axis.getCommandManager().getContents().iterator();
+            Iterator var2 = Axis.getAxis().getCommandManager().getContents().iterator();
 
             while (var2.hasNext())
             {

@@ -23,12 +23,12 @@ public class InventoryMove extends Module {
 				KeyBinding[] moveKeys = new KeyBinding[] { mc.gameSettings.keyBindForward, mc.gameSettings.keyBindBack, mc.gameSettings.keyBindLeft, mc.gameSettings.keyBindRight, mc.gameSettings.keyBindJump };
 				KeyBinding[] array = moveKeys;
 				int length = moveKeys.length;
-				if (Axis.getModuleManager().getModuleByName("Sprint").isEnabled() && (mc.gameSettings.keyBindForward.isPressed())) {
+				if (Axis.getAxis().getModuleManager().getModuleByName("Sprint").isEnabled() && (mc.gameSettings.keyBindForward.isPressed())) {
 					mc.thePlayer.setSprinting(true);
 				}
 
 				for (int i = 0; i < length; ++i) {
-					if (Axis.getModuleManager().getModuleByName("Sprint").isEnabled() && (mc.gameSettings.keyBindForward.isPressed())) {
+					if (Axis.getAxis().getModuleManager().getModuleByName("Sprint").isEnabled() && (mc.gameSettings.keyBindForward.isPressed())) {
 						mc.thePlayer.setSprinting(true);
 					}
 					KeyBinding bind = array[i];

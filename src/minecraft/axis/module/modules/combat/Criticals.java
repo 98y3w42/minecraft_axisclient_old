@@ -7,9 +7,7 @@ import axis.event.events.PacketSentEvent;
 import axis.management.managers.ModuleManager;
 import axis.module.Module;
 import axis.module.modules.exploits.AutoSetting;
-import axis.module.modules.movement.Jesus;
 import axis.module.modules.movement.Speed;
-import axis.module.modules.movement.speed.modes.Bhop2;
 import axis.util.BlockHelper;
 import axis.util.Logger;
 import axis.value.Value;
@@ -29,7 +27,7 @@ public class Criticals extends Module {
 	public Criticals() {
 		super("Criticals", -351136, ModuleManager.Category.COMBAT);
 		setTag(currentMode.getValue());
-		Axis.getCommandManager().getContents().add(new Command("criticals", "<mode>", new String[] { "cc" }) {
+		Axis.getAxis().getCommandManager().getContents().add(new Command("criticals", "<mode>", new String[] { "cc" }) {
 			public void run(String message) {
 				if (message.split(" ")[1].equalsIgnoreCase("mode")) {
 					if (message.split(" ")[2].equalsIgnoreCase("MiniJump")) {

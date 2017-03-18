@@ -5,21 +5,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.lwjgl.opengl.GL11;
-
 import axis.Axis;
 import axis.management.managers.ModuleManager.Category;
 import axis.module.Module;
 import axis.module.modules.render.HUD;
 import axis.util.ColorUtil;
 import axis.util.FontUtils;
-import axis.util.Logger;
 import axis.util.RenderHelper;
-import axis.util.RenderUtils;
-import axis.util.RenderingUtils;
 import axis.util.StringUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 
 public class TabGui {
 	protected static final int NO_COLOR = 0;
@@ -211,7 +205,7 @@ public class TabGui {
 
 	protected static List<Module> getModsInCategory(Category category) {
 		List<Module> modList = new ArrayList();
-		Iterator tab = Axis.getModuleManager().getContents().iterator();
+		Iterator tab = Axis.getAxis().getModuleManager().getContents().iterator();
 
 		while (tab.hasNext()) {
 			Module mod = (Module) tab.next();

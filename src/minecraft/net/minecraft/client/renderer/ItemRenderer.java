@@ -17,7 +17,6 @@ import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
@@ -310,12 +309,12 @@ public class ItemRenderer {
 		if (this.itemToRender != null) {
 			if (this.itemToRender.getItem() instanceof ItemMap) {
 				this.renderItemMap(entityplayersp, f2, f, f1);
-			} else if (Axis.getModuleManager().getModuleByName("SwordAnimation").isEnabled() && (!mc.thePlayer.isBlocking())
+			} else if (Axis.getAxis().getModuleManager().getModuleByName("SwordAnimation").isEnabled() && (!mc.thePlayer.isBlocking())
 					&& ((mc.thePlayer.getHeldItem() != null) && (mc.thePlayer.getHeldItem().getItem() != null) && ((mc.thePlayer.getHeldItem().getItem() instanceof ItemSword)))) {
 				this.transformFirstPersonItem(f, f1);
 			} else if (entityplayersp.getItemInUseCount() > 0) {
 				EnumAction enumaction = this.itemToRender.getItemUseAction();
-				if ((Axis.getModuleManager().getModuleByName("SwordAnimation").isEnabled() && mc.thePlayer.getHeldItem().getItem() instanceof ItemSword && mc.gameSettings.keyBindRight.isKeyDown())
+				if ((Axis.getAxis().getModuleManager().getModuleByName("SwordAnimation").isEnabled() && mc.thePlayer.getHeldItem().getItem() instanceof ItemSword && mc.gameSettings.keyBindRight.isKeyDown())
 						|| ItemRenderer.ItemRenderer$1.field_178094_a[enumaction.ordinal()] == 4) {
 					this.transformFirstPersonItem(f + 0.2F, f1);
 					this.func_178103_d();
@@ -332,7 +331,7 @@ public class ItemRenderer {
 					this.transformFirstPersonItem(f, f1);
 					break;
 				case 4:
-					if (!Axis.getModuleManager().getModuleByName("SwordAnimation").isEnabled()) {
+					if (!Axis.getAxis().getModuleManager().getModuleByName("SwordAnimation").isEnabled()) {
 						this.transformFirstPersonItem(f + 0.2F, f1);
 						this.func_178103_d();
 						GL11.glTranslatef(-0.5F, 0.2F, 0.0F);

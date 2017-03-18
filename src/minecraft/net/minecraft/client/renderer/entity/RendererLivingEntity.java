@@ -10,9 +10,7 @@ import org.lwjgl.opengl.GL11;
 import com.google.common.collect.Lists;
 
 import axis.Axis;
-import axis.event.events.UpdateEvent;
 import axis.module.modules.render.HUD;
-import axis.util.ColorCode;
 import axis.util.ColorUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -27,11 +25,8 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EnumPlayerModelParts;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.scoreboard.Team.EnumVisible;
@@ -108,7 +103,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 			if (Config.isShaders() && Shaders.useEntityHurtFlash) {
 				Shaders.setEntityHurtFlash(entity.hurtTime <= 0 && entity.deathTime <= 0 ? 0 : 102, this.getColorMultiplier(entity, entity.getBrightness(partialTicks), partialTicks));
 			}
-			if (Axis.getModuleManager().getModuleByName("Chams").isEnabled() && ((entity instanceof EntityPlayer))) {
+			if (Axis.getAxis().getModuleManager().getModuleByName("Chams").isEnabled() && ((entity instanceof EntityPlayer))) {
 				GL11.glEnable(32823);
 				GL11.glPolygonOffset(1.0F, -2000000.0F);
 			}
@@ -169,8 +164,8 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 				this.mainModel.setRotationAngles(f6, f5, f7, f2, f8, 0.0625F, entity);
 				boolean flag;
 				if (this.renderOutlines) {
-					flag = (this.setScoreTeamColor(entity) && (!Axis.getFriendManager().isOnSameTeamFriend((EntityPlayer) (entity))));
-					if (Axis.getFriendManager().isFriend(entity.getName())) {
+					flag = (this.setScoreTeamColor(entity) && (!Axis.getAxis().getFriendManager().isOnSameTeamFriend((EntityPlayer) (entity))));
+					if (Axis.getAxis().getFriendManager().isFriend(entity.getName())) {
 						flag = false;
 						float[] color;
 						float red = (HUD.color1 >> 16 & 0xFF) / 255.0F;
@@ -206,7 +201,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 			GlStateManager.enableTexture2D();
 			GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
 			GlStateManager.enableCull();
-			if (Axis.getModuleManager().getModuleByName("Chams").isEnabled() && ((entity instanceof EntityPlayer))) {
+			if (Axis.getAxis().getModuleManager().getModuleByName("Chams").isEnabled() && ((entity instanceof EntityPlayer))) {
 				GL11.glPolygonOffset(1.0F, 200000.0F);
 				GL11.glDisable(32823);
 			}
@@ -276,7 +271,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 				GlStateManager.blendFunc(770, 771);
 				GlStateManager.alphaFunc(516, 0.003921569F);
 			}
-			if ((Axis.getModuleManager().getModuleByName("WireframeESP").isEnabled()) && ((entitylivingbaseIn instanceof EntityPlayer))) {
+			if ((Axis.getAxis().getModuleManager().getModuleByName("WireframeESP").isEnabled()) && ((entitylivingbaseIn instanceof EntityPlayer))) {
 				GL11.glPushMatrix();
 
 				GL11.glPushAttrib(1048575);
@@ -308,7 +303,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
 				GL11.glPopMatrix();
 			}
-			if ((Axis.getModuleManager().getModuleByName("BFCESP").isEnabled()) && ((entitylivingbaseIn instanceof EntityPlayer))) {
+			if ((Axis.getAxis().getModuleManager().getModuleByName("BFCESP").isEnabled()) && ((entitylivingbaseIn instanceof EntityPlayer))) {
 				this.mainModel.render(entitylivingbaseIn, p_77036_2_, p_77036_3_,
 						p_77036_4_, p_77036_5_, p_77036_6_, p_77036_7_);
 				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);

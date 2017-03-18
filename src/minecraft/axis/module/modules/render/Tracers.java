@@ -2,9 +2,15 @@ package axis.module.modules.render;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.lwjgl.opengl.GL11;
+
+import axis.Axis;
+import axis.event.events.Render3DEvent;
+import axis.management.managers.ModuleManager.Category;
+import axis.module.Module;
+import axis.util.ColorCode;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -13,17 +19,6 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.scoreboard.ScorePlayerTeam;
-
-import org.lwjgl.opengl.GL11;
-
-import axis.Axis;
-import axis.command.Command;
-import axis.event.events.NametagRenderEvent;
-import axis.event.events.Render3DEvent;
-import axis.management.managers.ModuleManager.Category;
-import axis.module.Module;
-import axis.util.ColorCode;
-import axis.util.Logger;
 
 public class Tracers
 		extends Module {
@@ -82,7 +77,7 @@ public class Tracers
 							color = new float[] { 1.0F, 0.9F, 0.0F };
 						} else {
 							color = new float[] { 1.0F, 1.0F, 1.0F };
-							if (Axis.getFriendManager().isFriend(ent.getName())) {
+							if (Axis.getAxis().getFriendManager().isFriend(ent.getName())) {
 								float red = (HUD.color1 >> 16 & 0xFF) / 255.0F;
 								float blue = (HUD.color1 >> 8 & 0xFF) / 255.0F;
 								float green = (HUD.color1 & 0xFF) / 255.0F;
@@ -91,7 +86,7 @@ public class Tracers
 							}
 						}
 						EntityPlayer player = (EntityPlayer) ent;
-						if (ent instanceof EntityPlayer && (!Axis.getFriendManager().isOnSameTeamFriend(player))) {
+						if (ent instanceof EntityPlayer && (!Axis.getAxis().getFriendManager().isOnSameTeamFriend(player))) {
 							if (player.getTeam() != null) {
 								ScorePlayerTeam team = (ScorePlayerTeam) player.getTeam();
 								String code = "";
@@ -119,7 +114,7 @@ public class Tracers
 									float f1 = (colora.getCode() >> 8 & 0xFF) / 255.0F;
 									float f2 = (colora.getCode() & 0xFF) / 255.0F;
 									color = new float[] { f, f1, f2 };
-									if (Axis.getFriendManager().isFriend(ent.getName())) {
+									if (Axis.getAxis().getFriendManager().isFriend(ent.getName())) {
 										float red = (HUD.color1 >> 16 & 0xFF) / 255.0F;
 										float blue = (HUD.color1 >> 8 & 0xFF) / 255.0F;
 										float green = (HUD.color1 & 0xFF) / 255.0F;

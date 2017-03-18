@@ -581,7 +581,7 @@ public abstract class Entity implements ICommandSender {
 			double d4 = y;
 			double d5 = z;
 			boolean flag = this.onGround && this.isSneaking() && this instanceof EntityPlayer;
-			boolean flag11 = this.onGround && Axis.getModuleManager().getModuleByName("ScaffoldWalk").isEnabled() && this instanceof EntityPlayer;
+			boolean flag11 = this.onGround && Axis.getAxis().getModuleManager().getModuleByName("ScaffoldWalk").isEnabled() && this instanceof EntityPlayer;
 
 			if (flag || flag11) {
 				double d6;
@@ -817,7 +817,7 @@ public abstract class Entity implements ICommandSender {
 			this.isCollidedVertically = d4 != y;
 			this.onGround = this.isCollidedVertically && d4 < 0.0D;
 			if (Minecraft.getMinecraft().thePlayer != null) {
-				if (this.getEntityId() == Minecraft.getMinecraft().thePlayer.getEntityId() && Axis.getModuleManager().getModuleByName("Fly").isEnabled()) {
+				if (this.getEntityId() == Minecraft.getMinecraft().thePlayer.getEntityId() && Axis.getAxis().getModuleManager().getModuleByName("Fly").isEnabled()) {
 					this.onGround = d4 < 0.0D;
 				}
 			}

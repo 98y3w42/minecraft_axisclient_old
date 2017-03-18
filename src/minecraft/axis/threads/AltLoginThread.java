@@ -59,8 +59,8 @@ public class AltLoginThread extends Thread
                 this.status = "§cLogin failed!";
             }
             else {
-                Axis.getAltManager().setLastAlt(new Alt(this.username, this.password));
-                Axis.getFileManager().getFileByName("lastalt").saveFile();
+                Axis.getAxis().getAltManager().setLastAlt(new Alt(this.username, this.password));
+                Axis.getAxis().getFileManager().getFileByName("lastalt").saveFile();
                 this.status = "§aLogged in. (" + auth.getUsername() + ")";
                 this.mc.session = auth;
             }

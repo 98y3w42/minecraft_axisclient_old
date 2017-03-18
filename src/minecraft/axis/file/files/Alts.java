@@ -32,7 +32,7 @@ public final class Alts extends CustomFile {
 						account = s.split("    ");
 						String[] var9 = account[1].split(":");
 						if (var9.length == 2) {
-							Axis.getAltManager().getContents().add(new Alt(var9[0], var9[1], account[0]));
+							Axis.getAxis().getAltManager().getContents().add(new Alt(var9[0], var9[1], account[0]));
 						} else {
 							String var10 = var9[1];
 
@@ -40,14 +40,14 @@ public final class Alts extends CustomFile {
 								var10 = var10 + ":" + var9[i1];
 							}
 
-							Axis.getAltManager().getContents().add(new Alt(var9[0], var10, account[0]));
+							Axis.getAxis().getAltManager().getContents().add(new Alt(var9[0], var10, account[0]));
 						}
 					} else {
 						account = s.split(":");
 						if (account.length == 1) {
-							Axis.getAltManager().getContents().add(new Alt(account[0], ""));
+							Axis.getAxis().getAltManager().getContents().add(new Alt(account[0], ""));
 						} else if (account.length == 2) {
-							Axis.getAltManager().getContents().add(new Alt(account[0], account[1]));
+							Axis.getAxis().getAltManager().getContents().add(new Alt(account[0], account[1]));
 						} else {
 							String pw = account[1];
 
@@ -55,7 +55,7 @@ public final class Alts extends CustomFile {
 								pw = pw + ":" + account[i];
 							}
 
-							Axis.getAltManager().getContents().add(new Alt(account[0], pw));
+							Axis.getAxis().getAltManager().getContents().add(new Alt(account[0], pw));
 						}
 					}
 				}
@@ -74,7 +74,7 @@ public final class Alts extends CustomFile {
 	public void saveFile() {
 		try {
 			PrintWriter var4 = new PrintWriter(this.getFile());
-			Iterator var3 = Axis.getAltManager().getContents().iterator();
+			Iterator var3 = Axis.getAxis().getAltManager().getContents().iterator();
 
 			while (var3.hasNext()) {
 				Alt alt = (Alt) var3.next();

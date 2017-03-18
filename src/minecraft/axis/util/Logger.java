@@ -10,7 +10,7 @@ public class Logger {
 
 	public static void logChat(String message) {
 		if (mc.thePlayer != null) {
-			mc.thePlayer.addChatMessage(new ChatComponentText("§7[§9" + Axis.getName() + "§7]§f" + " " + message));
+			mc.thePlayer.addChatMessage(new ChatComponentText("§7[§9" + Axis.getAxis().getName() + "§7]§f" + " " + message));
 			//DrawScreenEvent.setMessage("§7[§9Hex§7]" + " " + message);
 		} else {
 			logConsole(message);

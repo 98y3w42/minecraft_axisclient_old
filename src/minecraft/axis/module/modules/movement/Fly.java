@@ -9,10 +9,7 @@ import axis.management.managers.ModuleManager.Category;
 import axis.module.Module;
 import axis.util.Logger;
 import axis.value.Value;
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.potion.Potion;
-import net.minecraft.util.MovementInput;
 import net.minecraft.util.Timer;
 
 public class Fly extends Module {
@@ -26,7 +23,7 @@ public class Fly extends Module {
 	public Fly() {
 		super("Fly", 9623002, Category.MOVEMENT);
 		setTag(currentMode.getValue());
-		Axis.getCommandManager().getContents().add(new Command("fly", "<mode>", new String[] { "fly", "fy" }) {
+		Axis.getAxis().getCommandManager().getContents().add(new Command("fly", "<mode>", new String[] { "fly", "fy" }) {
 			public void run(String message) {
 				if (message.split(" ")[1].equalsIgnoreCase("mode")) {
 					if (message.split(" ")[2].equalsIgnoreCase("Skywalk")) {

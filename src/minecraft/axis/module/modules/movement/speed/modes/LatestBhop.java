@@ -112,7 +112,7 @@ public class LatestBhop extends SpeedMode{
 			final double xDist = this.mc.thePlayer.posX - this.mc.thePlayer.prevPosX;
 			final double zDist = this.mc.thePlayer.posZ - this.mc.thePlayer.prevPosZ;
 			this.lastDist = Math.sqrt(xDist * xDist + zDist * zDist);
-			if(!Axis.getModuleManager().getModuleByName("fly").isEnabled() && !mc.thePlayer.onGround && mc.thePlayer.motionY < 0.0D && !mc.theWorld.getCollidingBoundingBoxes(mc.thePlayer, mc.thePlayer.getEntityBoundingBox().offset(0.0D, -1.0D, 0.0D)).isEmpty()) {
+			if(!Axis.getAxis().getModuleManager().getModuleByName("fly").isEnabled() && !mc.thePlayer.onGround && mc.thePlayer.motionY < 0.0D && !mc.theWorld.getCollidingBoundingBoxes(mc.thePlayer, mc.thePlayer.getEntityBoundingBox().offset(0.0D, -1.0D, 0.0D)).isEmpty()) {
 				mc.thePlayer.motionY -= 1.0f;
             }
 			if (changedtimer) {

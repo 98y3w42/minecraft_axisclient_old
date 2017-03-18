@@ -36,7 +36,7 @@ public class AimAssist extends Module {
 
 	public AimAssist() {
 	      super("AimAssist", 12337730, Category.COMBAT);
-	      Axis.getCommandManager().getContents().add(new Command("aimassist", "<animals/players/mobs>", new String[]{"aa"}) {
+	      Axis.getAxis().getCommandManager().getContents().add(new Command("aimassist", "<animals/players/mobs>", new String[]{"aa"}) {
 	          public void run(String message) {
 	             if(message.split(" ")[1].equalsIgnoreCase("players")) {
 	                AimAssist.this.players.setValue(Boolean.valueOf(!((Boolean)AimAssist.this.players.getValue()).booleanValue()));

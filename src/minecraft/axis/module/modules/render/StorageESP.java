@@ -1,5 +1,29 @@
 package axis.module.modules.render;
 
+import java.awt.Color;
+import java.util.Iterator;
+
+import org.lwjgl.opengl.EXTFramebufferObject;
+import org.lwjgl.opengl.GL11;
+
+import axis.Axis;
+import axis.command.Command;
+import axis.event.events.Render3DEvent;
+import axis.management.managers.ModuleManager;
+import axis.module.Module;
+import axis.util.Logger;
+import axis.util.RenderUtils;
+import axis.value.Value;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderGlobal;
+import net.minecraft.client.renderer.culling.Frustum;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.client.shader.Framebuffer;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBrewingStand;
 import net.minecraft.tileentity.TileEntityChest;
@@ -10,35 +34,6 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderGlobal;
-import net.minecraft.client.renderer.culling.Frustum;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.client.shader.Framebuffer;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.client.renderer.OpenGlHelper;
-
-import java.awt.Color;
-import java.util.Iterator;
-import java.util.List;
-
-import org.lwjgl.opengl.EXTFramebufferObject;
-import org.lwjgl.opengl.GL11;
-
-import axis.Axis;
-import axis.command.Command;
-import axis.event.events.Render3DEvent;
-import axis.management.managers.ModuleManager;
-import axis.management.managers.ModuleManager.Category;
-import axis.module.Module;
-import axis.util.Logger;
-import axis.util.RenderUtils;
-import axis.value.Value;
 
 public class StorageESP
 		extends Module {
@@ -51,7 +46,7 @@ public class StorageESP
 	public StorageESP() {
 		super("StorageESP", -6165654, ModuleManager.Category.RENDER);
 		setTag(mode.getValue());
-		Axis.getCommandManager().getContents().add(new Command("storageesp", "<mode>", new String[] { "chestesp", "storage" }) {
+		Axis.getAxis().getCommandManager().getContents().add(new Command("storageesp", "<mode>", new String[] { "chestesp", "storage" }) {
 			public void run(String message) {
 				if (message.split(" ")[1].equalsIgnoreCase("mode")) {
 					if (message.split(" ")[2].equalsIgnoreCase("Outline")) {

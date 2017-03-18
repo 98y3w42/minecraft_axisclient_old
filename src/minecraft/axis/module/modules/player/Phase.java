@@ -2,29 +2,19 @@ package axis.module.modules.player;
 
 import axis.Axis;
 import axis.event.Event;
-import axis.event.Event.State;
 import axis.event.events.BoundingBoxEvent;
 import axis.event.events.PushOutOfBlocksEvent;
 import axis.event.events.UpdateEvent;
 import axis.management.managers.ModuleManager;
-import axis.management.managers.ModuleManager.Category;
 import axis.module.Module;
 import axis.util.BlockHelper;
-import axis.util.Logger;
 import axis.util.TimeHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.network.play.client.C03PacketPlayer;
-import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovementInput;
 
 public class Phase
 		extends Module {
@@ -70,12 +60,12 @@ public class Phase
 				mc.thePlayer.onGround = false;
 				mc.thePlayer.setSprinting(true);
 				mc.thePlayer.motionY = 0.0F;
-				if (mc.gameSettings.keyBindForward.isKeyDown() && Axis.getModuleManager().getModuleByName("Sprint").isEnabled()) {
+				if (mc.gameSettings.keyBindForward.isKeyDown() && Axis.getAxis().getModuleManager().getModuleByName("Sprint").isEnabled()) {
 					mc.thePlayer.setSprinting(true);
 				}
 			} else if (isInsideBlock()) {
 				mc.thePlayer.noClip = true;
-				if (mc.gameSettings.keyBindForward.isKeyDown() && Axis.getModuleManager().getModuleByName("Sprint").isEnabled()) {
+				if (mc.gameSettings.keyBindForward.isKeyDown() && Axis.getAxis().getModuleManager().getModuleByName("Sprint").isEnabled()) {
 					mc.thePlayer.setSprinting(true);
 				}
 			}

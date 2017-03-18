@@ -570,7 +570,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			}
 
 			Block block = ActiveRenderInfo.getBlockAtEntityViewpoint(this.mc.theWorld, entity, partialTicks);
-			if (!Axis.getModuleManager().getModuleByName("AntiFC").isEnabled()) {
+			if (!Axis.getAxis().getModuleManager().getModuleByName("AntiFC").isEnabled()) {
 				if (block.getMaterial() == Material.water) {
 					f = f * 60.0F / 70.0F;
 				}
@@ -684,7 +684,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 					if (movingobjectposition != null) {
 						double d7 = movingobjectposition.hitVec.distanceTo(new Vec3(d0, d1, d2));
 
-						if (d7 < d3 && !Axis.getModuleManager().getModuleByName("ViewClip").isEnabled()) {
+						if (d7 < d3 && !Axis.getAxis().getModuleManager().getModuleByName("ViewClip").isEnabled()) {
 							d3 = d7;
 						}
 					}
@@ -785,7 +785,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			float f2 = 5.0F / (f1 * f1 + 5.0F) - f1 * 0.04F;
 			f2 = f2 * f2;
 			GlStateManager.rotate(((float) this.rendererUpdateCount + partialTicks) * (float) b0, 0.0F, 1.0F, 1.0F);
-			if (Axis.getModuleManager().getModuleByName("AntiFC").isEnabled()) {
+			if (Axis.getAxis().getModuleManager().getModuleByName("AntiFC").isEnabled()) {
 				GlStateManager.scale(1.0F, 1.0F, 1.0F);
 			} else {
 				GlStateManager.scale(1.0F / f2, 1.0F, 1.0F);
@@ -1399,7 +1399,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		if (flag) {
 			ShadersRender.setupTerrain(renderglobal, entity, (double) partialTicks, frustum, this.frameCount++, this.mc.thePlayer.isSpectator());
 		} else {
-			renderglobal.setupTerrain(entity, (double) partialTicks, frustum, this.frameCount++, Axis.getModuleManager().getModuleByName("Freecam").isEnabled() ? true : this.mc.thePlayer.isSpectator());
+			renderglobal.setupTerrain(entity, (double) partialTicks, frustum, this.frameCount++, Axis.getAxis().getModuleManager().getModuleByName("Freecam").isEnabled() ? true : this.mc.thePlayer.isSpectator());
 		}
 
 		if (pass == 0 || pass == 2) {
@@ -1986,7 +1986,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 		double d1 = (entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) partialTicks) * d2;
 
 		if (entity instanceof EntityLivingBase && ((EntityLivingBase) entity).isPotionActive(Potion.blindness)) {
-			if (!Axis.getModuleManager().getModuleByName("AntiFC").isEnabled()) {
+			if (!Axis.getAxis().getModuleManager().getModuleByName("AntiFC").isEnabled()) {
 				d1 = 1.0D;
 			} else if (entity instanceof EntityLivingBase && ((EntityLivingBase) entity).isPotionActive(Potion.blindness)) {
 				int i = ((EntityLivingBase) entity).getActivePotionEffect(Potion.blindness).getDuration();
@@ -2077,7 +2077,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 			float f1 = Reflector.getFieldValueFloat(object, Reflector.EntityViewRenderEvent_FogDensity_density, 0.0F);
 			GlStateManager.setFogDensity(f1);
 		} else if (entity instanceof EntityLivingBase && ((EntityLivingBase) entity).isPotionActive(Potion.blindness)) {
-			if (!Axis.getModuleManager().getModuleByName("AntiFC").isEnabled()) {
+			if (!Axis.getAxis().getModuleManager().getModuleByName("AntiFC").isEnabled()) {
 				float f2 = 5.0F;
 				int i = ((EntityLivingBase) entity).getActivePotionEffect(Potion.blindness).getDuration();
 
@@ -2112,14 +2112,14 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 			GlStateManager.setFogDensity(0.1F);
 		} else if (block.getMaterial() == Material.water) {
-			if (!Axis.getModuleManager().getModuleByName("AntiFC").isEnabled()) {
+			if (!Axis.getAxis().getModuleManager().getModuleByName("AntiFC").isEnabled()) {
 				if (Config.isShaders()) {
 					Shaders.setFog(2048);
 				} else {
 					GlStateManager.setFog(2048);
 				}
 
-				if (entity instanceof EntityLivingBase && ((EntityLivingBase) entity).isPotionActive(Potion.waterBreathing) || (Axis.getModuleManager().getModuleByName("AntiFC").isEnabled())) {
+				if (entity instanceof EntityLivingBase && ((EntityLivingBase) entity).isPotionActive(Potion.waterBreathing) || (Axis.getAxis().getModuleManager().getModuleByName("AntiFC").isEnabled())) {
 					GlStateManager.setFogDensity(0.01F);
 				} else {
 					GlStateManager.setFogDensity(0.1F - (float) EnchantmentHelper.getRespiration(entity) * 0.03F);
@@ -2130,7 +2130,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 				}
 			}
 		} else if (block.getMaterial() == Material.lava) {
-			if (!Axis.getModuleManager().getModuleByName("AntiFC").isEnabled()) {
+			if (!Axis.getAxis().getModuleManager().getModuleByName("AntiFC").isEnabled()) {
 				if (Config.isShaders()) {
 					Shaders.setFog(2048);
 				} else {

@@ -58,7 +58,6 @@ import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 
 import axis.Axis;
 import axis.event.events.KeyboardEvent;
-import axis.event.events.LeftClickEvent;
 import axis.event.events.TickEvent;
 import axis.util.FontUtil;
 import net.minecraft.block.Block;
@@ -573,7 +572,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 			this.gameSettings.saveOptions();
 		}
 
-		Axis.onStartup();
+		Axis.getAxis().onStartup();
 		this.renderGlobal.makeEntityOutlineShader();
 	}
 
@@ -596,7 +595,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
 	private void createDisplay() throws LWJGLException {
 		Display.setResizable(true);
-		Display.setTitle(Axis.getName() + " " + Axis.getVersion());
+		Display.setTitle(Axis.getAxis().getName() + " " + Axis.getAxis().getVersion());
 
 		try {
 			Display.create((new PixelFormat()).withDepthBits(24));

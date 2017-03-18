@@ -14,7 +14,7 @@ public final class Bind extends Command {
    }
 
    public void run(String message) {
-	   Module mod = Axis.getModuleManager().getModuleByName(message.split(" ")[1]);
+	   Module mod = Axis.getAxis().getModuleManager().getModuleByName(message.split(" ")[1]);
       if(mod == null) {
          Logger.logChat("Module \"" + message.split(" ")[1] + "\" was not found!");
       } else {

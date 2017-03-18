@@ -30,7 +30,6 @@ import com.google.common.collect.Sets;
 import com.google.gson.JsonSyntaxException;
 
 import axis.Axis;
-import axis.module.modules.render.HUD;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockEnderChest;
@@ -96,7 +95,6 @@ import net.minecraft.src.Lagometer;
 import net.minecraft.src.Reflector;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.tileentity.TileEntityEnderChest;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -294,7 +292,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 	}
 
 	public void renderEntityOutlineFramebuffer() {
-		if (this.isRenderEntityOutlines() || Axis.getModuleManager().getModuleByName("OutlinedESP").isEnabled()) {
+		if (this.isRenderEntityOutlines() || Axis.getAxis().getModuleManager().getModuleByName("OutlinedESP").isEnabled()) {
 			GlStateManager.enableBlend();
 			GlStateManager.tryBlendFuncSeparate(770, 771, 0, 1);
 			this.entityOutlineFramebuffer.framebufferRenderExt(this.mc.displayWidth, this.mc.displayHeight, false);
@@ -611,7 +609,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 				}
 			}
 
-			if (this.isRenderEntityOutlines() || Axis.getModuleManager().getModuleByName("OutlinedESP").isEnabled()) {
+			if (this.isRenderEntityOutlines() || Axis.getAxis().getModuleManager().getModuleByName("OutlinedESP").isEnabled()) {
 				GlStateManager.depthFunc(519);
 				GlStateManager.disableFog();
 				this.entityOutlineFramebuffer.framebufferClear();

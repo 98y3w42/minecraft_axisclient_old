@@ -21,7 +21,7 @@ public class Regen extends Module {
 	public Regen() {
 		super("Regen", -8388608, ModuleManager.Category.COMBAT);
 		setTag(currentMode.getValue());
-		Axis.getCommandManager().getContents().add(new Command("regen", "<mode>", new String[]{"cc"}) {
+		Axis.getAxis().getCommandManager().getContents().add(new Command("regen", "<mode>", new String[]{"cc"}) {
 			public void run(String message) {
 				if(message.split(" ")[1].equalsIgnoreCase("mode")) {
 					if (message.split(" ")[2].equalsIgnoreCase("Potion")) {

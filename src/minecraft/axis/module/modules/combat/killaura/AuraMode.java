@@ -40,6 +40,6 @@ public abstract class AuraMode {
 		} else if(name.indexOf("Switch") != -1){
 			return new Switch(killaura);
 		}
-		return ((KillAura)Axis.getModuleManager().getModuleByName("KillAura")).currentMode.getDefaultValue();
+		return ((KillAura)Axis.getAxis().getModuleManager().getModuleByName("KillAura")).currentMode.getDefaultValue();
 	}
 }

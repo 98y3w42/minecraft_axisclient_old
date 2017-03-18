@@ -3,24 +3,15 @@ package axis.module.modules.player;
 import axis.Axis;
 import axis.command.Command;
 import axis.event.Event;
-import axis.event.Event.State;
-import axis.event.events.TickEvent;
 import axis.event.events.UpdateEvent;
 import axis.management.managers.ModuleManager.Category;
 import axis.module.Module;
-import axis.module.modules.combat.KillAura;
 import axis.module.modules.exploits.AutoSetting;
-import axis.module.modules.exploits.LeastCivBreak;
 import axis.util.Logger;
 import axis.util.TimeHelper;
 import axis.value.Value;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.inventory.GuiInventory;
-import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -39,7 +30,7 @@ public class AutoArmor extends Module {
 		super("AutoArmor", 0x00BFFF, Category.PLAYER);
 		this.setDisplayName("Armor");
 		this.setTag("I: " + AutoArmor.this.inventory.getValue().booleanValue() + " C: " + AutoArmor.this.cleaner.getValue().booleanValue());
-		Axis.getCommandManager().getContents().add(new Command("autormor", "<mode>", new String[] { "AutoArmor", "aa" }) {
+		Axis.getAxis().getCommandManager().getContents().add(new Command("autormor", "<mode>", new String[] { "AutoArmor", "aa" }) {
 			public void run(String message) {
 				if (message.split(" ")[1].equalsIgnoreCase("inventory")) {
 					AutoArmor.this.inventory.setValue(Boolean.valueOf(!((Boolean) AutoArmor.this.inventory.getValue()).booleanValue()));

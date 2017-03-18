@@ -23,7 +23,7 @@ public final class FriendManager extends MapManager {
 
 	public String replaceNames(String message, boolean color) {
 		String name;
-		if (!message.contains("§7[§9" + Axis.getName() + "§7]§f")) {
+		if (!message.contains("§7[§9" + Axis.getAxis().getName() + "§7]§f")) {
 			for (Iterator var4 = this.contents.keySet().iterator(); var4
 					.hasNext(); message = message.replaceAll("(?i)" + name, Matcher.quoteReplacement(color ? "§a" + (String) this.contents.get(name) + "§r" : (String) this.contents.get(name)))) {
 				name = (String) var4.next();

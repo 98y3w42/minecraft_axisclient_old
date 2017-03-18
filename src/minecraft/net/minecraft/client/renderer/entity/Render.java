@@ -3,7 +3,6 @@ package net.minecraft.client.renderer.entity;
 import org.lwjgl.opengl.GL11;
 
 import axis.Axis;
-import axis.event.events.NametagRenderEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -313,7 +312,7 @@ public abstract class Render<T extends Entity> {
 	 */
 	protected void renderLivingLabel(Entity entityIn, String str, double x, double y, double z, int maxDistance) {
 		if ((entityIn instanceof EntityPlayer)) {
-			if (Axis.getModuleManager().getModuleByName("Nametags").isEnabled()) {
+			if (Axis.getAxis().getModuleManager().getModuleByName("Nametags").isEnabled()) {
 				return;
 			}
 		}

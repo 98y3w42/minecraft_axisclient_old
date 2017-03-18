@@ -111,8 +111,8 @@ public class GuiAddAlt extends GuiScreen {
 
          try {
             auth.logIn();
-            Axis.getAltManager().getContents().add(new Alt(username, password));
-            Axis.getFileManager().getFileByName("alts").saveFile();
+            Axis.getAxis().getAltManager().getContents().add(new Alt(username, password));
+            Axis.getAxis().getFileManager().getFileByName("alts").saveFile();
             GuiAddAlt.this.status = "§aAlt added. (" + username + ")";
          } catch (AuthenticationException var6) {
             GuiAddAlt.this.status = "§cAlt failed!";
@@ -123,8 +123,8 @@ public class GuiAddAlt extends GuiScreen {
 
       public void run() {
          if(this.password.equals("")) {
-        	Axis.getAltManager().getContents().add(new Alt(this.username, ""));
-        	Axis.getFileManager().getFileByName("alts").saveFile();
+        	Axis.getAxis().getAltManager().getContents().add(new Alt(this.username, ""));
+        	Axis.getAxis().getFileManager().getFileByName("alts").saveFile();
             GuiAddAlt.this.status = "§aAlt added. (" + this.username + " - offline name)";
          } else {
             GuiAddAlt.this.status = "§eTrying alt...";

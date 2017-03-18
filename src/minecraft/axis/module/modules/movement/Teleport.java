@@ -12,13 +12,9 @@ import axis.event.events.Render3DEvent;
 import axis.event.events.UpdateEvent;
 import axis.management.managers.ModuleManager;
 import axis.module.Module;
-import axis.module.modules.render.HUD;
 import axis.util.BlockHelper;
-import axis.util.Camera;
 import axis.util.Logger;
-import axis.util.RenderLatest;
 import axis.util.RenderUtils;
-import axis.util.Stencil;
 import axis.util.moveutil;
 import axis.value.Value;
 import net.minecraft.block.Block;
@@ -26,8 +22,6 @@ import net.minecraft.block.BlockAir;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderGlobal;
-import net.minecraft.client.renderer.culling.Frustum;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.util.AxisAlignedBB;
@@ -45,7 +39,7 @@ public class Teleport
 	public Teleport() {
 		super("Teleport", 0, ModuleManager.Category.MOVEMENT);
 		this.setTag("" + this.currentMode.getValue());
-		Axis.getCommandManager().getContents().add(new Command("teleport", "<mode>", new String[] { "telep", "tp" }) {
+		Axis.getAxis().getCommandManager().getContents().add(new Command("teleport", "<mode>", new String[] { "telep", "tp" }) {
 			public void run(String message) {
 				if (message.split(" ")[1].equalsIgnoreCase("mode")) {
 					if (message.split(" ")[2].equalsIgnoreCase("Normal")) {

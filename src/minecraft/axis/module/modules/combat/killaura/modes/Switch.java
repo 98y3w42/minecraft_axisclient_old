@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 
 import axis.Axis;
-import axis.event.Event.State;
-import axis.event.events.AttackEvent;
 import axis.event.events.PacketSentEvent;
 import axis.event.events.Render3DEvent;
 import axis.event.events.UpdateEvent;
@@ -27,17 +24,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
-import net.minecraft.network.play.client.C02PacketUseEntity;
 import net.minecraft.network.play.client.C03PacketPlayer;
-import net.minecraft.network.play.client.C07PacketPlayerDigging;
-import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
-import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.potion.Potion;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 
@@ -193,7 +182,7 @@ public class Switch extends AuraMode {
 		float sharpLevel = EnchantmentHelper.func_152377_a(this.mc.thePlayer.getHeldItem(), ent.getCreatureAttribute());
 		boolean vanillaCrit = (this.mc.thePlayer.fallDistance > 0.0F) && (!this.mc.thePlayer.onGround) && (!this.mc.thePlayer.isOnLadder()) && (!this.mc.thePlayer.isInWater())
 				&& (!this.mc.thePlayer.isPotionActive(Potion.blindness)) && (this.mc.thePlayer.ridingEntity == null);
-		if ((vanillaCrit) || (Axis.getModuleManager().getModuleByName("Criticals").isEnabled())) {
+		if ((vanillaCrit) || (Axis.getAxis().getModuleManager().getModuleByName("Criticals").isEnabled())) {
 			this.mc.thePlayer.onCriticalHit(ent);
 		}
 		if (sharpLevel > 0.0F) {

@@ -1,17 +1,13 @@
 package net.minecraft.client.gui;
 
-import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -27,8 +23,6 @@ import axis.Axis;
 import axis.module.modules.render.HUD;
 import axis.ui.screens.GuiAltManager;
 import axis.ui.screens.GuiRedeemToken;
-import axis.ui.tabgui.TabGui;
-import axis.util.FontUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -39,7 +33,6 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.realms.RealmsBridge;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.demo.DemoWorldServer;
 import net.minecraft.world.storage.ISaveFormat;
@@ -49,6 +42,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 	private static final AtomicInteger field_175373_f = new AtomicInteger(0);
 	private static final Logger logger = LogManager.getLogger();
 	private static final Random RANDOM = new Random();
+	private Font font = new Font("Comfortaa", Font.BOLD, 32);
 
 	/** Counts the number of screen updates. */
 	private float updateCounter;
@@ -435,25 +429,20 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 		 * this.drawTexturedModalRect(j + 155, k + 0, 0, 45, 155, 44); }
 		 */
 
-		GlStateManager.pushMatrix();
-		GlStateManager.translate((float) (this.width / 2 + 90), 70.0F, 0.0F);
-		GlStateManager.rotate(-20.0F, 0.0F, 0.0F, 1.0F);
-		float f = 1.8F - MathHelper.abs(MathHelper.sin((float) (Minecraft.getSystemTime() % 1000L) / 1000.0F * (float) Math.PI * 2.0F) * 0.1F);
-		f = f * 100.0F / (float) (this.fontRendererObj.getStringWidth("") + 32);
-		GlStateManager.scale(f, f, f);
-		this.drawCenteredString(this.fontRendererObj, "", 0, -8, -256);
-		GlStateManager.scale(7F, 7F, 7F);
-		GlStateManager.popMatrix();
 		GL11.glPushMatrix();
 		// GL11.glScaled(10.5D, 10.3D, 10.3D);
 		ScaledResolution saledresolution = new ScaledResolution(mc);
 		// mc.fontRendererObj.drawStringWithShadow(Hex.getName(), 28.0F, 5.0F,
 		// HUD.color1);
 		int x = saledresolution.getScaledWidth() / 2;
-		HUD.Raleway100.drawStringWithShadow(Axis.getName(), saledresolution.getScaledWidth() / 2 - 50, saledresolution.getScaledHeight() / 5, HUD.color1);
+		HUD.Raleway100.drawStringWithShadow(Axis.getAxis().getName(), saledresolution.getScaledWidth() / 2 - 50, saledresolution.getScaledHeight() / 5, HUD.color1);
 		GL11.glPopMatrix();
 		String s = "Coded @Nanamituki";
-		this.drawString(this.fontRendererObj, s, 2, this.height - 10, HUD.color1);
+		GL11.glPushMatrix();
+		GL11.glScaled(2.0D, 2.0D, 2.0D);
+		this.drawString(this.fontRendererObj, s, 2, this.height/2 - 10, -1);
+		GL11.glPopMatrix();
+		//this.drawString(this.fontRendererObj, s, 2, this.height - 10, HUD.color1);
 		String s1 = "";
 		this.drawString(this.fontRendererObj, s1, this.width - this.fontRendererObj.getStringWidth(s1) - 2, this.height - 10, HUD.color1);
 

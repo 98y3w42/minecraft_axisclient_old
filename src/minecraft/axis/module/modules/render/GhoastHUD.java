@@ -1,20 +1,12 @@
 package axis.module.modules.render;
 
 import axis.Axis;
-import axis.event.Event;
 import axis.event.EventTarget;
 import axis.event.events.DrawScreenEvent;
-import axis.event.events.KeyboardEvent;
-import axis.event.events.UpdateEvent;
 import axis.management.managers.ModuleManager.Category;
 import axis.module.Module;
-import axis.ui.tabgui.TabGui;
-import axis.util.Logger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 
 public class GhoastHUD extends Module {
 
@@ -36,7 +28,7 @@ public class GhoastHUD extends Module {
 	public void onDraw(DrawScreenEvent event) {
 		ScaledResolution scaledRes = new ScaledResolution(mc);
 		if (event.getMessage() == null) {
-			mc.fontRendererObj.drawStringWithShadow(Axis.getName() + " " + Axis.getVersion(), 2.0F, 2.0F, HUD.hexcolor);
+			mc.fontRendererObj.drawStringWithShadow(Axis.getAxis().getName() + " " + Axis.getAxis().getVersion(), 2.0F, 2.0F, HUD.hexcolor);
 			if (sneakkyeheld && !mc.gameSettings.keyBindSneak.pressed) {
 				if (sprinting > 100) {
 					Sprint = false;
@@ -45,11 +37,11 @@ public class GhoastHUD extends Module {
 				sprinting = 0;
 			}
 
-			if ((!Sneak || !mc.gameSettings.keyBindSneak.pressed) && mc.gameSettings.keyBindSprint.pressed && (!Axis.getModuleManager().getModuleByName("Sprint").isEnabled())) {
+			if ((!Sneak || !mc.gameSettings.keyBindSneak.pressed) && mc.gameSettings.keyBindSprint.pressed && (!Axis.getAxis().getModuleManager().getModuleByName("Sprint").isEnabled())) {
 				mc.fontRendererObj.drawStringWithShadow("[Sprinting (Key Held)]", 2.0F, 12.0F, -1);
 				sprintkyeheld = false;
 				sprinting++;
-			} else if ((!Sneak || !mc.gameSettings.keyBindSneak.pressed) && (Axis.getModuleManager().getModuleByName("Sprint").isEnabled())){
+			} else if ((!Sneak || !mc.gameSettings.keyBindSneak.pressed) && (Axis.getAxis().getModuleManager().getModuleByName("Sprint").isEnabled())){
 				if(!sneak1){
 		            mc.fontRendererObj.drawStringWithShadow("[Sprinting (Toggled)]", 2.0F, 12.0F, -1);
 				}
@@ -67,7 +59,7 @@ public class GhoastHUD extends Module {
 				mc.fontRendererObj.drawStringWithShadow("[Sneaking (Key Held)]", 2.0F, 12.0F, -1);
 				sneakkyeheld = true;
 				sneaking++;
-			} else if (Sneak && (!Axis.getModuleManager().getModuleByName("Sprint").isEnabled())) {
+			} else if (Sneak && (!Axis.getAxis().getModuleManager().getModuleByName("Sprint").isEnabled())) {
 				sneak1 = true;
 				mc.fontRendererObj.drawStringWithShadow("[Sneaking (Toggled)]", 2.0F, 12.0F, -1);
 			}else{

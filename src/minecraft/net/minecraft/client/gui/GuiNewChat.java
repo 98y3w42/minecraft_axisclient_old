@@ -95,7 +95,7 @@ public class GuiNewChat extends Gui {
 								byte var20 = 0;
 								int var16 = -var9 * 9;
 								drawRect(var20, var16 - 9, var20 + var8 + 4, var16, var14 / 2 << 24);
-								String var17 = Axis.getFriendManager().replaceNames(var18.getChatComponent().getFormattedText(), true);
+								String var17 = Axis.getAxis().getFriendManager().replaceNames(var18.getChatComponent().getFormattedText(), true);
 								GlStateManager.enableBlend();
 								this.mc.fontRendererObj.drawStringWithShadow(var17, (float) var20, (float) (var16 - 8), 16777215 + (var14 << 24));
 								GlStateManager.disableAlpha();

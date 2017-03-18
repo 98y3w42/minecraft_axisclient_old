@@ -16,7 +16,7 @@ public class KeyboardEvent extends Event
     }
 
     private void onKeyBoard() {
- 	   Iterator modulelist = Axis.getModuleManager().getContents().iterator();
+ 	   Iterator modulelist = Axis.getAxis().getModuleManager().getContents().iterator();
  	   while (modulelist.hasNext())
         {
  		   Module modules = (Module)modulelist.next();

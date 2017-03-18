@@ -1,22 +1,12 @@
 package axis.module.modules.movement;
 
-import axis.Axis;
 import axis.event.Event;
-import axis.event.Event.State;
 import axis.event.events.MoveEvent;
-import axis.event.events.TickEvent;
 import axis.event.events.UpdateEvent;
 import axis.management.managers.ModuleManager;
-import axis.management.managers.ModuleManager.Category;
 import axis.module.Module;
 import axis.util.LiquidUtils;
-import axis.util.Logger;
 import axis.util.TimeHelper;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.settings.GameSettings;
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.potion.Potion;
 
 public class Glide extends Module {
@@ -67,12 +57,12 @@ public class Glide extends Module {
 			switch (this.state) {
 			case 1:
 				Speed.canStep = false;
-				event.y += 0.0001;
+				//event.y += 0.0001;
 				++this.state;
 				break;
 			case 2:
 				Speed.canStep = false;
-				event.y += 0.0002;
+				//event.y += 0.0002;
 				++this.state;
 				break;
 			default:

@@ -25,7 +25,7 @@ public class Step extends Module {
 	public Step() {
 		super("Step", 0x00BFFF, Category.MOVEMENT);
 		setTag(currentMode.getValue());
-		Axis.getCommandManager().getContents().add(new Command("step", "<mode>", new String[]{}) {
+		Axis.getAxis().getCommandManager().getContents().add(new Command("step", "<mode>", new String[]{}) {
 			public void run(String message) {
 				if(message.split(" ")[1].equalsIgnoreCase("mode")) {
 					if (message.split(" ")[2].equalsIgnoreCase("New")) {

@@ -1,12 +1,10 @@
 package axis.module;
 
-import java.awt.Font;
 import java.util.Random;
 
 import axis.Axis;
 import axis.management.managers.ModuleManager;
 import axis.module.modules.render.HUD;
-import axis.util.FontUtils;
 import axis.util.Logger;
 import net.minecraft.client.Minecraft;
 
@@ -101,11 +99,11 @@ public abstract class Module {
 	}
 
 	public void onDisabled() {
-		Axis.getEventManager().unregister(this);
+		Axis.getAxis().getEventManager().unregister(this);
 	}
 
 	public void onEnabled() {
-		Axis.getEventManager().register(this);
+		Axis.getAxis().getEventManager().register(this);
 	}
 
 	public void setColor(int color) {
@@ -114,8 +112,8 @@ public abstract class Module {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
-		if (Axis.getFileManager().getFileByName("modconfig") != null) {
-			Axis.getFileManager().getFileByName("modconfig").saveFile();
+		if (Axis.getAxis().getFileManager().getFileByName("modconfig") != null) {
+			Axis.getAxis().getFileManager().getFileByName("modconfig").saveFile();
 		}
 
 		if (this.enabled) {
@@ -128,8 +126,8 @@ public abstract class Module {
 
 	public void setKeybind(int keybind) {
 		this.keybind = keybind;
-		if (Axis.getFileManager().getFileByName("modconfig") != null) {
-			Axis.getFileManager().getFileByName("modconfig").saveFile();
+		if (Axis.getAxis().getFileManager().getFileByName("modconfig") != null) {
+			Axis.getAxis().getFileManager().getFileByName("modconfig").saveFile();
 		}
 
 	}
@@ -140,13 +138,13 @@ public abstract class Module {
 
 	public void toggle() {
 		this.enabled = !this.enabled;
-		if (Axis.getFileManager().getFileByName("modconfig") != null) {
-			Axis.getFileManager().getFileByName("modconfig").saveFile();
+		if (Axis.getAxis().getFileManager().getFileByName("modconfig") != null) {
+			Axis.getAxis().getFileManager().getFileByName("modconfig").saveFile();
 		}
 
 		if (this.enabled) {
 			onEnabled();
-			if (Axis.getModuleManager().getModuleByName("ToggleLogger").isEnabled()) {
+			if (Axis.getAxis().getModuleManager().getModuleByName("ToggleLogger").isEnabled()) {
 				Logger.logChat("Mod \"" + this.getName() + "\" was toggled §2on §f.");
 			}
 			int i = 0;
@@ -160,7 +158,7 @@ public abstract class Module {
 			}
 		} else {
 			onDisabled();
-			if (Axis.getModuleManager().getModuleByName("ToggleLogger").isEnabled()) {
+			if (Axis.getAxis().getModuleManager().getModuleByName("ToggleLogger").isEnabled()) {
 				Logger.logChat("Mod \"" + this.getName() + "\" was toggled §4off §f.");
 			}
 			int i = 0;

@@ -39,7 +39,7 @@ public class FullBright extends Module implements Runnable {
 	public void run() {
 		if (value) {
 	    	for (;mc.gameSettings.gammaSetting < 10.0F;) {
-	    		if (Axis.getModuleManager().getModuleByName("FullBright").isEnabled()) {
+	    		if (Axis.getAxis().getModuleManager().getModuleByName("FullBright").isEnabled()) {
 	    			mc.gameSettings.gammaSetting += 10.0F;
 	    		} else {
 	    			break;
@@ -53,7 +53,7 @@ public class FullBright extends Module implements Runnable {
 		}
 		if (!value) {
 			for (;mc.gameSettings.gammaSetting > 0.5F;) {
-	    		if (!Axis.getModuleManager().getModuleByName("FullBright").isEnabled()) {
+	    		if (!Axis.getAxis().getModuleManager().getModuleByName("FullBright").isEnabled()) {
 	    			mc.gameSettings.gammaSetting -= 1.0F;
 	    		} else {
 	    			break;
