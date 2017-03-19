@@ -166,8 +166,8 @@ public class Multi extends AuraMode {
 
 							event.yaw = rotations[0];
 							event.pitch = rotations[1];
-							killAura.onAttack(targets1.get(i));
 							Logger.logChat("" + targets1.get(i).getEntityId());
+							killAura.onAttack(targets1.get(i));
 						}
 					}
 					this.loop = false;

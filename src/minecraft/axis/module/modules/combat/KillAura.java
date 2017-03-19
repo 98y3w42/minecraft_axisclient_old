@@ -29,6 +29,7 @@ import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraft.network.play.client.C02PacketUseEntity;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
@@ -81,6 +82,9 @@ public class KillAura extends Module {
 				} else if (message.split(" ")[1].equalsIgnoreCase("sameteam")) {
 					values.setValue("sameteam", !(Boolean) values.getValue("sameteam"));
 					Logger.logChat("SameTeam: " + (Boolean) values.getValue("sameteam"));
+				} else if (message.split(" ")[1].equalsIgnoreCase("autoblock")) {
+					values.setValue("autoblock", !(Boolean) values.getValue("autoblock"));
+					Logger.logChat("AutoBlock: " + (Boolean) values.getValue("autoblock"));
 				} else if (message.split(" ")[1].equalsIgnoreCase("type")) {
 					if (message.split(" ")[2].equalsIgnoreCase("None")) {
 						values.setValue("type", "None");
@@ -184,10 +188,10 @@ public class KillAura extends Module {
 
 	public void onValueSetup() {
 		super.onValueSetup();
-		values.addValue("delay", 80L);
+		values.addValue("delay", 144L);
 		values.addValue("randomdelay", 5L);
 		values.addValue("range", 4.8);
-		values.addValue("maxtarget", 3);
+		values.addValue("maxtarget", 2);
 		values.addValue("fov", 360);
 		values.addValue("type", "None");
 		values.addValue("lockview", false);
@@ -199,6 +203,7 @@ public class KillAura extends Module {
 		values.addValue("tick", false);
 		values.addValue("hurttime", false);
 		values.addValue("sameteam", true);
+		values.addValue("autoblock", false);
 	}
 
 	public void onEnabled() {
@@ -236,13 +241,17 @@ public class KillAura extends Module {
 			if (Multi.targets1size == 0 && Switch.pseudoTarget == null) {
 				this.kl++;
 				if (this.kl >= 900) {
-					Logger.logChat("Reload");//なぜかtimehelperだとうまくいかなかった
+					Logger.logChat("Reload");// なぜかtimehelperだとうまくいかなかった
 					this.test();
 					this.kl = 0;
 				}
 			} else {
 				this.kl = 0;
 			}
+		}
+		if ((Boolean) values.getValue("autoblock") && !mc.thePlayer.isBlocking() && ((Multi.targets1size > 0) || (Switch.pseudoTarget != null)) && (mc.thePlayer.getHeldItem() != null)
+				&& (mc.thePlayer.getHeldItem().getItem() instanceof ItemSword)) {
+            mc.thePlayer.setItemInUse(mc.thePlayer.getCurrentEquippedItem(), 100);
 		}
 		currentMode.getValue().onUpdate(event);
 	}
@@ -290,9 +299,6 @@ public class KillAura extends Module {
 
 		if (mc.thePlayer.getCurrentEquippedItem() != null) {
 			mc.thePlayer.getCurrentEquippedItem().setItemDamage(oldDamage);
-		}
-
-		if ((Boolean) values.getValue("autoblock") && !mc.thePlayer.isBlocking()) {
 		}
 
 		if (b4sprinting) {
@@ -421,6 +427,9 @@ public class KillAura extends Module {
 				}
 				if (!isIDValid((EntityPlayer) (entity))) {
 					Logger.logChat("ID");
+					return false;
+				}
+				if (!this.array.contains(entity.getEntityId())) {
 					return false;
 				}
 			}
