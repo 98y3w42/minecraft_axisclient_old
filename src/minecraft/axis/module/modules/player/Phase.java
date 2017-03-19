@@ -68,7 +68,8 @@ public class Phase
 				if (mc.gameSettings.keyBindForward.isKeyDown() && Axis.getAxis().getModuleManager().getModuleByName("Sprint").isEnabled()) {
 					mc.thePlayer.setSprinting(true);
 				}
-			} else if (isInsideBlock()) {
+			}
+			if (isInsideBlock()) {
 				if (isInsideFence()) {
 					multiplier = 0.3D;
 					mx = Math.cos(Math.toRadians(mc.thePlayer.rotationYaw + 90.0F));
@@ -98,7 +99,7 @@ public class Phase
 			event.boundingBox = null;
 		}
 		if (isInsideBlock()) {
-			if ((((int) (event.pos.getX() + 1) == (int) (mc.thePlayer.posX)) || ((int) (event.pos.getZ() + 1) == (int) (mc.thePlayer.posZ))) && (!((int) (event.pos.getY() - 1) == (int) (mc.thePlayer.posZ)))) {
+			if ((((int) (event.pos.getX()) == (int) (mc.thePlayer.posX)) || ((int) (event.pos.getZ()) == (int) (mc.thePlayer.posZ))) && (!((int) (event.pos.getY()) == (int) (mc.thePlayer.posY - 1)))) {
 				event.boundingBox = null;
 			}
 		}
@@ -110,7 +111,8 @@ public class Phase
 				for (int z = MathHelper.floor_double(mc.thePlayer.boundingBox.minZ); z < MathHelper.floor_double(mc.thePlayer.boundingBox.maxZ) + 1; z++) {
 					Block block = mc.theWorld.getBlockState(new BlockPos(x, y, z)).getBlock();
 					AxisAlignedBB boundingBox;
-					if ((block != null) && ((block instanceof BlockFence) || (block instanceof BlockPane)) && ((boundingBox = block.getCollisionBoundingBox(mc.theWorld, new BlockPos(x, y, z), mc.theWorld.getBlockState(new BlockPos(x, y, z)))) != null) &&
+					if ((block != null) && ((block instanceof BlockFence) || (block instanceof BlockPane))
+							&& ((boundingBox = block.getCollisionBoundingBox(mc.theWorld, new BlockPos(x, y, z), mc.theWorld.getBlockState(new BlockPos(x, y, z)))) != null) &&
 							(mc.thePlayer.boundingBox.intersectsWith(boundingBox))) {
 						return true;
 					}
