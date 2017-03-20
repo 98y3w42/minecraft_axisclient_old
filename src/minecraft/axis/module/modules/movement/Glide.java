@@ -62,12 +62,12 @@ public class Glide extends Module {
 			switch (this.state) {
 			case 1:
 				Speed.canStep = false;
-				// event.y += 0.0001;
+				event.y += 0.0001;
 				++this.state;
 				break;
 			case 2:
 				Speed.canStep = false;
-				// event.y += 0.0002;
+				event.y += 0.0002;
 				++this.state;
 				break;
 			default:

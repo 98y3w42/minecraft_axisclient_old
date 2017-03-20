@@ -34,6 +34,7 @@ public class MineZ extends SpeedMode implements Mode {
 			return;
 		}
 		if (mc.gameSettings.keyBindJump.isKeyDown() || !(mc.thePlayer.onGround)) {
+			net.minecraft.util.Timer.timerSpeed = 1.0F;
 			return;
 		}
 		Speed.canStep = true;
@@ -68,10 +69,13 @@ public class MineZ extends SpeedMode implements Mode {
 			net.minecraft.util.Timer.timerSpeed = 1.0F;
 			switch (this.stage) {
 			case 1:
-				// net.minecraft.util.Timer.timerSpeed = 1.3F;
+				if (mc.thePlayer.getItemInUseCount() == 0) {
+					net.minecraft.util.Timer.timerSpeed = 1.3F;
+				}
 				this.moveSpeed = 0.579D;
 				break;
 			case 2:
+				net.minecraft.util.Timer.timerSpeed = 1.0F;
 				this.moveSpeed = 0.66787F;
 				break;
 			default:
