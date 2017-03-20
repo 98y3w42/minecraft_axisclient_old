@@ -102,7 +102,9 @@ public class Phase
 			event.boundingBox = null;
 		}
 		if (isInsideBlock()) {
-			if ((((int) (event.pos.getX()) == (int) (mc.thePlayer.posX)) || ((int) (event.pos.getZ()) == (int) (mc.thePlayer.posZ))) && (!((int) (event.pos.getY()) == (int) (mc.thePlayer.posY - 1)))) {
+			if ((((int) (event.pos.getX()) == (int) (mc.thePlayer.posX)) || ((int) (event.pos.getZ()) == (int) (mc.thePlayer.posZ) || (int) (event.pos.getX() - 1) == (int) (mc.thePlayer.posX))
+					|| ((int) (event.pos.getZ() - 1) == (int) (mc.thePlayer.posZ) || (int) (event.pos.getX() + 1) == (int) (mc.thePlayer.posX)) || ((int) (event.pos.getZ() + 1) == (int) (mc.thePlayer.posZ)))
+					&& (!((int) (event.pos.getY()) == (int) (mc.thePlayer.posY - 1)))) {
 				event.boundingBox = null;
 			}
 		}

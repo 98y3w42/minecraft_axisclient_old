@@ -18,7 +18,7 @@ public class LayerCape implements LayerRenderer<AbstractClientPlayer> {
 	}
 
 	public void doRenderLayer(AbstractClientPlayer entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
-		boolean friend = Axis.getAxis().getFriendManager().isFriend(entitylivingbaseIn.getName()) || Minecraft.getMinecraft().thePlayer.getName().equals(entitylivingbaseIn.getName());
+		boolean friend = Axis.getAxis().getFriendManager().isFriend(entitylivingbaseIn.getName());
 		if ((entitylivingbaseIn.hasPlayerInfo() || friend) && !entitylivingbaseIn.isInvisible() && (entitylivingbaseIn.isWearing(EnumPlayerModelParts.CAPE) || friend) && (entitylivingbaseIn.getLocationCape() != null || friend)) {
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 			this.playerRenderer
