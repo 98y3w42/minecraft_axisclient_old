@@ -314,13 +314,6 @@ public class ItemRenderer {
 				this.transformFirstPersonItem(f, f1);
 			} else if (entityplayersp.getItemInUseCount() > 0) {
 				EnumAction enumaction = this.itemToRender.getItemUseAction();
-				if ((Axis.getAxis().getModuleManager().getModuleByName("SwordAnimation").isEnabled() && mc.thePlayer.getHeldItem().getItem() instanceof ItemSword && mc.gameSettings.keyBindRight.isKeyDown())
-						|| ItemRenderer.ItemRenderer$1.field_178094_a[enumaction.ordinal()] == 4) {
-					this.transformFirstPersonItem(f + 0.2F, f1);
-					this.func_178103_d();
-					GL11.glTranslatef(-0.5F, 0.2F, 0.0F);
-				}
-
 				switch (ItemRenderer.ItemRenderer$1.field_178094_a[enumaction.ordinal()]) {
 				case 1:
 					this.transformFirstPersonItem(f, 0.0F);
@@ -331,13 +324,10 @@ public class ItemRenderer {
 					this.transformFirstPersonItem(f, f1);
 					break;
 				case 4:
-					if (!Axis.getAxis().getModuleManager().getModuleByName("SwordAnimation").isEnabled()) {
-						this.transformFirstPersonItem(f + 0.2F, f1);
-						this.func_178103_d();
-						GL11.glTranslatef(-0.5F, 0.2F, 0.0F);
-					}
+					this.transformFirstPersonItem(f + 0.2F, f1);
+					this.func_178103_d();
+					GL11.glTranslatef(-0.5F, 0.2F, 0.0F);
 					break;
-
 				case 5:
 					this.transformFirstPersonItem(f, 0.0F);
 					this.func_178098_a(partialTicks, entityplayersp);

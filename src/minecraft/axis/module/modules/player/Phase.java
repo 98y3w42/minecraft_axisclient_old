@@ -47,6 +47,9 @@ public class Phase
 	}
 
 	public void onUpdate(UpdateEvent event) {
+		if (Axis.getAxis().getModuleManager().getModuleByName("Freecam").isEnabled()) {
+			return;
+		}
 		if (event.state == Event.State.POST) {
 			double multiplier = 0.3D;
 			double mx = Math.cos(Math.toRadians(mc.thePlayer.rotationYaw + 90.0F));
