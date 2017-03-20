@@ -1,9 +1,9 @@
 package axis.module.modules.movement.speed.modes;
 
 import axis.event.Event;
-import axis.event.events.AttackEvent;
 import axis.event.events.MoveEvent;
 import axis.event.events.UpdateEvent;
+import axis.module.Mode;
 import axis.module.modules.movement.Speed;
 import axis.module.modules.movement.speed.SpeedMode;
 import axis.util.LiquidUtils;
@@ -11,7 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.MovementInput;
 import net.minecraft.util.Timer;
 
-public class MineZ extends SpeedMode {
+public class MineZ extends SpeedMode implements Mode {
 
 	private int stage = 1;
 	private double moveSpeed = 0.2873D;
@@ -21,8 +21,8 @@ public class MineZ extends SpeedMode {
 	private int fa = 0;
 	public static int wait;
 
-	public MineZ(Speed speed) {
-		super("MineZ", speed);
+	public MineZ() {
+		super("MineZ");
 	}
 
 	public void onMove(MoveEvent event) {

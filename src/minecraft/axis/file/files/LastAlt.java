@@ -12,7 +12,7 @@ import axis.util.Alt;
 
 public final class LastAlt extends CustomFile {
    public LastAlt() {
-      super("lastalt");
+      super("lastalt", true);
    }
 
    public void loadFile() {

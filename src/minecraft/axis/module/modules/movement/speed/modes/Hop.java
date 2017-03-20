@@ -3,22 +3,16 @@ package axis.module.modules.movement.speed.modes;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import axis.event.Event;
 import axis.event.events.MoveEvent;
 import axis.event.events.UpdateEvent;
-import axis.module.modules.movement.Speed;
+import axis.module.Mode;
 import axis.module.modules.movement.speed.SpeedMode;
 import axis.util.LiquidUtils;
-import axis.util.Logger;
-import axis.util.MathUtils;
 import axis.util.TimeHelper;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.util.MovementInput;
-import net.minecraft.util.Timer;
 
-public class Hop extends SpeedMode {
+public class Hop extends SpeedMode implements Mode {
 
 	private boolean forward;
 	private int stage;
@@ -28,8 +22,8 @@ public class Hop extends SpeedMode {
 	private TimeHelper timer = new TimeHelper();
 	private TimeHelper time = new TimeHelper();
 
-	public Hop(Speed speed) {
-		super("Hop", speed);
+	public Hop() {
+		super("Hop");
 	}
 
 	public void onMove(MoveEvent event) {

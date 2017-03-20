@@ -13,7 +13,7 @@ import axis.util.Alt;
 
 public final class Alts extends CustomFile {
 	public Alts() {
-		super("alts");
+		super("alts", true);
 	}
 
 	public void loadFile() {

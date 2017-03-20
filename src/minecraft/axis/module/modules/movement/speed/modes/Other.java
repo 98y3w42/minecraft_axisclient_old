@@ -5,7 +5,7 @@ import java.util.Iterator;
 import axis.Axis;
 import axis.event.events.MoveEvent;
 import axis.event.events.UpdateEvent;
-import axis.module.modules.movement.Speed;
+import axis.module.Mode;
 import axis.module.modules.movement.Step;
 import axis.module.modules.movement.speed.SpeedMode;
 import axis.util.BlockHelper;
@@ -14,7 +14,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
 
-public class Other extends SpeedMode {
+public class Other extends SpeedMode implements Mode {
 
 	private int state = 1;
 	private double moveSpeed = 0.2873D;
@@ -23,8 +23,8 @@ public class Other extends SpeedMode {
 	private boolean spedUp;
 	public static int wait;
 
-	public Other(Speed speed) {
-		super("Other", speed);
+	public Other() {
+		super("Other");
 	}
 
 	public void onMove(MoveEvent event) {

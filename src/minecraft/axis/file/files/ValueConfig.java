@@ -12,15 +12,13 @@ import axis.Axis;
 import axis.file.CustomFile;
 import axis.module.modules.combat.KillAura;
 import axis.module.modules.combat.killaura.AuraMode;
-import axis.module.modules.movement.Speed;
-import axis.module.modules.movement.speed.SpeedMode;
 import axis.value.Value;
 
 public class ValueConfig extends CustomFile {
 	private Value[] values;
 
 	public ValueConfig() {
-		super("valueconfig");
+		super("valueconfig", true);
 	}
 
 	public void loadFile() {
@@ -60,8 +58,6 @@ public class ValueConfig extends CustomFile {
 							value.setValue(String.valueOf(arguments[1]));
 						} else if (value.isValueAuraMode) {
 							value.setValue(AuraMode.getMode(arguments[1], ((KillAura) Axis.getAxis().getModuleManager().getModuleByName("KillAura"))));
-						} else if (value.isValueSpeedMode) {
-							value.setValue(SpeedMode.getMode(arguments[1], ((Speed) Axis.getAxis().getModuleManager().getModuleByName("Speed"))));
 						}
 					}
 				}

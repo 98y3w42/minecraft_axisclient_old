@@ -3,20 +3,20 @@ package axis.module.modules.movement.speed.modes;
 import axis.event.Event;
 import axis.event.events.MoveEvent;
 import axis.event.events.UpdateEvent;
-import axis.module.modules.movement.Speed;
+import axis.module.Mode;
 import axis.module.modules.movement.speed.SpeedMode;
 import axis.util.MathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.MovementInput;
 
-public class Bhop extends SpeedMode {
+public class Bhop extends SpeedMode implements Mode {
 
 	private int state = 1;
 	private double moveSpeed;
 	private double lastDist;
 
-	public Bhop(Speed speed) {
-		super("Bhop", speed);
+	public Bhop() {
+		super("Bhop");
 	}
 
 	public void onMove(MoveEvent event) {

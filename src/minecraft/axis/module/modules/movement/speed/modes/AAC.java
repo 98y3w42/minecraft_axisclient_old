@@ -2,24 +2,24 @@ package axis.module.modules.movement.speed.modes;
 
 import axis.event.Event;
 import axis.event.events.MoveEvent;
-import axis.event.events.TickEvent;
 import axis.event.events.UpdateEvent;
-import axis.module.modules.movement.Speed;
+import axis.module.Mode;
 import axis.module.modules.movement.speed.SpeedMode;
 import axis.util.Logger;
 import axis.util.MathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.MovementInput;
 
-public class AAC extends SpeedMode {
+public class AAC extends SpeedMode implements Mode {
 
 	private int state = 1;
 	private double moveSpeed;
 	private double lastDist;
 	private boolean motionMultiplied;
 
-	public AAC(Speed speed) {
-		super("AAC", speed);
+	public AAC() {
+		super("AAC");
+		Logger.logChat("test");
 	}
 
 	public void onMove(MoveEvent event) {

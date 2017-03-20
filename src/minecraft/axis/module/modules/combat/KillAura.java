@@ -41,7 +41,7 @@ import net.minecraft.util.Timer;
 
 public class KillAura extends Module {
 
-	public final Value<AuraMode> currentMode = new Value<>("killaura_mode", new Multi(this));
+	public final Value<AuraMode> currentMode = new Value<>("killaura_mode", new Multi());
 	private final Random random = new Random();
 	private KillAura aura1 = this;
 	private ArrayList array = new ArrayList<Integer>();
@@ -162,11 +162,11 @@ public class KillAura extends Module {
 					Logger.logChat("Kill Aura Max Target set to: " + (Integer) values.getValue("maxtarget"));
 				} else if (message.split(" ")[1].equalsIgnoreCase("mode")) {
 					if (message.split(" ")[2].equalsIgnoreCase("Multi")) {
-						currentMode.setValue(new Multi(aura1));
+						currentMode.setValue(new Multi());
 						Logger.logChat("Kill Aura mode set to Multi");
 						setDisplayName("Multi Aura");
 					} else if (message.split(" ")[2].equalsIgnoreCase("Switch")) {
-						currentMode.setValue(new Switch(aura1));
+						currentMode.setValue(new Switch());
 						Logger.logChat("Kill Aura mode set to Switch");
 						setDisplayName("Switch Aura");
 					}
@@ -208,11 +208,12 @@ public class KillAura extends Module {
 
 	public void onEnabled() {
 		super.onEnabled();
+		Logger.logChat("" + values.getValue("range"));
 		if (AutoSetting.setting.getValue().equalsIgnoreCase("Anni")) {
 			values.setValue("maxtarget", Integer.valueOf(2));
 			values.setValue("delay", 200L);
 			values.setValue("hurttime", true);
-			currentMode.setValue(new Multi(aura1));
+			currentMode.setValue(new Multi());
 			values.setValue("type", "Anni");
 			setDisplayName("Multi Aura");
 			setTag((String) values.getValue("type"));
@@ -221,7 +222,7 @@ public class KillAura extends Module {
 			values.setValue("delay", 144L);
 			values.setValue("hurttime", false);
 			values.setValue("tick", false);
-			currentMode.setValue(new Multi(aura1));
+			currentMode.setValue(new Multi());
 			values.setValue("type", "Hypixel");
 			setDisplayName("Multi Aura");
 			setTag((String) values.getValue("type"));

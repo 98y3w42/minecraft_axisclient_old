@@ -9,7 +9,7 @@ import axis.Axis;
 import axis.event.events.PacketSentEvent;
 import axis.event.events.Render3DEvent;
 import axis.event.events.UpdateEvent;
-import axis.module.modules.combat.KillAura;
+import axis.module.Mode;
 import axis.module.modules.combat.killaura.AuraMode;
 import axis.util.ColorUtil;
 import axis.util.EntityUtils;
@@ -30,7 +30,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 
-public class Switch extends AuraMode {
+public class Switch extends AuraMode implements Mode {
 
 	private double blockRange = 8.0D;
 	private TimeHelper pseudoTimer = new TimeHelper();
@@ -43,8 +43,8 @@ public class Switch extends AuraMode {
 	private double range = 4.8D;
 	private int rendercolor = ColorUtil.color(255, 0, 0, 255);
 
-	public Switch(KillAura killAura) {
-		super("Switch", killAura);
+	public Switch() {
+		super("Switch");
 	}
 
 	public void onUpdate(UpdateEvent event) {

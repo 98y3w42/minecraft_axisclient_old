@@ -2,18 +2,14 @@ package axis.module.modules.movement.speed.modes;
 
 import axis.event.Event;
 import axis.event.events.MoveEvent;
-import axis.event.events.TickEvent;
 import axis.event.events.UpdateEvent;
-import axis.module.modules.movement.Speed;
+import axis.module.Mode;
 import axis.module.modules.movement.speed.SpeedMode;
-import axis.util.Logger;
-import axis.util.MathUtils;
 import axis.util.TimeHelper;
-import axis.util.moveutil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.MovementInput;
 
-public class LowHop extends SpeedMode {
+public class LowHop extends SpeedMode implements Mode {
 
 	private int state = 1;
 	private double moveSpeed;
@@ -22,8 +18,8 @@ public class LowHop extends SpeedMode {
 	private TimeHelper timer = new TimeHelper();
 	private boolean ff = false;
 
-	public LowHop(Speed speed) {
-		super("LowHop", speed);
+	public LowHop() {
+		super("LowHop");
 	}
 
 	public void onMove(MoveEvent event) {

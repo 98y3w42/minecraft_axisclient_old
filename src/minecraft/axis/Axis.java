@@ -12,6 +12,7 @@ import axis.management.managers.CommandManager;
 import axis.management.managers.EventManager;
 import axis.management.managers.FileManager;
 import axis.management.managers.FriendManager;
+import axis.management.managers.ModeManager;
 import axis.management.managers.ModuleManager;
 import axis.management.managers.ValueManager;
 import axis.module.Module;
@@ -31,6 +32,7 @@ public class Axis {
 	private EventManager eventManager = new EventManager();
 	private FileManager fileManager = new FileManager();
 	private ModuleManager moduleManager = new ModuleManager();
+	private ModeManager modeManager = new ModeManager();
 	private CommandManager commandManager = new CommandManager();
 	private ValueManager valueManager = new ValueManager();
 	private FriendManager friendManager = new FriendManager();
@@ -40,7 +42,7 @@ public class Axis {
 
 	public Axis() {
 		theAxis = this;
-		Display.setTitle(Axis.getAxis().getName() + " " + Axis.getAxis().getVersion());
+		Display.setTitle(getName() + " " + getVersion());
 	}
 
 	public static Axis getAxis() {
@@ -74,6 +76,10 @@ public class Axis {
 		return moduleManager;
 	}
 
+	public ModeManager getModeManager() {
+		return modeManager;
+	}
+
 	public FileManager getFileManager() {
 		return fileManager;
 	}
@@ -87,6 +93,7 @@ public class Axis {
 		friendManager.setup();
 		getCommandManager().setup();
 		getModuleManager().setup();
+		getModeManager().setup();
 		getAltManager().setup();
 		getFileManager().setup();
 		Minecraft.getMinecraft().ingameGUI.persistantChatGUI = new HexNewChat(Minecraft.getMinecraft());

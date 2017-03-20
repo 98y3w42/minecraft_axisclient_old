@@ -5,13 +5,13 @@ import java.io.File;
 import axis.Axis;
 
 public abstract class CustomFile {
-   private final File file;
-   private final String name;
+   private File file;
+   private String name;
 
-   public CustomFile(String name) {
+   public CustomFile(String name, Boolean txt) {
       this.name = name;
       this.file = new File(Axis.getAxis().getDirectory(), name + ".txt");
-      if(!this.file.exists()) {
+      if(!this.file.exists() && txt) {
          this.saveFile();
       }
 

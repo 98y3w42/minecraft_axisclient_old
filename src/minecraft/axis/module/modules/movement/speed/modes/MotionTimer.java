@@ -1,32 +1,25 @@
 package axis.module.modules.movement.speed.modes;
 
 import java.util.Iterator;
-import java.util.List;
 
 import axis.event.Event;
 import axis.event.events.MoveEvent;
 import axis.event.events.UpdateEvent;
+import axis.module.Mode;
 import axis.module.modules.movement.Speed;
 import axis.module.modules.movement.speed.SpeedMode;
 import axis.util.LiquidUtils;
-import axis.util.Logger;
 import axis.util.RotationUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.client.settings.GameSettings;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovementInput;
 import net.minecraft.util.Timer;
 
-public class MotionTimer
-		extends SpeedMode {
+public class MotionTimer extends SpeedMode implements Mode {
 	private boolean newest;
 	private int ticks;
 	private int turnTicks;
@@ -37,8 +30,8 @@ public class MotionTimer
 	private int state = 1;
 	private double moveSpeed;
 
-	public MotionTimer(Speed speed) {
-		super("MotionTimer", speed);
+	public MotionTimer() {
+		super("MotionTimer");
 	}
 
 	public void onUpdate(UpdateEvent event) {

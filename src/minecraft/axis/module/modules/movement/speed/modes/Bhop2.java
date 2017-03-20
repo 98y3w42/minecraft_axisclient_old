@@ -4,20 +4,16 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Random;
 
-import axis.event.Event;
 import axis.event.events.MoveEvent;
 import axis.event.events.UpdateEvent;
-import axis.module.modules.movement.Speed;
+import axis.module.Mode;
 import axis.module.modules.movement.speed.SpeedMode;
 import axis.util.Logger;
-import axis.util.MathUtils;
 import axis.util.TimeHelper;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.util.MovementInput;
 import net.minecraft.util.Timer;
 
-public class Bhop2 extends SpeedMode {
+public class Bhop2 extends SpeedMode implements Mode {
 
 	private boolean forward;
 	private int stage;
@@ -27,8 +23,8 @@ public class Bhop2 extends SpeedMode {
 	private TimeHelper time = new TimeHelper();
 	private boolean fast = false;
 
-	public Bhop2(Speed speed) {
-		super("Bhop2", speed);
+	public Bhop2() {
+		super("Bhop2");
 	}
 
 	public void onMove(MoveEvent event) {

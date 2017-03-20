@@ -13,7 +13,7 @@ import axis.file.CustomFile;
 
 public final class Friends extends CustomFile {
 	public Friends() {
-		super("friends");
+		super("friends", true);
 	}
 
 	public void loadFile() {

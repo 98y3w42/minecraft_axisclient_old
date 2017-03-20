@@ -16,7 +16,7 @@ import axis.module.Module;
 
 public final class ModConfig extends CustomFile {
    public ModConfig() {
-      super("modconfig");
+      super("modconfig", true);
    }
 
    public void loadFile() {

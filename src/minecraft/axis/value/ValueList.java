@@ -1,13 +1,14 @@
 package axis.value;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import axis.Axis;
 
-public class ValueList<T> {
+public class ValueList<T> implements Serializable {
 	private String name;
-	public HashMap<String, T> values = new HashMap();
-	public HashMap<String, T> defaultValues = new HashMap();
+	public final HashMap<String, T> values = new HashMap();
+	public final HashMap<String, T> defaultValues = new HashMap();
 
 	public ValueList(String name) {
 		this.name = name;
@@ -17,21 +18,21 @@ public class ValueList<T> {
 		return this.name;
 	}
 
-	public void addValue(String name, T value) {
+	public void addValue(final String name, final T value) {
 		values.put(name, value);
 		defaultValues.put(name, value);
 	}
 
-	public T getValue(String name) {
+	public T getValue(final String name) {
 		return values.get(name);
 	}
 
-	public final T getDefaultValue(String name) {
+	public final T getDefaultValue(final String name) {
 		return defaultValues.get(name);
 	}
 
-	public void setValue(String name, T value) {
+	public void setValue(final String name, final T value) {
 		values.put(name, value);
-		Axis.getAxis().getFileManager().getFileByName("valueconfig").saveFile();
+		Axis.getAxis().getFileManager().getFileByName("valueconfig2").saveFile();
 	}
 }

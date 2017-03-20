@@ -7,7 +7,7 @@ import axis.event.Event.State;
 import axis.event.events.PacketSentEvent;
 import axis.event.events.Render3DEvent;
 import axis.event.events.UpdateEvent;
-import axis.module.modules.combat.KillAura;
+import axis.module.Mode;
 import axis.module.modules.combat.killaura.AuraMode;
 import axis.util.ColorUtil;
 import axis.util.EntityUtils;
@@ -24,7 +24,7 @@ import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 
-public class Multi extends AuraMode {
+public class Multi extends AuraMode implements Mode {
 
 	private TimeHelper time = new TimeHelper();
 	private TimeHelper time1 = new TimeHelper();
@@ -41,8 +41,8 @@ public class Multi extends AuraMode {
 	private int rendercolor = ColorUtil.color(255, 0, 0, 255);
 	public static int targets1size = 0;
 
-	public Multi(KillAura killAura) {
-		super("Multi", killAura);
+	public Multi() {
+		super("Multi");
 	}
 
 	public void onUpdate(UpdateEvent event) {

@@ -12,12 +12,11 @@ import net.minecraft.network.play.client.C03PacketPlayer;
 
 public abstract class AuraMode {
     private String name = "";
-    protected final KillAura killAura;
+    protected final KillAura killAura = (KillAura)Axis.getAxis().getModuleManager().getModuleByName("KillAura");
     protected final Minecraft mc = Minecraft.getMinecraft();
 
-    public AuraMode(String name, KillAura killAura) {
+    public AuraMode(String name) {
         this.name = name;
-        this.killAura = killAura;
     }
 
     public String getName() {
@@ -36,9 +35,9 @@ public abstract class AuraMode {
 
 	public static AuraMode getMode(String name, KillAura killaura) {
 		if (name.indexOf("Multi") != -1) {
-			return new Multi(killaura);
+			return new Multi();
 		} else if(name.indexOf("Switch") != -1){
-			return new Switch(killaura);
+			return new Switch();
 		}
 		return ((KillAura)Axis.getAxis().getModuleManager().getModuleByName("KillAura")).currentMode.getDefaultValue();
 	}
