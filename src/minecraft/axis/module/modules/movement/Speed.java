@@ -25,38 +25,18 @@ public class Speed extends Module {
 		Axis.getAxis().getCommandManager().getContents().add(new Command("speed", "<mode>", new String[] {}) {
 			public void run(String message) {
 				if (message.split(" ")[1].equalsIgnoreCase("mode")) {
-					if (message.split(" ")[2].equalsIgnoreCase("bhop")) {
-						Logger.logChat("Speed Mode set to Bhop!");
-					} else if (message.split(" ")[2].equalsIgnoreCase("latestbhop")) {
-						Logger.logChat("Speed Mode set to LatestBhop!");
-					} else if (message.split(" ")[2].equalsIgnoreCase("MineZ")) {
-						Logger.logChat("Speed Mode set to MineZ!");
-					} else if (message.split(" ")[2].equalsIgnoreCase("Other")) {
-						Logger.logChat("Speed Mode set to Other!");
-					} else if (message.split(" ")[2].equalsIgnoreCase("AAC")) {
-						Logger.logChat("Speed Mode set to AAC!");
-					} else if (message.split(" ")[2].equalsIgnoreCase("LowHop")) {
-						Logger.logChat("Speed Mode set to LowHop!");
-					} else if (message.split(" ")[2].equalsIgnoreCase("Yport")) {
-						Logger.logChat("Speed Mode set to Yport!");
-					} else if (message.split(" ")[2].equalsIgnoreCase("onGround")) {
-						Logger.logChat("Speed Mode set to onGround!");
-					} else if (message.split(" ")[2].equalsIgnoreCase("MotionTimer")) {
-						Logger.logChat("Speed Mode set to MotionTimer!");
-					} else if (message.split(" ")[2].equalsIgnoreCase("Bhop2")) {
-						Logger.logChat("Speed Mode set to Bhop2!");
-					} else if (message.split(" ")[2].equalsIgnoreCase("Hop")) {
-						Logger.logChat("Speed Mode set to Hop!");
+
+					if (SpeedMode.getModeByName(message.split(" ")[2]) != null) {
+						currentMode = SpeedMode.getModeByName(message.split(" ")[2]);
+						setTag(currentMode.getName());
+						values.setValue("mode", currentMode.getName());
+						Logger.logChat("Speed Mode set to " + currentMode.getName() +  "!");
 					} else {
-						Logger.logChat("Option not valid! Available options: Bhop, LatestBhop, MineZ, Other, AAC, LowHop, Yport, onGround,  MotionTimer, Hop.");
+						Logger.logChat("Option not valid! Available options: " +  SpeedMode.getModes());
 						return;
 					}
-
-					currentMode = SpeedMode.getModeByName(message.split(" ")[2]);
-					setTag(currentMode.getName());
-					values.setValue("mode", currentMode.getName());
 				} else {
-					Logger.logChat("Option not valid! Available options: Bhop, LatestBhop, MineZ, Other, AAC, LowHop, Yport, onGround,  MotionTimer, Hop.");
+					Logger.logChat("Option not valid! Available options: mode");
 				}
 			}
 		});

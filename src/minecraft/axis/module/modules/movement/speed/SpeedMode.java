@@ -36,6 +36,18 @@ public abstract class SpeedMode {
 		return null;
 	}
 
+	public static String getModes() {
+        Iterator var3 = modes.iterator();
+
+        String modes = "";
+        while(var3.hasNext()) {
+        	SpeedMode speedMode = (SpeedMode)var3.next();
+        	modes += speedMode.getName() + ", ";
+        }
+
+		return modes;
+	}
+
 	public String getName() {
 		return name;
 	}
