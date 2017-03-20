@@ -52,4 +52,17 @@ public class ValueConfig2 extends CustomFile {
 			e.printStackTrace();
 		}
 	}
+
+	public static void saveFile(String name) {
+		try {
+			ObjectOutputStream objOutStream = new ObjectOutputStream(new FileOutputStream(Axis.getAxis().getDirectory() + "/Values/" + Axis.getAxis().getModuleManager().getModuleByName(name).getName()));
+			objOutStream.writeObject(Axis.getAxis().getModuleManager().getModuleByName(name).values);
+			objOutStream.close();
+		} catch (FileNotFoundException e) {
+			new File(Axis.getAxis().getDirectory(), "Values").mkdirs();
+			saveFile(name);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

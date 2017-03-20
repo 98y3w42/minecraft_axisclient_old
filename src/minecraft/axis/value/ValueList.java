@@ -3,7 +3,7 @@ package axis.value;
 import java.io.Serializable;
 import java.util.HashMap;
 
-import axis.Axis;
+import axis.file.files.ValueConfig2;
 
 public class ValueList<T> implements Serializable {
 	private String name;
@@ -33,6 +33,6 @@ public class ValueList<T> implements Serializable {
 
 	public void setValue(final String name, final T value) {
 		values.put(name, value);
-		Axis.getAxis().getFileManager().getFileByName("valueconfig2").saveFile();
+		ValueConfig2.saveFile(this.name);
 	}
 }

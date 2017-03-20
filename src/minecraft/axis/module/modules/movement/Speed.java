@@ -56,15 +56,6 @@ public class Speed extends Module {
 	}
 
 	private void onUpdate(UpdateEvent event) {
-		if (AutoSetting.setting.getValue().equalsIgnoreCase("Anni")) {
-			if (((String)values.getValue("mode")).equalsIgnoreCase("Hypixel")) {
-				return;
-			}
-			values.setValue("mode", "minez");
-		} else if (AutoSetting.setting.getValue().equalsIgnoreCase("Hypixel")) {
-			values.setValue("mode", "bhop2");
-		}
-
 		currentMode = SpeedMode.getModeByName((String) values.getValue("mode"));
 		setTag(currentMode.getName());
 
@@ -86,6 +77,14 @@ public class Speed extends Module {
 
 	public void onEnabled() {
 		super.onEnabled();
+		if (AutoSetting.setting.getValue().equalsIgnoreCase("Anni")) {
+			if (((String)values.getValue("mode")).equalsIgnoreCase("Hypixel")) {
+				return;
+			}
+			values.setValue("mode", "minez");
+		} else if (AutoSetting.setting.getValue().equalsIgnoreCase("Hypixel")) {
+			values.setValue("mode", "bhop2");
+		}
 		this.cancel = false;
 	}
 

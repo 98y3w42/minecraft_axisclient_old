@@ -188,6 +188,7 @@ public class KillAura extends Module {
 
 	public void onValueSetup() {
 		super.onValueSetup();
+		Logger.logChat("test");
 		values.addValue("delay", 144L);
 		values.addValue("randomdelay", 5L);
 		values.addValue("range", 4.8);
@@ -210,7 +211,7 @@ public class KillAura extends Module {
 		super.onEnabled();
 		Logger.logChat("" + values.getValue("range"));
 		if (AutoSetting.setting.getValue().equalsIgnoreCase("Anni")) {
-			values.setValue("maxtarget", Integer.valueOf(2));
+			values.setValue("maxtarget", 2);
 			values.setValue("delay", 200L);
 			values.setValue("hurttime", true);
 			currentMode.setValue(new Multi());
@@ -218,7 +219,7 @@ public class KillAura extends Module {
 			setDisplayName("Multi Aura");
 			setTag((String) values.getValue("type"));
 		} else if (AutoSetting.setting.getValue().equalsIgnoreCase("Hypixel")) {
-			values.setValue("maxtarget", Integer.valueOf(1));
+			values.setValue("maxtarget", 1);
 			values.setValue("delay", 144L);
 			values.setValue("hurttime", false);
 			values.setValue("tick", false);
