@@ -209,7 +209,6 @@ public class KillAura extends Module {
 
 	public void onEnabled() {
 		super.onEnabled();
-		Logger.logChat("" + values.getValue("range"));
 		if (AutoSetting.setting.getValue().equalsIgnoreCase("Anni")) {
 			values.setValue("maxtarget", 2);
 			values.setValue("delay", 200L);
@@ -243,7 +242,7 @@ public class KillAura extends Module {
 			if (Multi.targets1size == 0 && Switch.pseudoTarget == null) {
 				this.kl++;
 				if (this.kl >= 900) {
-					Logger.logChat("Reload");// なぜかtimehelperだとうまくいかなかった
+					Logger.logChat("Reload");
 					this.test();
 					this.kl = 0;
 				}
