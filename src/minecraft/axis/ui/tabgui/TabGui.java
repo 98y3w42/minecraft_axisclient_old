@@ -35,7 +35,6 @@ public class TabGui {
 	protected static long lastUpdateTime;
 	public static int tabguicolor;
 	protected static final Minecraft mc = Minecraft.getMinecraft();
-	protected static int daley;
 	protected static FontUtils Comfortaa18 = new FontUtils("Comfortaa", Font.PLAIN, 18);
 
 	public static void init() {
@@ -91,14 +90,6 @@ public class TabGui {
 	}
 
 	public static void keyPress(int key) {
-		if (daley <= -1) {
-			daley = 1;
-		}
-		if (daley != 0) {
-			daley--;
-			return;
-		}
-		daley--;
 		if (section == Section.CATEGORY) {
 
 			switch (key) {
