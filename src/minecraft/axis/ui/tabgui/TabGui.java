@@ -34,6 +34,7 @@ public class TabGui {
 	protected static boolean transitionQuickly;
 	protected static long lastUpdateTime;
 	public static int tabguicolor;
+	private static int delay = 0;
 	protected static final Minecraft mc = Minecraft.getMinecraft();
 	protected static FontUtils Comfortaa18 = new FontUtils("Comfortaa", Font.PLAIN, 18);
 
@@ -90,8 +91,12 @@ public class TabGui {
 	}
 
 	public static void keyPress(int key) {
+		delay++;
+		if (delay < 2) {
+			return;
+		}
+		delay = 0;
 		if (section == Section.CATEGORY) {
-
 			switch (key) {
 			case 205:
 				int highestWidth = 0;

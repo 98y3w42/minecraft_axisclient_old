@@ -581,7 +581,7 @@ public abstract class Entity implements ICommandSender {
 			double d4 = y;
 			double d5 = z;
 			boolean flag = this.onGround && this.isSneaking() && this instanceof EntityPlayer;
-			boolean flag11 = this.onGround && this.isSneaking() && this instanceof EntityPlayer;
+			boolean flag11 = this.onGround && Axis.getAxis().getModuleManager().getModuleByName("ScaffoldWalk").isEnabled() && this instanceof EntityPlayer;
 
 			if (flag || flag11) {
 				double d6;
