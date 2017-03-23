@@ -31,28 +31,12 @@ import net.minecraft.util.MathHelper;
 public class Teleport
 		extends Module {
 
-	private Value<String> currentMode = new Value("setting_type", "Normal");
 	private double x;
 	private double y;
 	private double z;
 
 	public Teleport() {
 		super("Teleport", 0, ModuleManager.Category.MOVEMENT);
-		this.setTag("" + this.currentMode.getValue());
-		Axis.getAxis().getCommandManager().getContents().add(new Command("teleport", "<mode>", new String[] { "telep", "tp" }) {
-			public void run(String message) {
-				if (message.split(" ")[1].equalsIgnoreCase("mode")) {
-					if (message.split(" ")[2].equalsIgnoreCase("Normal")) {
-						currentMode.setValue("Normal");
-						setTag("" + Teleport.this.currentMode.getValue());
-					} else if (message.split(" ")[2].equalsIgnoreCase("AAC")) {
-						currentMode.setValue("AAC");
-						setTag("" + Teleport.this.currentMode.getValue());
-					}
-					Logger.logChat("Teleport mode set to " + currentMode.getValue());
-				}
-			}
-		});
 	}
 
 	Minecraft mc = Minecraft.getMinecraft();
@@ -97,93 +81,74 @@ public class Teleport
 			if (y - toY > 0.0D) {
 				goUpOrDown = "Down";
 			}
-			if (this.currentMode.getValue().equals("Normal")) {
-				while (allDifference > 0.0D) {
-					allDifference = Math.abs(x - toX) + Math.abs(y - toY) + Math.abs(z - toZ);
+			while (allDifference > 0.0D) {
+				allDifference = Math.abs(x - toX) + Math.abs(y - toY) + Math.abs(z - toZ);
 
-					Block gbap = BlockHelper.getBlockAtPos(new BlockPos(x, y + 0.1D, z));
-					Double distance = (double) MathHelper.sqrt_double(mc.thePlayer.getDistanceSq(this.toPos));
-					if ((!gbap.isPassable(this.mc.theWorld, new BlockPos(x, y + 0.1D, z))) && (distance <= 30)) {
-						error = true;
-						break;
-					}
-					if (loops > 10000) {
-						error = true;
-						break;
-					}
-					double differenceX = x - toX;
-					double differenceY = y - toY;
-					double differenceZ = z - toZ;
+				Block gbap = BlockHelper.getBlockAtPos(new BlockPos(x, y + 0.1D, z));
+				Double distance = (double) MathHelper.sqrt_double(mc.thePlayer.getDistanceSq(this.toPos));
+				if ((!gbap.isPassable(this.mc.theWorld, new BlockPos(x, y + 0.1D, z))) && (distance <= 30)) {
+					error = true;
+					break;
+				}
+				if (loops > 10000) {
+					error = true;
+					break;
+				}
+				double differenceX = x - toX;
+				double differenceY = y - toY;
+				double differenceZ = z - toZ;
 
-					double differenceXZ = Math.abs(differenceX) + Math.abs(differenceZ);
+				double differenceXZ = Math.abs(differenceX) + Math.abs(differenceZ);
 
-					boolean handleYFirst = (goUpOrDown.equals("Up")) && (Math.abs(differenceY) > 0.0D);
-					boolean handleYLast = (goUpOrDown.equals("Down")) && (Math.abs(differenceY) > 0.0D) && (differenceXZ == 0.0D);
-					if ((handleYFirst) && (error == false)) {
-						if (Math.abs(differenceY) > 0.2D) {
-							y += 0.2D;
-						} else {
-							y += Math.abs(differenceY);
-						}
+				boolean handleYFirst = (goUpOrDown.equals("Up")) && (Math.abs(differenceY) > 0.0D);
+				boolean handleYLast = (goUpOrDown.equals("Down")) && (Math.abs(differenceY) > 0.0D) && (differenceXZ == 0.0D);
+				if ((handleYFirst) && (error == false)) {
+					if (Math.abs(differenceY) > 0.2D) {
+						y += 0.2D;
 					} else {
-						if (differenceX < 0.0D) {
-							if (Math.abs(differenceX) > 0.2D) {
-								x += 0.2D;
-							} else {
-								x += Math.abs(differenceX);
-							}
-						}
-						if (differenceX > 0.0D) {
-							if (Math.abs(differenceX) > 0.2D) {
-								x -= 0.2D;
-							} else {
-								x -= Math.abs(differenceX);
-							}
-						}
-						if (differenceZ < 0.0D) {
-							if (Math.abs(differenceZ) > 0.2D) {
-								z += 0.2D;
-							} else {
-								z += Math.abs(differenceZ);
-							}
-						}
-						if (differenceZ > 0.0D) {
-							if (Math.abs(differenceZ) > 0.2D) {
-								z -= 0.2D;
-							} else {
-								z -= Math.abs(differenceZ);
-							}
-						}
-						if (handleYLast) {
-							if (Math.abs(differenceY) > 0.2D) {
-								y -= 0.2D;
-							} else {
-								y -= Math.abs(differenceY);
-							}
+						y += Math.abs(differenceY);
+					}
+				} else {
+					if (differenceX < 0.0D) {
+						if (Math.abs(differenceX) > 0.2D) {
+							x += 0.2D;
+						} else {
+							x += Math.abs(differenceX);
 						}
 					}
-					this.mc.getNetHandler().addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(x, y, z, this.mc.thePlayer.onGround));
-					loops++;
+					if (differenceX > 0.0D) {
+						if (Math.abs(differenceX) > 0.2D) {
+							x -= 0.2D;
+						} else {
+							x -= Math.abs(differenceX);
+						}
+					}
+					if (differenceZ < 0.0D) {
+						if (Math.abs(differenceZ) > 0.2D) {
+							z += 0.2D;
+						} else {
+							z += Math.abs(differenceZ);
+						}
+					}
+					if (differenceZ > 0.0D) {
+						if (Math.abs(differenceZ) > 0.2D) {
+							z -= 0.2D;
+						} else {
+							z -= Math.abs(differenceZ);
+						}
+					}
+					if (handleYLast) {
+						if (Math.abs(differenceY) > 0.2D) {
+							y -= 0.2D;
+						} else {
+							y -= Math.abs(differenceY);
+						}
+					}
 				}
-			} else if (this.currentMode.getValue().equals("AAC")) {
-				this.x = mc.thePlayer.posX;
-				this.y = mc.thePlayer.posY;
-				this.z = mc.thePlayer.posZ;
-				float yaw = mc.thePlayer.rotationYaw;
-				float pitch = mc.thePlayer.rotationPitch;
-				if (mc.thePlayer.playerLocation == toPos) {
-					mc.gameSettings.keyBindSneak.pressed = false;
-				}
-				mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(this.x, this.y, this.z, true));
-				mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(toPos.getX(), toPos.getY(), toPos.getZ(), true));
-				mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(this.x, this.y, this.z, true));
-				mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(this.x, this.y + 5.0D, this.z, true));
-				mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(toPos.getX(), toPos.getY(), toPos.getZ(), true));
-				mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(this.x, this.y, this.z, true));
-				moveutil.toFwd(0.04D);
-				mc.thePlayer.rotationYaw = yaw;
-				mc.thePlayer.rotationPitch = pitch;
+				this.mc.getNetHandler().addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(x, y, z, this.mc.thePlayer.onGround));
+				loops++;
 			}
+
 			if (error) {
 				this.mc.thePlayer.playSound("random.levelup", 0.2F, 1.0F);
 			} else {
@@ -210,25 +175,13 @@ public class Teleport
 			GL11.glDepthMask(false);
 			GL11.glLineWidth(0.3F);
 			Double distance = (double) MathHelper.sqrt_double(mc.thePlayer.getDistanceSq(this.toPos));
-			if (this.toPos != null && distance > 6.7D) {
-				GL11.glColor4f(0.2F, 0.9F, 0.0F, 0.25F);
-			} else if (mc.theWorld.getBlockState(this.toPos).getBlock() instanceof BlockAir) {
-				GL11.glColor4f(1.0F, 0.7F, 0.0F, 0.25F);
-			} else {
-				GL11.glColor4f(0.2F, 0.9F, 0.0F, 0.25F);
-			}
+			GL11.glColor4f(0.981F, 0.84F, 0.84F, 0.25F);
 			double x = this.toPos.getX() - mc.getRenderManager().viewerPosX;
 			double y = this.toPos.getY() - mc.getRenderManager().viewerPosY;
 			double z = this.toPos.getZ() - mc.getRenderManager().viewerPosZ;
 			AxisAlignedBB box = new AxisAlignedBB(x, y, z, x + 1.0D, y + 1.0D, z + 1.0D);
 			RenderUtils.drawFilledBox(box);
-			if (this.toPos != null && distance > 6.7D) {
-				GL11.glColor4f(0.2F, 0.9F, 0.0F, 0.4F);
-			} else if (mc.theWorld.getBlockState(this.toPos).getBlock() instanceof BlockAir) {
-				GL11.glColor4f(1.0F, 0.7F, 0.0F, 0.4F);
-			} else {
-				GL11.glColor4f(0.2F, 0.9F, 0.0F, 0.4F);
-			}
+			GL11.glColor4f(0.981F, 0.84F, 0.84F, 0.4F);
 			RenderGlobal.func_181561_a(box);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			GL11.glDepthMask(true);

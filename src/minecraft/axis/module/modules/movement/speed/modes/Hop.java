@@ -71,7 +71,6 @@ public class Hop extends SpeedMode implements Mode {
 			net.minecraft.util.Timer.timerSpeed = 1.0F;
 			mc.thePlayer.motionX *= 1.5085D;
 			mc.thePlayer.motionZ *= 1.5085D;
-			mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer());
 			this.moveSpeed *= 1.17D;
 		}
 
