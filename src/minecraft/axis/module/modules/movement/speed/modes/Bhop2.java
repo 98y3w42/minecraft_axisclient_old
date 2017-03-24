@@ -87,17 +87,17 @@ public class Bhop2 extends SpeedMode implements Mode {
 				net.minecraft.util.Timer.timerSpeed = 1.0F;
 			}
 		}
+		if (LiquidUtils.isInLiquid()) {
+			this.moveSpeed = speed.getBaseMoveSpeed() * 0.6D;
+		} else {
+			event.setY(event.getY() * 1.05D);
+			this.moveSpeed = Math.max(this.moveSpeed, speed.getBaseMoveSpeed());
+		}
 		if (this.moveSpeed >= (speed.getBaseMoveSpeed() * 2)) {
 			Logger.logChat("Over");
 			net.minecraft.util.Timer.timerSpeed = 1.0F;
 			this.moveSpeed = speed.getBaseMoveSpeed();
 		}
-		if (LiquidUtils.isInLiquid()) {
-			this.moveSpeed = speed.getBaseMoveSpeed() * 0.6D;
-		} else {
-			event.setY(event.getY() * 1.05D);
-		}
-
 		final MovementInput movementInput = this.mc.thePlayer.movementInput;
 		float forward1 = movementInput.moveForward;
 		float strafe = movementInput.moveStrafe;
