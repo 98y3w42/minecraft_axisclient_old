@@ -241,7 +241,7 @@ public class KillAura extends Module {
 		if (values.getValue("type").equals("Hypixel")) {
 			if (Multi.targets1size == 0 && Switch.pseudoTarget == null) {
 				this.kl++;
-				if (this.kl >= 900) {
+				if (this.kl >= 700) {
 					Logger.logChat("Reload");
 					this.test();
 					this.kl = 0;
@@ -252,7 +252,7 @@ public class KillAura extends Module {
 		}
 		if ((Boolean) values.getValue("autoblock") && !mc.thePlayer.isBlocking() && ((Multi.targets1size > 0) || (Switch.pseudoTarget != null)) && (mc.thePlayer.getHeldItem() != null)
 				&& (mc.thePlayer.getHeldItem().getItem() instanceof ItemSword)) {
-            mc.thePlayer.setItemInUse(mc.thePlayer.getCurrentEquippedItem(), 100);
+			mc.thePlayer.setItemInUse(mc.thePlayer.getCurrentEquippedItem(), 100);
 		}
 		currentMode.getValue().onUpdate(event);
 	}
@@ -427,7 +427,6 @@ public class KillAura extends Module {
 					return false;
 				}
 				if (!isIDValid((EntityPlayer) (entity))) {
-					Logger.logChat("ID");
 					return false;
 				}
 				if (!this.array.contains(entity.getEntityId())) {
@@ -498,13 +497,15 @@ public class KillAura extends Module {
 		for (Object o : this.mc.theWorld.loadedEntityList) {
 			if ((o instanceof EntityPlayer) && (o != this.mc.thePlayer)) {
 				EntityPlayer entity = (EntityPlayer) o;
+				boolean dis = (Math.abs(entity.posX - mc.thePlayer.posX) <= 2.0F) && (Math.abs(entity.posZ - mc.thePlayer.posZ) <= 2.0F) && (mc.thePlayer.posY + 6 <= entity.posY);
+				boolean dis1 = (Math.abs(entity.posX - mc.thePlayer.posX) <= 2.5F) && (Math.abs(entity.posZ - mc.thePlayer.posZ) <= 2.5F) && (mc.thePlayer.posY + 6 <= entity.posY);
 				if (!this.test1) {
-					if (this.isNameValid(entity) && !(((int) entity.posX == (int) mc.thePlayer.posX) && ((int) entity.posZ == (int) mc.thePlayer.posZ))) {
+					if (this.isNameValid(entity) && (!dis) && (entity.getEntityId() != -1)) {
 						this.array.add(entity.getEntityId());
 						Logger.logChat("Add: " + entity.getDisplayName().getFormattedText() + ", §f" + entity.getEntityId());
 					}
 				} else {
-					if ((this.isNameValid(entity)) && (mc.thePlayer.getDistanceToEntity(entity) <= 3.0F) && (!this.array.contains(entity.getEntityId()))) {
+					if ((this.isNameValid(entity)) && (mc.thePlayer.getDistanceToEntity(entity) <= 3.0F) && (!this.array.contains(entity.getEntityId()) && (dis1))) {
 						this.array.add(entity.getEntityId());
 						Logger.logChat("Add: " + entity.getDisplayName().getFormattedText() + ", §f" + entity.getEntityId());
 					}

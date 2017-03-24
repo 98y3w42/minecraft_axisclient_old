@@ -2,6 +2,7 @@ package axis.module.modules.movement;
 
 import axis.Axis;
 import axis.command.Command;
+import axis.event.events.AttackEvent;
 import axis.event.events.MoveEvent;
 import axis.event.events.UpdateEvent;
 import axis.management.managers.ModuleManager.Category;
@@ -11,6 +12,7 @@ import axis.module.modules.movement.speed.SpeedMode;
 import axis.module.modules.movement.speed.modes.Hop;
 import axis.util.Logger;
 import net.minecraft.potion.Potion;
+import net.minecraft.util.Timer;
 
 public class Speed extends Module {
 
@@ -30,9 +32,9 @@ public class Speed extends Module {
 						currentMode = SpeedMode.getModeByName(message.split(" ")[2]);
 						setTag(currentMode.getName());
 						values.setValue("mode", currentMode.getName());
-						Logger.logChat("Speed Mode set to " + currentMode.getName() +  "!");
+						Logger.logChat("Speed Mode set to " + currentMode.getName() + "!");
 					} else {
-						Logger.logChat("Option not valid! Available options: " +  SpeedMode.getModes());
+						Logger.logChat("Option not valid! Available options: " + SpeedMode.getModes());
 						return;
 					}
 				} else {
@@ -46,7 +48,6 @@ public class Speed extends Module {
 		super.onValueSetup();
 		values.addValue("mode", "Bhop");
 	}
-
 
 	private void onMove(MoveEvent event) {
 		if (Axis.getAxis().getModuleManager().getModuleByName("Freecam").isEnabled()) {
@@ -65,9 +66,15 @@ public class Speed extends Module {
 		currentMode.onUpdate(event);
 	}
 
+	public void onAttack(AttackEvent event) {
+		if (event.getEntity() != null) {
+			Timer.timerSpeed = 1.0F;
+		}
+	}
+
 	public double getBaseMoveSpeed() {
 		double baseSpeed = 0.2872D;
-		if (mc.thePlayer.isPotionActive(Potion.moveSpeed) && SpeedMode.getModeByName((String)values.getValue("mode")) instanceof Hop) {
+		if (mc.thePlayer.isPotionActive(Potion.moveSpeed) && SpeedMode.getModeByName((String) values.getValue("mode")) instanceof Hop) {
 			int amplifier = mc.thePlayer.getActivePotionEffect(Potion.moveSpeed).getAmplifier();
 			baseSpeed *= 1.0D + 0.2D * (double) (amplifier + 1);
 		}
@@ -78,7 +85,7 @@ public class Speed extends Module {
 	public void onEnabled() {
 		super.onEnabled();
 		if (AutoSetting.setting.getValue().equalsIgnoreCase("Anni")) {
-			if (((String)values.getValue("mode")).equalsIgnoreCase("Hypixel")) {
+			if (((String) values.getValue("mode")).equalsIgnoreCase("Hypixel")) {
 				return;
 			}
 			values.setValue("mode", "minez");
