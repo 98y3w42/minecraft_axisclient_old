@@ -8,6 +8,7 @@ import axis.event.events.MoveEvent;
 import axis.event.events.UpdateEvent;
 import axis.module.Mode;
 import axis.module.modules.movement.speed.SpeedMode;
+import axis.util.LiquidUtils;
 import axis.util.Logger;
 import axis.util.TimeHelper;
 import net.minecraft.util.MovementInput;
@@ -70,7 +71,7 @@ public class Bhop2 extends SpeedMode implements Mode {
 			this.fast = false;
 			event.setY(mc.thePlayer.motionY = 0.39936D);
 			if (mc.thePlayer.getItemInUse() == null) {
-				net.minecraft.util.Timer.timerSpeed = 1.05F;
+				net.minecraft.util.Timer.timerSpeed = 1.03F;
 			} else {
 				net.minecraft.util.Timer.timerSpeed = 1.0F;
 			}
@@ -91,8 +92,12 @@ public class Bhop2 extends SpeedMode implements Mode {
 			net.minecraft.util.Timer.timerSpeed = 1.0F;
 			this.moveSpeed = speed.getBaseMoveSpeed();
 		}
+		if (LiquidUtils.isInLiquid()) {
+			this.moveSpeed = speed.getBaseMoveSpeed() * 0.6D;
+		} else {
+			event.setY(event.getY() * 1.05D);
+		}
 
-		this.moveSpeed = Math.max(this.moveSpeed, speed.getBaseMoveSpeed());
 		final MovementInput movementInput = this.mc.thePlayer.movementInput;
 		float forward1 = movementInput.moveForward;
 		float strafe = movementInput.moveStrafe;
@@ -154,6 +159,7 @@ public class Bhop2 extends SpeedMode implements Mode {
 	}
 
 	public void onEnabled() {
+		super.onEnabled();
 	}
 
 	public void onDisabled() {
@@ -165,6 +171,7 @@ public class Bhop2 extends SpeedMode implements Mode {
 			mc.thePlayer.setSpeedInAir(0.002F);
 			this.forward = true;
 		}
+		super.onDisabled();
 	}
 
 	private static double round(double value, int places) {
