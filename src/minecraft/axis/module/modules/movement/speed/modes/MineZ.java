@@ -70,9 +70,11 @@ public class MineZ extends SpeedMode implements Mode {
 			switch (this.stage) {
 			case 1:
 				if (mc.thePlayer.getItemInUseCount() == 0) {
-					net.minecraft.util.Timer.timerSpeed = 1.3F;
+					net.minecraft.util.Timer.timerSpeed = 1.35F;
+				} else {
+					net.minecraft.util.Timer.timerSpeed = 1.0F;
 				}
-				this.moveSpeed = 0.579D;
+				this.moveSpeed = 0.5799D;
 				break;
 			case 2:
 				net.minecraft.util.Timer.timerSpeed = 1.0F;

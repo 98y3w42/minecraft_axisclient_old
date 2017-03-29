@@ -10,6 +10,7 @@ import axis.module.Module;
 import axis.module.modules.exploits.AutoSetting;
 import axis.module.modules.movement.speed.SpeedMode;
 import axis.module.modules.movement.speed.modes.Hop;
+import axis.module.modules.movement.speed.modes.MineZ;
 import axis.util.Logger;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.Timer;
@@ -69,6 +70,9 @@ public class Speed extends Module {
 	public void onAttack(AttackEvent event) {
 		if (event.getEntity() != null) {
 			Timer.timerSpeed = 1.0F;
+			if (values.getValue("mode").equals("MineZ")) {
+				MineZ.wait = 1;
+			}
 		}
 	}
 
