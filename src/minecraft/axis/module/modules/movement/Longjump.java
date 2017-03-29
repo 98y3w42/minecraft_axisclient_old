@@ -14,7 +14,6 @@ import axis.module.modules.exploits.AutoSetting;
 import axis.module.modules.movement.Speed;
 import axis.module.modules.movement.speed.SpeedMode;
 import axis.module.modules.movement.speed.modes.Bhop2;
-import axis.module.modules.movement.speed.modes.Hop;
 import axis.module.modules.movement.speed.modes.MineZ;
 import axis.util.Logger;
 import axis.util.MathUtils;

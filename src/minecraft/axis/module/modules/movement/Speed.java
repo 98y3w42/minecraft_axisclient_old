@@ -9,8 +9,8 @@ import axis.management.managers.ModuleManager.Category;
 import axis.module.Module;
 import axis.module.modules.exploits.AutoSetting;
 import axis.module.modules.movement.speed.SpeedMode;
-import axis.module.modules.movement.speed.modes.Hop;
 import axis.module.modules.movement.speed.modes.MineZ;
+import axis.module.modules.movement.speed.modes.SlowHop;
 import axis.util.Logger;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.Timer;
@@ -78,7 +78,7 @@ public class Speed extends Module {
 
 	public double getBaseMoveSpeed() {
 		double baseSpeed = 0.2872D;
-		if (mc.thePlayer.isPotionActive(Potion.moveSpeed) && SpeedMode.getModeByName((String) values.getValue("mode")) instanceof Hop) {
+		if (mc.thePlayer.isPotionActive(Potion.moveSpeed) && SpeedMode.getModeByName((String) values.getValue("mode")) instanceof SlowHop) {
 			int amplifier = mc.thePlayer.getActivePotionEffect(Potion.moveSpeed).getAmplifier();
 			baseSpeed *= 1.0D + 0.2D * (double) (amplifier + 1);
 		}
