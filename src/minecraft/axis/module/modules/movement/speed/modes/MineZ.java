@@ -133,7 +133,7 @@ public class MineZ extends SpeedMode implements Mode {
 	}
 
 	public void onDisabled() {
-
+		net.minecraft.util.Timer.timerSpeed = 1.0F;
 	}
 
 }
