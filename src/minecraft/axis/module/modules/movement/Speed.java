@@ -89,12 +89,13 @@ public class Speed extends Module {
 	public void onEnabled() {
 		super.onEnabled();
 		if (AutoSetting.setting.getValue().equalsIgnoreCase("Anni")) {
-			if (((String) values.getValue("mode")).equalsIgnoreCase("Hypixel")) {
-				return;
+			if (!values.getValue("mode").equals("SlowHop")) {
+				values.setValue("mode", "minez");
 			}
-			values.setValue("mode", "minez");
 		} else if (AutoSetting.setting.getValue().equalsIgnoreCase("Hypixel")) {
-			values.setValue("mode", "bhop2");
+			if (!values.getValue("mode").equals("SlowHop")) {
+				values.setValue("mode", "bhop2");
+			}
 		}
 		this.cancel = false;
 	}
