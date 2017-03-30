@@ -79,10 +79,10 @@ public class NameTags extends Module {
 					Tessellator tessellator = Tessellator.getInstance();
 					WorldRenderer worldRenderer = tessellator.getWorldRenderer();
 					GlStateManager.disableTexture2D();
-					str = str + " : " + ent.getEntityId();
 					if (Axis.getAxis().getFriendManager().isFriend(ent.getName())) {
-						str = "§f[§aF§f]" + Axis.getAxis().getFriendManager().replaceNames(friend.alias, true);
+						str = Axis.getAxis().getFriendManager().replaceNames(ent.getName(), true);
 					}
+					str = str + " : " + ent.getEntityId();
 					int stringWidth = mc.fontRendererObj.getStringWidth(str) / 2;
 
 					worldRenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);

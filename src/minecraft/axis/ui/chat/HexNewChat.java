@@ -2,6 +2,7 @@ package axis.ui.chat;
 
 import java.util.List;
 
+import axis.Axis;
 import axis.module.modules.render.HUD;
 import axis.util.RenderHelper;
 import net.minecraft.client.Minecraft;
@@ -94,7 +95,7 @@ private boolean btestncp = false;
 	                        int var16 = -var9 * 9;
 	                        drawRect(var20, var16 - 9, var20 + var8 + 4, var16, var14 / 2 << 24);
 	                        y1 = var16 - 9;
-	                        String var17 = var18.getChatComponent().getFormattedText();
+	                        String var17 = Axis.getAxis().getFriendManager().replaceNames(var18.getChatComponent().getFormattedText(), true);
 	                        GlStateManager.enableBlend();
 	                        mc.fontRendererObj.drawStringWithShadow(var17, var20, var16 - 8 , 16777215 + (var14 << 24));
 	                        GlStateManager.disableAlpha();

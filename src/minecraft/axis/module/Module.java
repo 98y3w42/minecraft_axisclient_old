@@ -85,6 +85,9 @@ public abstract class Module {
 	}
 
 	public boolean isEnabled() {
+		if (Axis.getAxis() == null) {
+			return false;
+		}
 		if (this.enabled) {
 			return true;
 		} else {

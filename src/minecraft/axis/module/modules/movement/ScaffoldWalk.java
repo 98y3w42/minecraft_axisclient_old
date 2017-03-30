@@ -32,6 +32,7 @@ import axis.event.events.BlockDataEvent;
 import axis.event.events.PacketSentEvent;
 import axis.event.events.Render3DEvent;
 import axis.event.events.UpdateEvent;
+import axis.event.events.WalkingEvent;
 import axis.management.managers.CommandManager;
 import axis.management.managers.ModuleManager;
 import axis.module.Module;
@@ -136,5 +137,9 @@ public class ScaffoldWalk
 						: mc.theWorld.getBlockState(pos.add(1, 0, 0)).getBlock() != Blocks.air ? new BlockDataEvent(pos.add(1, 0, 0), EnumFacing.WEST)
 								: mc.theWorld.getBlockState(pos.add(0, 0, -1)).getBlock() != Blocks.air ? new BlockDataEvent(pos.add(0, 0, -1), EnumFacing.SOUTH)
 										: mc.theWorld.getBlockState(pos.add(0, 0, 1)).getBlock() != Blocks.air ? new BlockDataEvent(pos.add(0, 0, 1), EnumFacing.NORTH) : null;
+	}
+
+	public void onWalking(WalkingEvent event) {
+		event.setSafeWalk(true);
 	}
 }

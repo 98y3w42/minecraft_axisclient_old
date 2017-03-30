@@ -10,6 +10,7 @@ import axis.Axis;
 import axis.event.Event;
 import axis.event.events.RayTraceEvent;
 import axis.event.events.StepEvent;
+import axis.event.events.WalkingEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockFenceGate;
@@ -580,10 +581,10 @@ public abstract class Entity implements ICommandSender {
 			double d3 = x;
 			double d4 = y;
 			double d5 = z;
-			boolean flag = this.onGround && this.isSneaking() && this instanceof EntityPlayer;
-			boolean flag11 = this.onGround && Axis.getAxis().getModuleManager().getModuleByName("ScaffoldWalk").isEnabled() && this instanceof EntityPlayer;
-
-			if (flag || flag11) {
+			WalkingEvent walkingevent = new WalkingEvent();
+			walkingevent.call();
+			boolean flag = this.onGround && this instanceof EntityPlayer && (walkingevent.getSafeWalk() || this.isSneaking());
+			if (flag) {
 				double d6;
 
 				for (d6 = 0.05D; x != 0.0D && this.worldObj.getCollidingBoundingBoxes(this, this.getEntityBoundingBox().offset(x, -1.0D, 0.0D)).isEmpty(); d3 = x) {
