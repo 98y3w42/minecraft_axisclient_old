@@ -23,34 +23,27 @@ public class AutoArmor extends Module {
 	private final int[] leggings = { 312, 308, 316, 304, 300 };
 	private final TimeHelper time = new TimeHelper();
 	private TimeHelper timer = new TimeHelper();
-	private final Value<Boolean> inventory = new Value<>("autoarmor_inventory", false);
-	private final Value<Boolean> cleaner = new Value<>("autoarmor_cleaner", true);
 
 	public AutoArmor() {
 		super("AutoArmor", 0x00BFFF, Category.PLAYER);
 		this.setDisplayName("Armor");
-		this.setTag("I: " + AutoArmor.this.inventory.getValue().booleanValue() + " C: " + AutoArmor.this.cleaner.getValue().booleanValue());
-		Axis.getAxis().getCommandManager().getContents().add(new Command("autormor", "<mode>", new String[] { "AutoArmor", "aa" }) {
+		this.setTag("C: " + (Boolean) this.values.getValue("cleaner"));
+		Axis.getAxis().getCommandManager().getContents().add(new Command("autormor", "<cleaner>", new String[] { "AutoArmor", "aa" }) {
 			public void run(String message) {
-				if (message.split(" ")[1].equalsIgnoreCase("inventory")) {
-					AutoArmor.this.inventory.setValue(Boolean.valueOf(!((Boolean) AutoArmor.this.inventory.getValue()).booleanValue()));
-					Logger.logChat("Inventory: " + AutoArmor.this.inventory.getValue().booleanValue());
-					setTag("I: " + AutoArmor.this.inventory.getValue().booleanValue() + " C: " + AutoArmor.this.cleaner.getValue().booleanValue());
-				} else if (message.split(" ")[1].equalsIgnoreCase("cleaner")) {
-					AutoArmor.this.cleaner.setValue(Boolean.valueOf(!((Boolean) AutoArmor.this.cleaner.getValue()).booleanValue()));
-					Logger.logChat("cleaner: " + AutoArmor.this.cleaner.getValue().booleanValue());
-					setTag("I: " + AutoArmor.this.inventory.getValue().booleanValue() + " C: " + AutoArmor.this.cleaner.getValue().booleanValue());
+				if (message.split(" ")[1].equalsIgnoreCase("cleaner")) {
+					values.setValue("cleaner", !(Boolean) values.getValue("cleaner"));
+					Logger.logChat("Cleaner: " + (Boolean) values.getValue("cleaner"));
 				}
 			}
 		});
 	}
 
+	public void onValueSetup() {
+		super.onValueSetup();
+		values.addValue("cleaner", true);
+	}
+
 	public void onUpdate(UpdateEvent event) {
-		if (this.inventory.getValue().booleanValue()) {
-			if (!(mc.currentScreen instanceof GuiInventory)) {
-				return;
-			}
-		}
 		if (!this.time.hasReached(65.0F)) {
 			return;
 		}
@@ -120,7 +113,7 @@ public class AutoArmor extends Module {
 			this.time.setLastMS(this.time.getCurrentMS());
 			return;
 		}
-		if (event.state == Event.State.PRE && this.cleaner.getValue().booleanValue()) {
+		if (event.state == Event.State.PRE && (Boolean) this.values.getValue("cleaner")) {
 			InventoryPlayer invp = this.mc.thePlayer.inventory;
 			for (int i = 9; i < 45; i++) {
 				ItemStack itemStack = this.mc.thePlayer.inventoryContainer.getSlot(i).getStack();

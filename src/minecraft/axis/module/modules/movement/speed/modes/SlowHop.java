@@ -18,7 +18,7 @@ public class SlowHop extends SpeedMode implements Mode {
 	private double moveSpeed;
 	private double lastDist;
 	private int stage;
-	private boolean test = false;
+	private int test = 0;
 
 	public SlowHop() {
 		super("SlowHop");
@@ -43,7 +43,7 @@ public class SlowHop extends SpeedMode implements Mode {
 			this.stage = 3;
 			mc.thePlayer.motionY = 0.5D;
 			event.y = 0.5D;
-			this.moveSpeed = speed.getBaseMoveSpeed() * 1.9D;
+			this.moveSpeed = speed.getBaseMoveSpeed() * 1.7D;
 		} else if (this.stage == 3) {
 			this.stage = 4;
 			double difference = 0.66D * (this.lastDist - speed.getBaseMoveSpeed());
@@ -55,12 +55,11 @@ public class SlowHop extends SpeedMode implements Mode {
 			this.moveSpeed = (this.lastDist - this.lastDist / 159.0D);
 		}
 		event.setY(event.getY() * 0.7);
-		if (this.test) {
-			this.test = false;
-			this.moveSpeed *= 0.75D;
-		} else {
-			this.test = true;
+		if (this.test >= 6) {
+			this.test = 0;
+			this.moveSpeed *= 0.75;
 		}
+		this.test++;
 		this.moveSpeed = Math.max(this.moveSpeed, speed.getBaseMoveSpeed());
 		MovementInput movementInput = mc.thePlayer.movementInput;
 		float forward = movementInput.moveForward;
@@ -104,7 +103,11 @@ public class SlowHop extends SpeedMode implements Mode {
 	}
 
 	public void onDisabled() {
-		mc.timer.timerSpeed = 1.0f;
+		this.moveSpeed = speed.getBaseMoveSpeed();
+		net.minecraft.util.Timer.timerSpeed = 1.0F;
+		mc.thePlayer.motionX = 0.0D;
+		mc.thePlayer.motionZ = 0.0D;
+		mc.thePlayer.setSpeedInAir(0.002F);
 	}
 
 }
