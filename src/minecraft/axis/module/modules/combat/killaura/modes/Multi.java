@@ -78,7 +78,7 @@ public class Multi extends AuraMode implements Mode {
 				boolean shouldLook = true;
 				float[] values = EntityUtils.getAnglesToEntity(target);
 				if (shouldLook) {
-					for (int i = 0; i < (Integer)killAura.values.getValue("maxtarget"); i++) {
+					for (int i = 0; i < (Integer) killAura.values.getValue("maxtarget"); i++) {
 						double semiMultiWeight = Double.NEGATIVE_INFINITY;
 						EntityLivingBase smHighestWeightedTarget = null;
 						for (EntityLivingBase el : targets) {
@@ -108,7 +108,7 @@ public class Multi extends AuraMode implements Mode {
 						event.yaw = rotations[0];
 						event.pitch = rotations[1];
 
-						if ((Boolean)killAura.values.getValue("lockview")) {
+						if ((Boolean) killAura.values.getValue("lockview")) {
 							mc.thePlayer.rotationYaw = rotations[0];
 							mc.thePlayer.rotationPitch = rotations[1];
 						}
@@ -139,11 +139,7 @@ public class Multi extends AuraMode implements Mode {
 
 		if (event.state == State.POST) {
 			targets1size = targets1.size();
-			if (targets1size == 1) {
-				this.attackDelay = 50L;
-			} else {
-				this.attackDelay = killAura.getDelay();
-			}
+			this.attackDelay = killAura.getDelay();
 			if (killAura.isValidEntity(this.target) && !targets1.isEmpty()) {
 				if (this.time.hasReached(this.attackDelay)) {
 					this.time.reset();
@@ -182,7 +178,7 @@ public class Multi extends AuraMode implements Mode {
 	}
 
 	public void onRender(Render3DEvent event) {
-		if ((Boolean)killAura.values.getValue("renderbox")) {
+		if ((Boolean) killAura.values.getValue("renderbox")) {
 			for (int i = 0; i < targets1.size(); i++) {
 				RenderUtils.drawEsp(this.targets1.get(i), event.partialTicks, this.rendercolor, 1184432128);
 			}
@@ -192,7 +188,7 @@ public class Multi extends AuraMode implements Mode {
 	public void onPacketSent(PacketSentEvent event) {
 		if (event.getPacket() instanceof C03PacketPlayer) {
 			Entity entity = mc.objectMouseOver.entityHit;
-			if (entity != null && (double) mc.thePlayer.getDistanceToEntity(target) <= (Double)killAura.values.getValue("range")) {
+			if (entity != null && (double) mc.thePlayer.getDistanceToEntity(target) <= (Double) killAura.values.getValue("range")) {
 				if (entity == null || target != entity) {
 					double averageX = 0.0D;
 					double averageY = 0.0D;
