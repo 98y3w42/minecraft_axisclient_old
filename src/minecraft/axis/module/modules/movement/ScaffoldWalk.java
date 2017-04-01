@@ -107,11 +107,10 @@ public class ScaffoldWalk
 					mc.thePlayer.sendQueue.addToSendQueue(new C0APacketAnimation());
 				}
 				this.delay = 90;
-				if ((mc.gameSettings.keyBindJump.pressed) && (!mc.thePlayer.onGround)) {
-					mc.thePlayer.motionX *= 0.5D;
+				if ((mc.gameSettings.keyBindJump.pressed) && (!mc.thePlayer.onGround) && (this.blockData != null)) {
 					mc.thePlayer.motionY *= 0.5D;
 					mc.thePlayer.jump();
-					this.delay = 100;
+					this.delay = 120;
 				}
 			}
 		}

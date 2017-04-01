@@ -146,7 +146,7 @@ public class RenderHelper {
 	}
 
 	public static void drawGradientRect(float x, float y, float x1, float y1, int topColor, int bottomColor) {
-		GL11.glEnable(1536);
+		enableGL2D();
 		GL11.glShadeModel(7425);
 		GL11.glBegin(7);
 		glColor(topColor);
@@ -157,7 +157,27 @@ public class RenderHelper {
 		GL11.glVertex2f(x, y);
 		GL11.glEnd();
 		GL11.glShadeModel(7424);
-		GL11.glDisable(1536);
+		disableGL2D();
+	}
+
+	public static void enableGL2D() {
+		GL11.glDisable(2929);
+		GL11.glEnable(3042);
+		GL11.glDisable(3553);
+		GL11.glBlendFunc(770, 771);
+		GL11.glDepthMask(true);
+		GL11.glEnable(2848);
+		GL11.glHint(3154, 4354);
+		GL11.glHint(3155, 4354);
+	}
+
+	public static void disableGL2D() {
+		GL11.glEnable(3553);
+		GL11.glDisable(3042);
+		GL11.glEnable(2929);
+		GL11.glDisable(2848);
+		GL11.glHint(3154, 4352);
+		GL11.glHint(3155, 4352);
 	}
 
 	public static void drawLines(AxisAlignedBB mask) {
