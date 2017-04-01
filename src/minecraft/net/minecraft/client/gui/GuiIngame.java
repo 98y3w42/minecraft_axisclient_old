@@ -352,10 +352,11 @@ public class GuiIngame extends Gui {
 				float width = sr.getScaledWidth();
 				float heighth = sr.getScaledHeight();
 				int o = ColorUtil.color(255, 255, 255, 150);
+				int o1 = ColorUtil.color(255, 255, 255, 255);
 				axis.util.RenderHelper.drawRect(width, heighth, 0, heighth - 23, Integer.MIN_VALUE);
 				axis.util.RenderHelper.drawRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20 + 23, heighth , i - 91 - 1 + entityplayer.inventory.currentItem * 20  + 1, heighth - 22, o);
 				axis.util.RenderHelper.drawRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20 + 23, heighth , i - 91 - 1 + entityplayer.inventory.currentItem * 20  + 1, heighth - 1, HUD.color1);
-				axis.util.RenderHelper.drawRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20 + 23, heighth , i - 91 - 1 + entityplayer.inventory.currentItem * 20  + 1, heighth, o);
+				axis.util.RenderHelper.drawRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20 + 23, heighth , i - 91 - 1 + entityplayer.inventory.currentItem * 20  + 1, heighth, o1);
 			}
 		}
 	}
