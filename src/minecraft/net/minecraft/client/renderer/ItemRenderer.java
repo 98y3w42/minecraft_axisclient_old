@@ -309,7 +309,7 @@ public class ItemRenderer {
 		if (this.itemToRender != null) {
 			if (this.itemToRender.getItem() instanceof ItemMap) {
 				this.renderItemMap(entityplayersp, f2, f, f1);
-			} else if (Axis.getAxis().getModuleManager().getModuleByName("SwordAnimation").isEnabled() && (!mc.thePlayer.isBlocking())
+			} else if (Axis.getAxis().getModuleManager().getModuleByName("Animation").isEnabled() && (!mc.thePlayer.isBlocking())
 					&& ((mc.thePlayer.getHeldItem() != null) && (mc.thePlayer.getHeldItem().getItem() != null) && ((mc.thePlayer.getHeldItem().getItem() instanceof ItemSword)))) {
 				this.transformFirstPersonItem(f, f1);
 			} else if (entityplayersp.getItemInUseCount() > 0) {

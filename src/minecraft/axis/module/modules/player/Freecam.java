@@ -2,20 +2,14 @@ package axis.module.modules.player;
 
 import axis.event.Event.State;
 import axis.event.events.BoundingBoxEvent;
-import axis.event.events.MoveEvent;
 import axis.event.events.UpdateEvent;
 import axis.management.managers.ModuleManager;
 import axis.module.Module;
-import axis.module.modules.movement.Speed;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
-import net.minecraft.util.MovementInput;
 
 public class Freecam extends Module {
 
 	private EntityOtherPlayerMP prayerCopy;
-	private Speed speed;
-	private double moveSpeed;
 	private double startX;
 	private double startY;
 	private double startZ;
@@ -24,7 +18,6 @@ public class Freecam extends Module {
 
 	public Freecam() {
 		super("Freecam", -5192482, ModuleManager.Category.PLAYER);
-		this.setEnabled(false);
 	}
 
 	private void onPreUpdate(UpdateEvent event) {
@@ -36,7 +29,9 @@ public class Freecam extends Module {
 	}
 
 	private void onBoundingBox(BoundingBoxEvent event) {
-		event.boundingBox = null;
+		if ((Math.abs(event.pos.getX() - mc.thePlayer.posX) <= 3) && (Math.abs(event.pos.getZ() - mc.thePlayer.posZ) <= 3) && (Math.abs(event.pos.getY() - mc.thePlayer.posY) <= 3)) {
+			event.boundingBox = null;
+		}
 	}
 
 	public void onEnabled() {
