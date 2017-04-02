@@ -50,6 +50,7 @@ public class Glide extends Module {
 			event.setY(-0.8F);
 		}
 		mc.thePlayer.isAirBorne = true;
+		mc.thePlayer.cameraPitch = 0.0F;
 
 		this.moveSpeed = 0.2872D;
 		final MovementInput movementInput = this.mc.thePlayer.movementInput;
