@@ -12,8 +12,11 @@ import axis.util.Logger;
 import axis.util.TimeHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
+import net.minecraft.block.BlockDoor;
 import net.minecraft.block.BlockFence;
+import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockPane;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.C03PacketPlayer;
@@ -74,12 +77,12 @@ public class Phase
 			}
 			if (isInsideBlock()) {
 				if (isInsideFence()) {
-					multiplier = 0.3D;
+					multiplier = 0.5D;
 					mx = Math.cos(Math.toRadians(mc.thePlayer.rotationYaw + 90.0F));
 					mz = Math.sin(Math.toRadians(mc.thePlayer.rotationYaw + 90.0F));
 					x = mc.thePlayer.movementInput.moveForward * multiplier * mx + mc.thePlayer.movementInput.moveStrafe * multiplier * mz;
 					z = mc.thePlayer.movementInput.moveForward * multiplier * mz - mc.thePlayer.movementInput.moveStrafe * multiplier * mx;
-					mc.getNetHandler().addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX + x, mc.thePlayer.posY, mc.thePlayer.posZ + z, false));
+					mc.getNetHandler().addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX + x, mc.thePlayer.posY, mc.thePlayer.posZ + z, mc.thePlayer.onGround));
 				}
 				mc.thePlayer.noClip = true;
 				if (mc.gameSettings.keyBindForward.isKeyDown() && Axis.getAxis().getModuleManager().getModuleByName("Sprint").isEnabled()) {
@@ -116,7 +119,7 @@ public class Phase
 				for (int z = MathHelper.floor_double(mc.thePlayer.boundingBox.minZ); z < MathHelper.floor_double(mc.thePlayer.boundingBox.maxZ) + 1; z++) {
 					Block block = mc.theWorld.getBlockState(new BlockPos(x, y, z)).getBlock();
 					AxisAlignedBB boundingBox;
-					if ((block != null) && ((block instanceof BlockFence) || (block instanceof BlockPane))
+					if ((block != null) && ((block instanceof BlockFence) || (block instanceof BlockPane) || (block instanceof BlockDoor) || (block instanceof BlockFenceGate) || (block == Blocks.cobblestone_wall))
 							&& ((boundingBox = block.getCollisionBoundingBox(mc.theWorld, new BlockPos(x, y, z), mc.theWorld.getBlockState(new BlockPos(x, y, z)))) != null) &&
 							(mc.thePlayer.boundingBox.intersectsWith(boundingBox))) {
 						return true;

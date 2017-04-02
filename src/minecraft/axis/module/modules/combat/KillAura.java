@@ -210,8 +210,8 @@ public class KillAura extends Module {
 	public void onEnabled() {
 		super.onEnabled();
 		if (AutoSetting.setting.getValue().equalsIgnoreCase("Anni")) {
-			values.setValue("maxtarget", 2);
-			values.setValue("delay", 200L);
+			values.setValue("maxtarget", 3);
+			values.setValue("delay", 128L);
 			values.setValue("hurttime", true);
 			currentMode.setValue(new Multi());
 			values.setValue("type", "Anni");
@@ -355,7 +355,7 @@ public class KillAura extends Module {
 				}
 			}
 			if ((Boolean) values.getValue("hurttime")) {
-				if (!(this.currentMode.getValue() instanceof Multi) || Multi.targets1size >= 3) {
+				if (!(this.currentMode.getValue() instanceof Multi) || Multi.targets1size >= 4) {
 					if (entity.hurtTime >= 8) {
 						return false;
 					}

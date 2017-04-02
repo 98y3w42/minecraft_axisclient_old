@@ -42,10 +42,10 @@ public class Jesus extends Module {
 			boolean water = false;
 
 			if (LiquidUtils.isInLiquid() && mc.thePlayer.isInsideOfMaterial(Material.air)) {
-				mc.thePlayer.motionY = 1.11111112E8D;
 				mc.thePlayer.onGround = true;
 				mc.thePlayer.motionY = 0.03799999877810478D;
-				mc.thePlayer.fallDistance = 0.42F;
+				mc.thePlayer.fallDistance = 0.29F;
+				mc.thePlayer.cameraPitch = 0.0F;
 
 				switch (this.stage) {
 				case 1:
@@ -53,12 +53,18 @@ public class Jesus extends Module {
 					this.stage += 1;
 					if (mc.thePlayer.getItemInUseCount() == 0) {
 						net.minecraft.util.Timer.timerSpeed = 1.5F;
+						mc.thePlayer.motionX *= 1.1F;
+						mc.thePlayer.motionZ *= 1.1F;
 					}
 					break;
 				case 2:
 					event.y += 2.0E-4D;
 					this.stage += 1;
 					net.minecraft.util.Timer.timerSpeed = 1.0F;
+					if (mc.thePlayer.getItemInUseCount() == 0) {
+						mc.thePlayer.motionX *= 0.95F;
+						mc.thePlayer.motionZ *= 0.95F;
+					}
 					break;
 				default:
 					this.stage = 1;
