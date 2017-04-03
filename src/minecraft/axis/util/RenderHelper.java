@@ -5,11 +5,19 @@ import java.awt.Color;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 
+import axis.Axis;
+import axis.module.modules.render.HUD;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.VertexFormat;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.util.AxisAlignedBB;
 
 public class RenderHelper {
@@ -154,6 +162,21 @@ public class RenderHelper {
 		GL11.glVertex2f(x1, y1);
 		glColor(bottomColor);
 		GL11.glVertex2f(x1, y);
+		GL11.glVertex2f(x, y);
+		GL11.glEnd();
+		GL11.glShadeModel(7424);
+		disableGL2D();
+	}
+
+	public static void drawGradientSideRect(float x, float y, float x1, float y1, int topColor, int bottomColor) {
+		enableGL2D();
+		GL11.glShadeModel(7425);
+		GL11.glBegin(7);
+		glColor(topColor);
+		GL11.glVertex2f(x1, y);
+		GL11.glVertex2f(x1, y1);
+		glColor(bottomColor);
+		GL11.glVertex2f(x, y1);
 		GL11.glVertex2f(x, y);
 		GL11.glEnd();
 		GL11.glShadeModel(7424);
@@ -325,5 +348,108 @@ public class RenderHelper {
 
 	public static String getLogInfo(final int obj) {
 		return ARBShaderObjects.glGetInfoLogARB(obj, ARBShaderObjects.glGetObjectParameteriARB(obj, 35716));
+	}
+
+	public static void renderOne() {
+		GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
+		GL11.glDisable(GL11.GL_ALPHA_TEST);
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glLineWidth(RenderUtils.getLineWidth().getValue() * 2);
+		GL11.glEnable(GL11.GL_LINE_SMOOTH);
+		GL11.glEnable(GL11.GL_STENCIL_TEST);
+		GL11.glClear(GL11.GL_STENCIL_BUFFER_BIT);
+		GL11.glClearStencil(0xF);
+		GL11.glStencilFunc(GL11.GL_NEVER, 1, 0xF);
+		GL11.glStencilOp(GL11.GL_REPLACE, GL11.GL_REPLACE, GL11.GL_REPLACE);
+		GL11.glPolygonMode(GL11.GL_FRONT, GL11.GL_LINE);
+	}
+
+	public static void renderTwo() {
+		GL11.glStencilFunc(GL11.GL_NEVER, 0, 0xF);
+		GL11.glStencilOp(GL11.GL_REPLACE, GL11.GL_REPLACE, GL11.GL_REPLACE);
+		GL11.glPolygonMode(GL11.GL_FRONT, GL11.GL_FILL);
+	}
+
+	public static void renderThree() {
+		GL11.glStencilFunc(GL11.GL_EQUAL, 1, 0xF);
+		GL11.glStencilOp(GL11.GL_KEEP, GL11.GL_KEEP, GL11.GL_KEEP);
+		GL11.glPolygonMode(GL11.GL_FRONT, GL11.GL_LINE);
+	}
+
+	public static void renderFour(Minecraft mc, Entity renderEntity) {
+		float[] color = new float[] { 1.0F, 1.0F, 1.0F };
+
+		if (renderEntity instanceof EntityLivingBase && renderEntity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) renderEntity;
+			if (renderEntity instanceof EntityPlayer) {
+				if (player.getTeam() != null) {
+					ScorePlayerTeam team = (ScorePlayerTeam) player.getTeam();
+					String code = "";
+					String[] arrayOfString;
+					int j = (arrayOfString = team.getColorPrefix().split("§")).length;
+					for (int i = 0; i < j; i++) {
+						String a = arrayOfString[i];
+						if ((!a.contains("r")) || (!a.contains("f"))) {
+							code = a;
+						}
+					}
+					ColorCode colora = null;
+					ColorCode[] arrayOfColorCode;
+					int k = (arrayOfColorCode = ColorCode.values()).length;
+					for (j = 0; j < k; j++) {
+						ColorCode c = arrayOfColorCode[j];
+						if (c.getformat().contains(code)) {
+							colora = c;
+						}
+					}
+					if (colora == null) {
+						color = new float[] { 0.2F, 1.2F, 1.2F };
+					} else {
+						float g = (colora.getCode() >> 16 & 0xFF) / 255.0F;
+						float g1 = (colora.getCode() >> 8 & 0xFF) / 255.0F;
+						float g2 = (colora.getCode() & 0xFF) / 255.0F;
+						color = new float[] { g, g1, g2 };
+						if (Axis.getAxis().getFriendManager().isFriend(renderEntity.getName())) {
+							float red = (HUD.color1 >> 16 & 0xFF) / 255.0F;
+							float blue = (HUD.color1 >> 8 & 0xFF) / 255.0F;
+							float green = (HUD.color1 & 0xFF) / 255.0F;
+							float alpha = (HUD.color1 >> 24 & 0xFF) / 255.0F;
+							color = new float[] { red, blue, green, alpha };
+						}
+					}
+				} else {
+					color = new float[] { 1.0F, 1.0F, 1.0F };
+				}
+			}
+		}
+		GL11.glColor4f(color[0], color[1], color[2], 1.0F);
+
+		renderFour();
+	}
+
+	public static void renderFour() {
+		GL11.glDepthMask(false);
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		GL11.glEnable(GL11.GL_POLYGON_OFFSET_LINE);
+		GL11.glPolygonOffset(1.0F, -2000000F);
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
+	}
+
+	public static void renderFive() {
+		GL11.glPolygonOffset(1.0F, 2000000F);
+		GL11.glDisable(GL11.GL_POLYGON_OFFSET_LINE);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glDepthMask(true);
+		GL11.glDisable(GL11.GL_STENCIL_TEST);
+		GL11.glDisable(GL11.GL_LINE_SMOOTH);
+		GL11.glHint(GL11.GL_LINE_SMOOTH_HINT, GL11.GL_DONT_CARE);
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		GL11.glEnable(GL11.GL_ALPHA_TEST);
+		GL11.glPopAttrib();
 	}
 }

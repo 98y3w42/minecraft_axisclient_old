@@ -292,7 +292,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 	}
 
 	public void renderEntityOutlineFramebuffer() {
-		if (this.isRenderEntityOutlines() || Axis.getAxis().getModuleManager().getModuleByName("OutlinedESP").isEnabled()) {
+		if (this.isRenderEntityOutlines() || Axis.getAxis().getModuleManager().getModuleByName("GlowingESP").isEnabled()) {
 			GlStateManager.enableBlend();
 			GlStateManager.tryBlendFuncSeparate(770, 771, 0, 1);
 			this.entityOutlineFramebuffer.framebufferRenderExt(this.mc.displayWidth, this.mc.displayHeight, false);
@@ -609,7 +609,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 				}
 			}
 
-			if (this.isRenderEntityOutlines() || Axis.getAxis().getModuleManager().getModuleByName("OutlinedESP").isEnabled()) {
+			if (this.isRenderEntityOutlines() || Axis.getAxis().getModuleManager().getModuleByName("GlowingESP").isEnabled()) {
 				GlStateManager.depthFunc(519);
 				GlStateManager.disableFog();
 				this.entityOutlineFramebuffer.framebufferClear();

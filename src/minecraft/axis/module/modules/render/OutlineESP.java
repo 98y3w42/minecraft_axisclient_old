@@ -26,12 +26,11 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import org.lwjgl.opengl.GL11;
 
-public class OutlineLatest
+public class OutlineESP
 		extends Module {
 
-	public OutlineLatest() {
-		super("OutlinedESP", -1, ModuleManager.Category.RENDER);
-		setDisplayName("Outlined ESP");
+	public OutlineESP() {
+		super("OutlineESP", -1, ModuleManager.Category.RENDER);
 	}
 
 	private void onRender(Render3DEvent event) {
@@ -74,5 +73,9 @@ public class OutlineLatest
 		GL11.glEnable(2848);
 		GL11.glDisable(2896);
 		GL11.glDisable(3553);
+	}
+
+	public void onEnabled(){
+		super.onEnabled();
 	}
 }
