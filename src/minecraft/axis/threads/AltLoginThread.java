@@ -48,7 +48,7 @@ public class AltLoginThread extends Thread
     @Override
     public void run() {
     	String oldusername = mc.session.getUsername();
-        if (this.password.equals("") && !this.username.equals("N00bPot")) {
+        if (this.password.equals("")) {
             this.mc.session = new Session(this.username, "", "", "mojang");
             this.status = "§aLogged in. (" + this.username + " - offline name)";
         }

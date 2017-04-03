@@ -211,7 +211,6 @@ public class KillAura extends Module {
 		super.onEnabled();
 		if (AutoSetting.setting.getValue().equalsIgnoreCase("Anni")) {
 			values.setValue("maxtarget", 3);
-			values.setValue("delay", 128L);
 			values.setValue("hurttime", true);
 			currentMode.setValue(new Multi());
 			values.setValue("type", "Anni");
@@ -219,7 +218,6 @@ public class KillAura extends Module {
 			setTag((String) values.getValue("type"));
 		} else if (AutoSetting.setting.getValue().equalsIgnoreCase("Hypixel")) {
 			values.setValue("maxtarget", 1);
-			values.setValue("delay", 144L);
 			values.setValue("hurttime", false);
 			values.setValue("tick", false);
 			currentMode.setValue(new Multi());
