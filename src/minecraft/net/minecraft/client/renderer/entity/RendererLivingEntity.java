@@ -183,7 +183,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 					if (flag) {
 						this.unsetScoreTeamColor();
 					}
-				} else if (Axis.getAxis().getModuleManager().getModuleByName("OutlineESP").isEnabled() || entity instanceof EntityPlayer) {
+				} else if (Axis.getAxis().getModuleManager().getModuleByName("OutlineESP").isEnabled()) {
 					GlStateManager.depthMask(true);
 					if (!(entity instanceof EntityPlayer) || !((EntityPlayer) entity).isSpectator()) {
 						this.renderLayers(entity, f6, f5, partialTicks, f7, f2, f8, 0.0625F);
@@ -200,7 +200,6 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 					RenderHelper.renderFour(Minecraft.getMinecraft(), entity);
 					this.renderModel(entity, f6, f5, f7, f2, f8, 0.0625F);
 					RenderHelper.renderFive();
-					this.renderModel(entity, f6, f5, f7, f2, f8, 0.0625F);
 				} else {
 					flag = this.setDoRenderBrightness(entity, partialTicks);
 					this.renderModel(entity, f6, f5, f7, f2, f8, 0.0625F);

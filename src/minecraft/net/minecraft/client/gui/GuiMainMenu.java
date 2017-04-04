@@ -94,7 +94,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 
 	/** Minecraft Realms button. */
 	private GuiButton realmsButton;
-	private ParticleGenerator particles;
+	private static ParticleGenerator particles;
 
 	public GuiMainMenu() {
 		this.openGLWarning2 = field_96138_a;
@@ -174,7 +174,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 	 * cleared beforehand.
 	 */
 	public void initGui() {
-		this.particles = new ParticleGenerator(25, this.width, this.height);
+		particles = new ParticleGenerator(25, this.width, this.height);
 		this.viewportTexture = new DynamicTexture(256, 256);
 		this.backgroundTexture = this.mc.getTextureManager().getDynamicTextureLocation("background", this.viewportTexture);
 		Calendar calendar = Calendar.getInstance();
@@ -334,11 +334,11 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 		worldrenderer.pos((double) scaledresolution.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
 		worldrenderer.pos(0.0D, 0.0D, -90.0D).tex(0.0D, 0.0D).endVertex();
 		tessellator.draw();
+		particles.drawParticles();
 		GlStateManager.depthMask(true);
 		GlStateManager.enableDepth();
 		GlStateManager.enableAlpha();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-
 	}
 
 	/**
@@ -455,7 +455,6 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 			this.drawString(this.fontRendererObj, this.openGLWarning1, this.field_92022_t, this.field_92021_u, -1);
 			this.drawString(this.fontRendererObj, this.openGLWarning2, (this.width - this.field_92024_r) / 2, ((GuiButton) this.buttonList.get(0)).yPosition - 12, -1);
 		}
-		this.particles.drawParticles();
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 

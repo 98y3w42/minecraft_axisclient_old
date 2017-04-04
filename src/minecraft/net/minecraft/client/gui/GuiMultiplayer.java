@@ -2,6 +2,9 @@ package net.minecraft.client.gui;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
+
+import axis.util.ParticleGenerator;
+
 import java.io.IOException;
 import java.util.List;
 import net.minecraft.client.multiplayer.GuiConnecting;
@@ -38,6 +41,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
 	private LanServerDetector.LanServerList lanServerList;
 	private LanServerDetector.ThreadLanServerFind lanServerDetector;
 	private boolean initialized;
+	private ParticleGenerator particles;
 
 	public GuiMultiplayer(GuiScreen parentScreen) {
 		this.parentScreen = parentScreen;
@@ -49,6 +53,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
 	 * cleared beforehand.
 	 */
 	public void initGui() {
+		this.particles = new ParticleGenerator(25, this.width, this.height);
 		Keyboard.enableRepeatEvents(true);
 		this.buttonList.clear();
 
@@ -298,6 +303,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
 		this.serverListSelector.drawScreen(mouseX, mouseY, partialTicks);
 		this.drawCenteredString(this.fontRendererObj, I18n.format("multiplayer.title", new Object[0]), this.width / 2,
 				20, 16777215);
+		this.particles.drawParticles();
 		super.drawScreen(mouseX, mouseY, partialTicks);
 
 		if (this.hoveringText != null) {
