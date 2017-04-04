@@ -22,6 +22,7 @@ public class Speed extends Module {
 	public static double yOffset;
 	public boolean cancel;
 	public SpeedMode currentMode;
+	public static String speedmode;
 
 	public Speed() {
 		super("Speed", 0x00BFFF, Category.MOVEMENT);
@@ -60,6 +61,7 @@ public class Speed extends Module {
 	private void onUpdate(UpdateEvent event) {
 		currentMode = SpeedMode.getModeByName((String) values.getValue("mode"));
 		setTag(currentMode.getName());
+		speedmode = currentMode.getName();
 
 		if (Axis.getAxis().getModuleManager().getModuleByName("Freecam").isEnabled()) {
 			return;

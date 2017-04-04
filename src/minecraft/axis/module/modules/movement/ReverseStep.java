@@ -10,6 +10,7 @@ import axis.event.events.TickEvent;
 import axis.event.events.UpdateEvent;
 import axis.management.managers.ModuleManager.Category;
 import axis.module.Module;
+import axis.module.modules.movement.speed.SpeedMode;
 import axis.module.modules.movement.speed.modes.MineZ;
 import axis.util.BlockHelper;
 import axis.util.Logger;
@@ -37,17 +38,21 @@ public class ReverseStep extends Module {
 
 	private void onUpdate(UpdateEvent event) {
 		if (event.state == Event.State.PRE) {
+			if (Axis.getAxis().getModuleManager().getModuleByName("Freecam").isEnabled()
+					|| (((Speed.speedmode.equals("Bhop2") || Speed.speedmode.equals("Bhop")) && Axis.getAxis().getModuleManager().getModuleByName("Speed").isEnabled()))) {
+				return;
+			}
 			if (mc.gameSettings.keyBindJump.isKeyDown() || (getBlock(-0.1D) instanceof BlockStaticLiquid) || (getBlock(-1.1D) instanceof BlockStaticLiquid) || (getBlock(-0.1D) instanceof BlockAir) || (mc.thePlayer.isOnLadder())) {
 				this.reverse = false;
 			}
-			if (mc.thePlayer.onGround && !Axis.getAxis().getModuleManager().getModuleByName("Fly").isEnabled() && !(getBlock(-0.1D) instanceof BlockStaticLiquid)) {
+			if (mc.thePlayer.onGround && !Axis.getAxis().getModuleManager().getModuleByName("Fly").isEnabled() && !(getBlock(-0.1D) instanceof BlockStaticLiquid) && !(getBlock(-1.1D) instanceof BlockStaticLiquid)) {
 				this.reverse = true;
 			}
 			if ((this.reverse) && (!mc.gameSettings.keyBindJump.pressed) && (!mc.thePlayer.isOnLadder()) && (!mc.thePlayer.isInsideOfMaterial(Material.water))
 					&& (!mc.thePlayer.isInsideOfMaterial(Material.lava)) && (!mc.thePlayer.isInWater())
 					&& (((!(getBlock(-1.1D) instanceof BlockAir)) && (!(getBlock(-1.1D) instanceof BlockAir))) || ((!(getBlock(-0.1D) instanceof BlockAir)) && (mc.thePlayer.motionX != 0.0D)
 							&& (mc.thePlayer.motionZ != 0.0D) && (this.reverse) && (!mc.thePlayer.onGround) && (mc.thePlayer.fallDistance < 3.0F) && (mc.thePlayer.fallDistance > 0.05D)))) {
-				mc.thePlayer.motionY = -3.0D;
+				mc.thePlayer.motionY = -4.0D;
 			}
 			this.recentStepTicks += 1;
 			if (mc.thePlayer.onGround) {
@@ -59,7 +64,9 @@ public class ReverseStep extends Module {
 	}
 
 	private void onStep(StepEvent event) {
-		mc.thePlayer.jump();
+		if (mc.thePlayer.onGround && !mc.gameSettings.keyBindJump.isKeyDown() && !Axis.getAxis().getModuleManager().getModuleByName("Step").isEnabled()) {
+			mc.thePlayer.jump();
+		}
 		if ((this.timer.hasReached(300.0F)) && (mc.thePlayer.movementInput != null) && (this.recentStepTicks >= 2) && (this.groundTicks >= 2) && (!mc.thePlayer.movementInput.jump)) {
 			this.timer.reset();
 		}

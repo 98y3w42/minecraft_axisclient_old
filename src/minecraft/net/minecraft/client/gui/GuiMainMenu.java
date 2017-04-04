@@ -23,6 +23,7 @@ import axis.Axis;
 import axis.module.modules.render.HUD;
 import axis.ui.screens.GuiAltManager;
 import axis.ui.screens.GuiRedeemToken;
+import axis.util.ParticleGenerator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -93,6 +94,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 
 	/** Minecraft Realms button. */
 	private GuiButton realmsButton;
+	private ParticleGenerator particles;
 
 	public GuiMainMenu() {
 		this.openGLWarning2 = field_96138_a;
@@ -172,6 +174,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 	 * cleared beforehand.
 	 */
 	public void initGui() {
+		this.particles = new ParticleGenerator(25, this.width, this.height);
 		this.viewportTexture = new DynamicTexture(256, 256);
 		this.backgroundTexture = this.mc.getTextureManager().getDynamicTextureLocation("background", this.viewportTexture);
 		Calendar calendar = Calendar.getInstance();
@@ -440,9 +443,10 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 		String s = "Coded @Nanamituki";
 		GL11.glPushMatrix();
 		GL11.glScaled(2.0D, 2.0D, 2.0D);
-		this.drawString(this.fontRendererObj, s, 2, this.height/2 - 10, -1);
+		this.drawString(this.fontRendererObj, s, 2, this.height / 2 - 10, -1);
 		GL11.glPopMatrix();
-		//this.drawString(this.fontRendererObj, s, 2, this.height - 10, HUD.color1);
+		// this.drawString(this.fontRendererObj, s, 2, this.height - 10,
+		// HUD.color1);
 		String s1 = "";
 		this.drawString(this.fontRendererObj, s1, this.width - this.fontRendererObj.getStringWidth(s1) - 2, this.height - 10, HUD.color1);
 
@@ -451,7 +455,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 			this.drawString(this.fontRendererObj, this.openGLWarning1, this.field_92022_t, this.field_92021_u, -1);
 			this.drawString(this.fontRendererObj, this.openGLWarning2, (this.width - this.field_92024_r) / 2, ((GuiButton) this.buttonList.get(0)).yPosition - 12, -1);
 		}
-
+		this.particles.drawParticles();
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 

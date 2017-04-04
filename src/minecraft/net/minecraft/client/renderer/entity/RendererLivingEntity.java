@@ -11,6 +11,7 @@ import com.google.common.collect.Lists;
 
 import axis.Axis;
 import axis.module.modules.render.HUD;
+import axis.module.modules.render.StorageESP;
 import axis.util.ColorCode;
 import axis.util.ColorUtil;
 import axis.util.RenderHelper;
@@ -182,21 +183,24 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 					if (flag) {
 						this.unsetScoreTeamColor();
 					}
-				} else if (Axis.getAxis().getModuleManager().getModuleByName("OutlineESP").isEnabled() && (entity instanceof EntityPlayer)) {
+				} else if (Axis.getAxis().getModuleManager().getModuleByName("OutlineESP").isEnabled() || entity instanceof EntityPlayer) {
 					GlStateManager.depthMask(true);
 					if (!(entity instanceof EntityPlayer) || !((EntityPlayer) entity).isSpectator()) {
 						this.renderLayers(entity, f6, f5, partialTicks, f7, f2, f8, 0.0625F);
 					}
 
+					StorageESP.checkSetupFBO();
 					this.renderModel(entity, f6, f5, f7, f2, f8, 0.0625F);
 					RenderHelper.renderOne();
 					this.renderModel(entity, f6, f5, f7, f2, f8, 0.0625F);
 					RenderHelper.renderTwo();
 					this.renderModel(entity, f6, f5, f7, f2, f8, 0.0625F);
 					RenderHelper.renderThree();
+					this.renderModel(entity, f6, f5, f7, f2, f8, 0.0625F);
 					RenderHelper.renderFour(Minecraft.getMinecraft(), entity);
 					this.renderModel(entity, f6, f5, f7, f2, f8, 0.0625F);
 					RenderHelper.renderFive();
+					this.renderModel(entity, f6, f5, f7, f2, f8, 0.0625F);
 				} else {
 					flag = this.setDoRenderBrightness(entity, partialTicks);
 					this.renderModel(entity, f6, f5, f7, f2, f8, 0.0625F);
