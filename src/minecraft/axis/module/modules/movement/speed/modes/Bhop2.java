@@ -77,12 +77,12 @@ public class Bhop2 extends SpeedMode implements Mode {
 			}
 			mc.thePlayer.motionX *= 1.6585D;
 			mc.thePlayer.motionZ *= 1.6585D;
-			this.moveSpeed *= 1.68999D + (float) (random.nextInt(2)) / 10;
+			this.moveSpeed *= 1.65D + (float) (random.nextInt(2)) / 10;
 		}
 		if (this.fast) {
 			this.moveSpeed *= 1.1D;
 			if (mc.thePlayer.getItemInUse() == null) {
-				Timer.timerSpeed = 1.15F;
+				Timer.timerSpeed = 1.1F;
 			} else {
 				net.minecraft.util.Timer.timerSpeed = 1.0F;
 			}
