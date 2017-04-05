@@ -4,6 +4,7 @@ import axis.Axis;
 import axis.command.Command;
 import axis.event.events.AttackEvent;
 import axis.event.events.MoveEvent;
+import axis.event.events.StepEvent;
 import axis.event.events.UpdateEvent;
 import axis.management.managers.ModuleManager.Category;
 import axis.module.Module;
@@ -23,6 +24,7 @@ public class Speed extends Module {
 	public boolean cancel;
 	public SpeedMode currentMode;
 	public static String speedmode;
+	private boolean step = false;
 
 	public Speed() {
 		super("Speed", 0x00BFFF, Category.MOVEMENT);
@@ -52,7 +54,7 @@ public class Speed extends Module {
 	}
 
 	private void onMove(MoveEvent event) {
-		if (Axis.getAxis().getModuleManager().getModuleByName("Freecam").isEnabled()) {
+		if (Axis.getAxis().getModuleManager().getModuleByName("Freecam").isEnabled() || this.step) {
 			return;
 		}
 		currentMode.onMove(event);
@@ -62,8 +64,9 @@ public class Speed extends Module {
 		currentMode = SpeedMode.getModeByName((String) values.getValue("mode"));
 		setTag(currentMode.getName());
 		speedmode = currentMode.getName();
+		this.step = false;
 
-		if (Axis.getAxis().getModuleManager().getModuleByName("Freecam").isEnabled()) {
+		if (Axis.getAxis().getModuleManager().getModuleByName("Freecam").isEnabled() || this.step) {
 			return;
 		}
 		currentMode.onUpdate(event);
@@ -76,6 +79,10 @@ public class Speed extends Module {
 				MineZ.wait = 1;
 			}
 		}
+	}
+
+	public void onStep(StepEvent event){
+		this.step = true;
 	}
 
 	public double getBaseMoveSpeed() {

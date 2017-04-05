@@ -18,6 +18,7 @@ import axis.util.TimeHelper;
 import axis.value.Value;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
+import net.minecraft.block.BlockSnow;
 import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.network.play.client.C03PacketPlayer;
@@ -38,9 +39,11 @@ public class ReverseStep extends Module {
 
 	private void onUpdate(UpdateEvent event) {
 		if (event.state == Event.State.PRE) {
-			if (Axis.getAxis().getModuleManager().getModuleByName("Freecam").isEnabled()
-					|| (((Speed.speedmode.equals("Bhop2") || Speed.speedmode.equals("Bhop")) && Axis.getAxis().getModuleManager().getModuleByName("Speed").isEnabled()))) {
-				return;
+			if (Speed.speedmode != null || Axis.getAxis().getModuleManager().getModuleByName("Freecam").isEnabled()) {
+				if (Axis.getAxis().getModuleManager().getModuleByName("Freecam").isEnabled()
+						|| (((Speed.speedmode.equals("Bhop2") || Speed.speedmode.equals("Bhop") || (Speed.speedmode.equals("SlowHop"))) && Axis.getAxis().getModuleManager().getModuleByName("Speed").isEnabled()))) {
+					return;
+				}
 			}
 			if (mc.gameSettings.keyBindJump.isKeyDown() || (getBlock(-0.1D) instanceof BlockStaticLiquid) || (getBlock(-1.1D) instanceof BlockStaticLiquid) || (getBlock(-0.1D) instanceof BlockAir) || (mc.thePlayer.isOnLadder())) {
 				this.reverse = false;
@@ -64,7 +67,7 @@ public class ReverseStep extends Module {
 	}
 
 	private void onStep(StepEvent event) {
-		if (mc.thePlayer.onGround && !mc.gameSettings.keyBindJump.isKeyDown() && !Axis.getAxis().getModuleManager().getModuleByName("Step").isEnabled()) {
+		if (mc.thePlayer.onGround && !mc.gameSettings.keyBindJump.isKeyDown() && !Axis.getAxis().getModuleManager().getModuleByName("Step").isEnabled() && !(getBlock(-0.1D) instanceof BlockSnow)) {
 			mc.thePlayer.jump();
 		}
 		if ((this.timer.hasReached(300.0F)) && (mc.thePlayer.movementInput != null) && (this.recentStepTicks >= 2) && (this.groundTicks >= 2) && (!mc.thePlayer.movementInput.jump)) {

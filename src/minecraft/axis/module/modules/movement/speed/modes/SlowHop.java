@@ -1,113 +1,158 @@
 package axis.module.modules.movement.speed.modes;
 
-import axis.event.Event;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import axis.event.events.MoveEvent;
 import axis.event.events.UpdateEvent;
 import axis.module.Mode;
 import axis.module.modules.movement.speed.SpeedMode;
 import axis.util.LiquidUtils;
 import axis.util.MathUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
+import axis.util.TimeHelper;
+import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.util.MovementInput;
-import net.minecraft.util.Timer;
 
 public class SlowHop extends SpeedMode implements Mode {
-
-	private int state = 1;
+	private boolean forward;
+	private int stage;
 	private double moveSpeed;
 	private double lastDist;
-	private int stage;
-	private int test = 0;
+	private int state = 1;
 
 	public SlowHop() {
 		super("SlowHop");
 	}
 
 	public void onMove(MoveEvent event) {
-		net.minecraft.util.Timer.timerSpeed = 1.0F;
-		if (LiquidUtils.isInLiquid() || mc.gameSettings.keyBindJump.isKeyDown()) {
+		if (mc.gameSettings.keyBindJump.isKeyDown()) {
+			this.state = 1;
+			this.moveSpeed = speed.getBaseMoveSpeed();
 			return;
 		}
-		if (MathUtils.roundToPlace(mc.thePlayer.posY - (int) mc.thePlayer.posY, 3) == MathUtils.roundToPlace(0.138D, 3)) {
-			EntityPlayerSP thePlayer = mc.thePlayer;
-			thePlayer.motionY -= 0.08D;
-			event.y -= 0.09316090325960147D;
-			EntityPlayerSP thePlayer2 = mc.thePlayer;
-			thePlayer2.posY -= 0.09316090325960147D;
+		mc.thePlayer.isAirBorne = true;
+		if (!(mc.gameSettings.keyBindForward.pressed || mc.gameSettings.keyBindLeft.pressed || mc.gameSettings.keyBindRight.pressed || mc.gameSettings.keyBindBack.pressed)) {
+			this.state = 1;
 		}
-		if ((this.stage == 1) && ((mc.thePlayer.moveForward != 0.0F) || (mc.thePlayer.moveStrafing != 0.0F))) {
-			this.stage = 2;
-			this.moveSpeed = (1.35D * speed.getBaseMoveSpeed() - 0.01D);
-		} else if (this.stage == 2) {
-			this.stage = 3;
-			mc.thePlayer.motionY = 0.5D;
-			event.y = 0.5D;
-			this.moveSpeed = speed.getBaseMoveSpeed() * 1.7D;
-		} else if (this.stage == 3) {
-			this.stage = 4;
-			double difference = 0.66D * (this.lastDist - speed.getBaseMoveSpeed());
-			this.moveSpeed = (this.lastDist - difference);
-		} else {
-			if ((mc.theWorld.getCollidingBoundingBoxes(mc.thePlayer, mc.thePlayer.boundingBox.offset(0.0D, mc.thePlayer.motionY, 0.0D)).size() > 0) || (mc.thePlayer.isCollidedVertically)) {
-				this.stage = 1;
+
+		if (this.round(mc.thePlayer.posY - (double) ((int) mc.thePlayer.posY), 3) == this.round(0.138D, 3)) {
+			this.mc.thePlayer.motionY -= 0.08;
+			event.y -= 0.09316090325960147;
+			this.mc.thePlayer.posY -= 0.09316090325960147;
+		}
+
+		if (this.state == 1) {
+			this.state = 2;
+		} else if (this.state == 2) {
+			this.state = 3;
+			if (this.mc.theWorld.getCollidingBoundingBoxes(this.mc.thePlayer, this.mc.thePlayer.boundingBox.offset(0, this.mc.thePlayer.motionY, 0)).size() < 1) {
+				return;
 			}
-			this.moveSpeed = (this.lastDist - this.lastDist / 159.0D);
+			event.setY(0.4D);
+			mc.thePlayer.motionY = 0.4F;
+			if (this.mc.theWorld.getCollidingBoundingBoxes(this.mc.thePlayer, this.mc.thePlayer.boundingBox.offset(this.mc.thePlayer.motionX, this.mc.thePlayer.motionY, this.mc.thePlayer.motionZ)).size() > 0) {
+				return;
+			}
+			event.y = 0.4;
+			this.moveSpeed *= 1.4;
+		} else if (this.state == 3) {
+			this.state = 4;
+			final double difference = 0.66 * (this.lastDist - speed.getBaseMoveSpeed());
+			this.moveSpeed = this.lastDist - difference;
+		} else {
+			if (this.mc.theWorld.getCollidingBoundingBoxes(this.mc.thePlayer, this.mc.thePlayer.boundingBox.offset(0.0, this.mc.thePlayer.motionY, 0.0)).size() > 0 || this.mc.thePlayer.isCollidedVertically) {
+				this.state = 1;
+			}
+			this.moveSpeed = this.lastDist - this.lastDist / 159.0;
 		}
-		event.setY(event.getY() * 0.7);
-		if (this.test >= 6) {
-			this.test = 0;
-			this.moveSpeed *= 0.75;
-		}
-		this.test++;
 		this.moveSpeed = Math.max(this.moveSpeed, speed.getBaseMoveSpeed());
-		MovementInput movementInput = mc.thePlayer.movementInput;
-		float forward = movementInput.moveForward;
+		final MovementInput movementInput = this.mc.thePlayer.movementInput;
+		float forward1 = movementInput.moveForward;
 		float strafe = movementInput.moveStrafe;
-		float yaw = Minecraft.getMinecraft().thePlayer.rotationYaw;
-		if ((forward == 0.0F) && (strafe == 0.0F)) {
-			event.x = 0.0D;
-			event.z = 0.0D;
-		} else if (forward != 0.0F) {
+		float yaw = mc.thePlayer.rotationYaw;
+		if (forward1 == 0.0F && strafe == 0.0F) {
+			event.setX(0.0D);
+			event.setZ(0.0D);
+		} else if (forward1 != 0.0F) {
 			if (strafe >= 1.0F) {
-				yaw += (forward > 0.0F ? -45 : 45);
+				yaw += (float) (forward1 > 0.0F ? -45 : 45);
 				strafe = 0.0F;
 			} else if (strafe <= -1.0F) {
-				yaw += (forward > 0.0F ? 45 : -45);
+				yaw += (float) (forward1 > 0.0F ? 45 : -45);
 				strafe = 0.0F;
 			}
-			if (forward > 0.0F) {
-				forward = 1.0F;
-			} else if (forward < 0.0F) {
-				forward = -1.0F;
+			if (forward1 > 0.0F) {
+				forward1 = 1.0F;
+			} else if (forward1 < 0.0F) {
+				forward1 = -1.0F;
 			}
 		}
-		double mx = Math.cos(Math.toRadians(yaw + 90.0F));
-		double mz = Math.sin(Math.toRadians(yaw + 90.0F));
-		double motionX = forward * this.moveSpeed * mx + strafe * this.moveSpeed * mz;
-		double motionZ = forward * this.moveSpeed * mz - strafe * this.moveSpeed * mx;
-		event.x = (forward * this.moveSpeed * mx + strafe * this.moveSpeed * mz);
-		event.z = (forward * this.moveSpeed * mz - strafe * this.moveSpeed * mx);
+		double mx = Math.cos(Math.toRadians((double) (yaw + 90.0F)));
+		double mz = Math.sin(Math.toRadians((double) (yaw + 90.0F)));
+		event.setX((double) forward1 * this.moveSpeed * mx + (double) strafe * this.moveSpeed * mz);
+		event.setZ((double) forward1 * this.moveSpeed * mz - (double) strafe * this.moveSpeed * mx);
+		mc.thePlayer.stepHeight = 0.6F;
+		if (forward1 == 0.0F && strafe == 0.0F) {
+			event.setX(0.0D);
+			event.setZ(0.0D);
+		} else if (forward1 != 0.0F) {
+			float var10000;
+			if (strafe >= 1.0F) {
+				var10000 = yaw + (float) (forward1 > 0.0F ? -45 : 45);
+				strafe = 0.0F;
+			} else if (strafe <= -1.0F) {
+				var10000 = yaw + (float) (forward1 > 0.0F ? 45 : -45);
+				strafe = 0.0F;
+			}
+			if (forward1 > 0.0F) {
+				forward1 = 1.0F;
+			} else if (forward1 < 0.0F) {
+				forward1 = -1.0F;
+			}
+		}
+		++this.stage;
+		mc.thePlayer.motionX *= 1.1085D;
+		mc.thePlayer.motionZ *= 1.1085D;
+		mc.thePlayer.motionX = 0.0D;
+		mc.thePlayer.motionZ = 0.0D;
 	}
 
 	public void onUpdate(UpdateEvent event) {
-		if (event.state == Event.State.PRE) {
-			final double xDist = this.mc.thePlayer.posX - this.mc.thePlayer.prevPosX;
-			final double zDist = this.mc.thePlayer.posZ - this.mc.thePlayer.prevPosZ;
-			this.lastDist = Math.sqrt(xDist * xDist + zDist * zDist);
-		}
+		double movementInput;
+		movementInput = mc.thePlayer.posX - mc.thePlayer.prevPosX;
+		double strafe = mc.thePlayer.posZ - mc.thePlayer.prevPosZ;
+		this.lastDist = Math.sqrt(movementInput * movementInput + strafe * strafe);
 	}
 
 	public void onEnabled() {
-
+		if (mc.thePlayer != null) {
+			this.stage = 1;
+			mc.thePlayer.onGround = true;
+			this.moveSpeed = speed.getBaseMoveSpeed();
+			net.minecraft.util.Timer.timerSpeed = 1.0F;
+			mc.thePlayer.motionX = 0.0D;
+			mc.thePlayer.motionZ = 0.0D;
+			mc.thePlayer.setSpeedInAir(0.002F);
+		}
 	}
 
 	public void onDisabled() {
-		this.moveSpeed = speed.getBaseMoveSpeed();
-		net.minecraft.util.Timer.timerSpeed = 1.0F;
-		mc.thePlayer.motionX = 0.0D;
-		mc.thePlayer.motionZ = 0.0D;
-		mc.thePlayer.setSpeedInAir(0.002F);
+		if (mc.thePlayer != null) {
+			this.moveSpeed = speed.getBaseMoveSpeed();
+			net.minecraft.util.Timer.timerSpeed = 1.0F;
+			mc.thePlayer.motionX = 0.0D;
+			mc.thePlayer.motionZ = 0.0D;
+			mc.thePlayer.setSpeedInAir(0.002F);
+			this.forward = true;
+		}
 	}
 
+	private static double round(double value, int places) {
+		if (places < 0) {
+			throw new IllegalArgumentException();
+		} else {
+			BigDecimal bd = new BigDecimal(value);
+			bd = bd.setScale(places, RoundingMode.HALF_UP);
+			return bd.doubleValue();
+		}
+	}
 }

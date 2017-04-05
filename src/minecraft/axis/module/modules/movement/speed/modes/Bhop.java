@@ -41,6 +41,7 @@ public class Bhop extends SpeedMode implements Mode {
 			if (this.mc.theWorld.getCollidingBoundingBoxes(this.mc.thePlayer, this.mc.thePlayer.boundingBox.offset(0, this.mc.thePlayer.motionY, 0)).size() < 1) {
 				return;
 			}
+			event.setY(0.4D);
 			this.mc.thePlayer.motionY = 0.4;
 			if (this.mc.theWorld.getCollidingBoundingBoxes(this.mc.thePlayer, this.mc.thePlayer.boundingBox.offset(this.mc.thePlayer.motionX, this.mc.thePlayer.motionY, this.mc.thePlayer.motionZ)).size() > 0) {
 				return;
