@@ -2,6 +2,7 @@ package axis.module.modules.movement;
 
 import axis.Axis;
 import axis.command.Command;
+import axis.event.Event;
 import axis.event.events.AttackEvent;
 import axis.event.events.MoveEvent;
 import axis.event.events.StepEvent;
@@ -81,8 +82,10 @@ public class Speed extends Module {
 		}
 	}
 
-	public void onStep(StepEvent event){
-		this.step = true;
+	public void onStep(StepEvent event) {
+		if (event.state == Event.State.PRE) {
+			this.step = true;
+		}
 	}
 
 	public double getBaseMoveSpeed() {
