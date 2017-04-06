@@ -3,6 +3,7 @@ package axis.module.modules.player;
 import axis.Axis;
 import axis.event.Event;
 import axis.event.events.BoundingBoxEvent;
+import axis.event.events.MoveEvent;
 import axis.event.events.PushOutOfBlocksEvent;
 import axis.event.events.UpdateEvent;
 import axis.management.managers.ModuleManager;
@@ -26,8 +27,6 @@ import net.minecraft.util.MathHelper;
 
 public class Phase
 		extends Module {
-
-	private TimeHelper time = new TimeHelper();
 
 	public Phase() {
 		super("Phase", -4135069, ModuleManager.Category.PLAYER);
@@ -98,6 +97,9 @@ public class Phase
 
 	public void onBoundingBox(BoundingBoxEvent event) {
 		mc.thePlayer.noClip = true;
+		if (event.boundingBox.maxY <= 0.5F && event.pos.getY() == mc.thePlayer.posY) {
+			return;
+		}
 		if (event.pos.getY() > mc.thePlayer.posY + (isInsideBlock() ? 0 : 1)) {
 			event.boundingBox = null;
 		}

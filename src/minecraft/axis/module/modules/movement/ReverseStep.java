@@ -40,7 +40,7 @@ public class ReverseStep extends Module {
 	private void onUpdate(UpdateEvent event) {
 		if (event.state == Event.State.PRE) {
 			if (Speed.speedmode != null || Axis.getAxis().getModuleManager().getModuleByName("Freecam").isEnabled()) {
-				if (Axis.getAxis().getModuleManager().getModuleByName("Freecam").isEnabled()
+				if (Axis.getAxis().getModuleManager().getModuleByName("Freecam").isEnabled() || Axis.getAxis().getModuleManager().getModuleByName("Phase").isEnabled()
 						|| (((Speed.speedmode.equals("Bhop2") || Speed.speedmode.equals("Bhop") || (Speed.speedmode.equals("SlowHop"))) && Axis.getAxis().getModuleManager().getModuleByName("Speed").isEnabled()))) {
 					return;
 				}
