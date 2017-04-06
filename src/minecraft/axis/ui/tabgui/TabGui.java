@@ -46,7 +46,7 @@ public class TabGui {
 			Category category = arrayOfCategory[i];
 
 			String name = StringUtil.capitalize(category.name().toLowerCase());
-			int stringWidth = Minecraft.getMinecraft().fontRendererObj.getStringWidth(name);
+			int stringWidth = (int) Comfortaa18.getWidth(name);
 			highestWidth = Math.max(stringWidth, highestWidth);
 		}
 		baseCategoryWidth = highestWidth + 6;
