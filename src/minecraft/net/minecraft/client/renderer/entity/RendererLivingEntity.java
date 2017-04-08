@@ -50,6 +50,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 	public static float NAME_TAG_RANGE = 64.0F;
 	public static float NAME_TAG_RANGE_SNEAK = 32.0F;
 	public static int index = 0;
+	private static int colorf = -1;
 
 	public RendererLivingEntity(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn) {
 		super(renderManagerIn);
@@ -168,21 +169,37 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 				this.mainModel.setRotationAngles(f6, f5, f7, f2, f8, 0.0625F, entity);
 				boolean flag;
 				if (this.renderOutlines) {
-					flag = (this.setScoreTeamColor(entity) && (!Axis.getAxis().getFriendManager().isOnSameTeamFriend((EntityPlayer) (entity))));
-					if (Axis.getAxis().getFriendManager().isFriend(entity.getName())) {
-						flag = false;
-						float[] color;
-						float red = (HUD.color1 >> 16 & 0xFF) / 255.0F;
-						float blue = (HUD.color1 >> 8 & 0xFF) / 255.0F;
-						float green = (HUD.color1 & 0xFF) / 255.0F;
-						float alpha = (HUD.color1 >> 24 & 0xFF) / 255.0F;
-						color = new float[] { red, blue, green, alpha };
-						GL11.glColor4f(color[0], color[1], color[2], color[3]);
+					flag = true;
+					GlStateManager.enableColorMaterial();
+					if (entity instanceof EntityLivingBase && entity instanceof EntityPlayer) {
+						int i = 16777215;
+						ScorePlayerTeam scoreplayerteam = (ScorePlayerTeam) entity.getTeam();
+						if (scoreplayerteam != null) {
+							String s = FontRenderer.getFormatFromString(scoreplayerteam.getColorPrefix());
+
+							if (s.length() >= 2) {
+								i = this.getFontRendererFromRenderManager().getColorCode(s.charAt(1));
+							}
+						}
+						if (!Axis.getAxis().getFriendManager().isFriend(entity.getName())) {
+							colorf = i;
+						} else {
+							colorf = HUD.color1;
+						}
 					}
+					GlStateManager.setColorBuffer(colorf);
 					this.renderModel(entity, f6, f5, f7, f2, f8, 0.0625F);
 					if (flag) {
 						this.unsetScoreTeamColor();
 					}
+					GlStateManager.depthMask(true);
+
+					if (!(entity instanceof EntityPlayer) || !((EntityPlayer) entity).isSpectator()) {
+						this.renderLayers(entity, f6, f5, partialTicks, f7, f2, f8, 0.0625F);
+					}
+					GlStateManager.disableColorMaterial();
+					GlStateManager.clearColorBuffer();
+					GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 				} else if (Axis.getAxis().getModuleManager().getModuleByName("OutlineESP").isEnabled()) {
 					GlStateManager.depthMask(true);
 					if (!(entity instanceof EntityPlayer) || !((EntityPlayer) entity).isSpectator()) {

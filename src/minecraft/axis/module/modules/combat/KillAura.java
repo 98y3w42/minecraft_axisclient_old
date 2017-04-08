@@ -468,7 +468,7 @@ public class KillAura extends Module {
 	}
 
 	public Long getDelay() {
-		return (Long) values.getValue("delay");
+		return (Long) values.getValue("delay") + (random.nextInt(10) - 5);
 	}
 
 	private boolean isNameValid(EntityPlayer player) {
