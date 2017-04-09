@@ -82,12 +82,6 @@ public class Speed extends Module {
 		}
 	}
 
-	public void onStep(StepEvent event) {
-		if (event.state == Event.State.PRE) {
-			this.step = true;
-		}
-	}
-
 	public double getBaseMoveSpeed() {
 		double baseSpeed = 0.2872D;
 		if (mc.thePlayer.isPotionActive(Potion.moveSpeed) && SpeedMode.getModeByName((String) values.getValue("mode")) instanceof SlowHop) {

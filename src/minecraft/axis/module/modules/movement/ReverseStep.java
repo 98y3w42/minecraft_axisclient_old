@@ -66,17 +66,6 @@ public class ReverseStep extends Module {
 		}
 	}
 
-	private void onStep(StepEvent event) {
-		if (event.state == Event.State.PRE) {
-			if (mc.thePlayer.onGround && !mc.gameSettings.keyBindJump.isKeyDown() && !Axis.getAxis().getModuleManager().getModuleByName("Step").isEnabled() && !(getBlock(-0.1D) instanceof BlockSnow)) {
-				mc.thePlayer.jump();
-			}
-			if ((this.timer.hasReached(300.0F)) && (mc.thePlayer.movementInput != null) && (this.recentStepTicks >= 2) && (this.groundTicks >= 2) && (!mc.thePlayer.movementInput.jump)) {
-				this.timer.reset();
-			}
-		}
-	}
-
 	public Block getBlock(AxisAlignedBB bb) {
 		int y = (int) bb.minY;
 		for (int x = MathHelper.floor_double(bb.minX); x < MathHelper.floor_double(bb.maxX) + 1; x++) {
