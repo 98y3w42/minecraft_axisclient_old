@@ -427,7 +427,7 @@ public class KillAura extends Module {
 				if (!isIDValid((EntityPlayer) (entity))) {
 					return false;
 				}
-				if (!this.array.contains(entity.getEntityId())) {
+				if (!this.array.contains(entity.getName() + ", " + entity.getEntityId())) {
 					return false;
 				}
 			}
@@ -499,12 +499,12 @@ public class KillAura extends Module {
 				boolean dis1 = (Math.abs(entity.posX - mc.thePlayer.posX) <= 2.5F) && (Math.abs(entity.posZ - mc.thePlayer.posZ) <= 2.5F) && (mc.thePlayer.posY + 6 <= entity.posY);
 				if (!this.test1) {
 					if (this.isNameValid(entity) && (!dis) && (entity.getEntityId() != -1)) {
-						this.array.add(entity.getEntityId());
+						this.array.add(entity.getName() + ", " + entity.getEntityId());
 						Logger.logChat("Add: " + entity.getDisplayName().getFormattedText() + ", §f" + entity.getEntityId());
 					}
 				} else {
 					if ((this.isNameValid(entity)) && (mc.thePlayer.getDistanceToEntity(entity) <= 3.0F) && (!this.array.contains(entity.getEntityId()) && (dis1))) {
-						this.array.add(entity.getEntityId());
+						this.array.add(entity.getName() + ", " + entity.getEntityId());
 						Logger.logChat("Add: " + entity.getDisplayName().getFormattedText() + ", §f" + entity.getEntityId());
 					}
 				}
