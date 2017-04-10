@@ -12,6 +12,6 @@ public final class Help extends Command {
 
 	public void run(String message) {
 		Logger.logChat(
-				"Commands list: add, bind, del, help, toggle, vclipx, vclipy, vclipz, aimassist, autopot, criticals, killaura, regen, velocity, setting, civbreak, leastcivbreak, fly, jesus, speed, step, autoarmor, esp, storageesp, worldtimer");
+				"Commands list: add, bind, del, help, toggle, vclipx, vclipy, vclipz, aimassist, autopot, criticals, killaura, regen, velocity, setting, civbreak, leastcivbreak, jesus, speed, step, esp, storageesp, worldtimer");
 	}
 }
