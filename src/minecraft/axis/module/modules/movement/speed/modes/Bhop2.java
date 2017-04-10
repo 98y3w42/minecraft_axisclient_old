@@ -93,7 +93,7 @@ public class Bhop2 extends SpeedMode implements Mode {
 			event.setY(event.getY() * 1.05D);
 			this.moveSpeed = Math.max(this.moveSpeed, speed.getBaseMoveSpeed());
 		}
-		if (this.moveSpeed >= (speed.getBaseMoveSpeed() * 2)) {
+		if (this.moveSpeed >= (speed.getBaseMoveSpeed() * 1.85)) {
 			Logger.logChat("Over");
 			net.minecraft.util.Timer.timerSpeed = 1.0F;
 			this.moveSpeed = speed.getBaseMoveSpeed();

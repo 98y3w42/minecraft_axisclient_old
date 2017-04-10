@@ -43,6 +43,7 @@ public class Freecam extends Module {
 			this.startZ = this.mc.thePlayer.posZ;
 			this.startYaw = this.mc.thePlayer.rotationYaw;
 			this.startPitch = this.mc.thePlayer.rotationPitch;
+			mc.thePlayer.motionY = 0.0F;
 
 			this.prayerCopy = new EntityOtherPlayerMP(this.mc.theWorld, this.mc.thePlayer.getGameProfile());
 			this.prayerCopy.inventory = this.mc.thePlayer.inventory;
@@ -60,6 +61,8 @@ public class Freecam extends Module {
 			this.mc.thePlayer.noClip = false;
 			this.mc.theWorld.removeEntityFromWorld(-1);
 			this.mc.thePlayer.capabilities.isFlying = false;
+			mc.thePlayer.motionX = 0.0F;
+			mc.thePlayer.motionZ = 0.0F;
 		}
 	}
 }
