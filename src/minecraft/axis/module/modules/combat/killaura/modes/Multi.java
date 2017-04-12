@@ -82,7 +82,8 @@ public class Multi extends AuraMode implements Mode {
 						double semiMultiWeight = Double.NEGATIVE_INFINITY;
 						EntityLivingBase smHighestWeightedTarget = null;
 						for (EntityLivingBase el : targets) {
-							if ((el != target) && (getDirectionCheckVal(el, getLookVecForAngles(values[0], values[1])) < 0.1D) && (el.getDistanceSqToEntity(target) < 4.0D) && (killAura.isValidEntity(el))
+							if ((el != target) && (getDirectionCheckVal(el, getLookVecForAngles(values[0], values[1])) < 0.1D) && (el.getDistanceSqToEntity(target) < (Double) killAura.values.getValue("range"))
+									&& (killAura.isValidEntity(el))
 									&& (!targets1.contains(el)) && (getTargetWeight(el) > semiMultiWeight)) {
 								semiMultiWeight = getTargetWeight(el);
 								smHighestWeightedTarget = el;
