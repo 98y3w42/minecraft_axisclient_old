@@ -26,7 +26,7 @@ public class Axis {
 
 	private static Axis theAxis;
 	private String  clientName = "Axis";
-	private String version =  "ver 0.5";
+	private String version =  "ver 0.6";
 	private final File directory = new File(Minecraft.getMinecraft().mcDataDir, getName());
 
 	private EventManager eventManager = new EventManager();
