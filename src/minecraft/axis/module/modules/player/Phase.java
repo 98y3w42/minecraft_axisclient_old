@@ -97,7 +97,7 @@ public class Phase
 
 	public void onBoundingBox(BoundingBoxEvent event) {
 		mc.thePlayer.noClip = true;
-		if (event.boundingBox.maxY <= 0.5F && event.pos.getY() == mc.thePlayer.posY) {
+		if ((event.boundingBox.maxY <= 0.5F && event.pos.getY() == mc.thePlayer.posY) || event.pos.getY() == mc.thePlayer.posY - 1) {
 			return;
 		}
 		if (event.pos.getY() > mc.thePlayer.posY + (isInsideBlock() ? 0 : 1)) {
