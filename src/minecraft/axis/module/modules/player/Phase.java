@@ -75,7 +75,7 @@ public class Phase
 				}
 			}
 			if (isInsideBlock()) {
-				if (isInsideFence()) {
+				if (isInsideFence() && (mc.gameSettings.keyBindForward.pressed || mc.gameSettings.keyBindLeft.pressed || mc.gameSettings.keyBindRight.pressed || mc.gameSettings.keyBindBack.pressed)) {
 					multiplier = 0.5D;
 					mx = Math.cos(Math.toRadians(mc.thePlayer.rotationYaw + 90.0F));
 					mz = Math.sin(Math.toRadians(mc.thePlayer.rotationYaw + 90.0F));
